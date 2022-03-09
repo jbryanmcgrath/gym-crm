@@ -34,7 +34,7 @@ function LoginForm() {
                 <input value={email} type="email" name="email" placeholder="email" onChange={handleInputChange} defaultValue={email} />
                 <label htmlFor="password">Password:</label>
                 <input type="password" name="password" placeholder="password" onChange={handleInputChange} defaultValue={password} />
-                <button type="button" onClick={handleFormSubmit}>Submit</button>
+                <button type="button" onClick={handleFormSubmit}>Login</button>
             </form>
             {errorMessage && (
                 <div>
