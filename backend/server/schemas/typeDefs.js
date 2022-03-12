@@ -34,7 +34,9 @@ const typeDefs = gql`
         login(email:String!, password: String!): User
 
         addMember(firstName: String!,lastName: String!, email: String!,
-        age: Int, zip: Int, phoneNumber:String!): Member
+        age: Int, zip: Int, phoneNumber:String!): Member!
+
+        updateMember(firstName: String, lastName:String, email:String, age:Int, zip:Int, phoneNumber:String):Member!
     }
 `
 

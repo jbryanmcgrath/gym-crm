@@ -45,6 +45,15 @@ const resolvers = {
 
             return member;
             console.log('Member was added')
+        },
+        updateMember: async (_, { firstName, lastName, email, age, zip, phoneNumber }) => {
+            const updatedMember = await Member.findOneAndUpdate({ email: email }, req.body, { new: true }, function (err, user) {
+                if (err) {
+                    res.send(err)
+                }
+                return updatedMember;
+                console.log(`Member was updated`)
+            })
         }
     }
 };
