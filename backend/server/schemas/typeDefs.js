@@ -20,6 +20,9 @@ const typeDefs = gql`
         phoneNumber: String!
     }
 
+
+
+
     type Query {
         user(email: String!): User
         users: [User]
@@ -29,14 +32,16 @@ const typeDefs = gql`
 
 
     type Mutation {
-        addUser(firstName: String!, lastName: String!,email: String!, password: String!): User
+        addUser(firstName: String!, lastName: String!,email: String!, password: String!): User!
 
-        login(email:String!, password: String!): User
+        login(email:String!, password: String!): User!
 
         addMember(firstName: String!,lastName: String!, email: String!,
         age: Int, zip: Int, phoneNumber:String!): Member!
 
-        updateMember(firstName: String, lastName:String, email:String, age:Int, zip:Int, phoneNumber:String):Member!
+        updateMember(firstName: String, lastName:String, email:String, updatedEmail: String, age:Int, zip:Int, phoneNumber:String):Member!
+
+        deleteMember(email:String!): Member
     }
 `
 
