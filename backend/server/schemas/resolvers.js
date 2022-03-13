@@ -59,7 +59,18 @@ const resolvers = {
 
             return member;
             console.log('Member was added')
+        },
+        updateMember: async (_, args) => {
+            const updates = args.updatedEmail ? {
+                ...args,
+                email: args.updatedEmail
+            } : { ...args }
+            return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
+        },
+        deleteMember: async (_, { email }) => {
+            return Member.findOneAndDelete()
         }
+
     }
 };
 
