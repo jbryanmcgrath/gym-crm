@@ -43,21 +43,25 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        addMember: async (_, args, context) => {
-            if (context.user) {
-                const member = await Member.create({ ...args, user: context.user.email });
-                
-                // await User.findByIdAndUpdate(
-                //     { _id: context.user._id },
-                //     { $push: { member: member._id } },
-                //     { new: true }
-                // )
-                
-                return member;
-            }
-            
-            throw new AuthenticationError('You need to be logged in!');
+
+        addMember: async (_, args) => {
+            const member = await Member.create(args);
+
+            return member;
+            console.log('Member was added')
+        },
+        updateMember: async (_, args) => {
+            const updates = args.updatedEmail ? {
+                ...args,
+                email: args.updatedEmail
+            } : { ...args }
+            return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
+        },
+        deleteMember: async (_, { email }) => {
+            return Member.findOneAndDelete()
+
         }
+
     }
 };
 

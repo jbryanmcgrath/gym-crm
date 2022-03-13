@@ -1,14 +1,15 @@
 
 import React from 'react';
-import LoginForm from './components/Login';
+import loginForm from '../src/components/Login';
 import Nav from './components/Nav';
 
 function App() {
   return (
     <div>
       <Nav></Nav>
+      <
     </div>
-  )  
+  )
 }
 
 export default App;
