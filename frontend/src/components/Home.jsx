@@ -1,9 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
-import LandingPage from './LandingPage'
+import Section from './Section'
 
 
-function LandingPageProps() {
+function Home() {
     return (
         <Container>
             <Section
@@ -12,7 +12,7 @@ function LandingPageProps() {
                 description="Simple. Effective. Affordable"
             />
             <Section
-                backgroundImg="gym-crm.jpg"
+                backgroundImg="ladies-stretch-circle.jpg"
                 title="Do More Of What You Love"
                 description="Finally.There is a simple way to manage your members without having to deal with tools not needed for your business. All for $10 a month."
             />
@@ -23,8 +23,5 @@ function LandingPageProps() {
 const Container = styled.div`
     height: 100vh;
 `
-const Section = styled.div`
 
-`
-
-export default LandingPageProps;
+export default Home;
