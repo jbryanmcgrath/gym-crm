@@ -30,6 +30,10 @@ const newMemberSchema = new Schema({
         type: String,
         unique: true,
         match: [/^\d{10}$/, "Must match a phone number!"],
+    },
+    user_email: {
+        type: String,
+        required: true
     }
 
 });

@@ -39,28 +39,34 @@ const resolvers = {
             if (!correctPw) {
                 throw new AuthenticationError('Incorrect Credentials Provided')
             }
-
+            console.log('Login successful!');
             const token = signToken(user);
             return { token, user };
         },
-
-        addMember: async (_, args) => {
-            const member = await Member.create(args);
-
+        addMember: async (parent, args, context) => {
+            if (context.user) {
+                const member = await Member.create({ ...args, user_email: context.user.email });
+            
+            await User.findByIdAndUpdate(
+                { _id: context.user._id },
+                { $push: { members: member._id } },
+                { new: true }
+            );
             return member;
-            console.log('Member was added')
+            }
+            throw new AuthenticationError('You need to be logged in!');
         },
-        updateMember: async (_, args) => {
-            const updates = args.updatedEmail ? {
-                ...args,
-                email: args.updatedEmail
-            } : { ...args }
-            return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
-        },
-        deleteMember: async (_, { email }) => {
-            return Member.findOneAndDelete()
+        // updateMember: async (_, args) => {
+        //     const updates = args.updatedEmail ? {
+        //         ...args,
+        //         email: args.updatedEmail
+        //     } : { ...args }
+        //     return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
+        // },
+        // deleteMember: async (_, { email }) => {
+        //     return Member.findOneAndDelete()
 
-        }
+        // }
 
     }
 };
