@@ -43,12 +43,18 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-
-        addMember: async (_, args) => {
-            const member = await Member.create(args);
-
+        addMember: async (_, args, context) => {
+            if (context.user) {
+                const member = await Member.create({ ...args, user_email: context.user.email });
+            
+            await User.findByIdAndUpdate(
+                { _id: context.user._id },
+                { $push: { members: member._id } },
+                { new: true }
+            )
             return member;
-            console.log('Member was added')
+            }
+            throw new AuthenticationError('You need to be logged in!');
         },
         updateMember: async (_, args) => {
             const updates = args.updatedEmail ? {
