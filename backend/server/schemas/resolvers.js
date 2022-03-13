@@ -5,16 +5,6 @@ const { signToken } = require('../utils/auth');
 
 const resolvers = {
     Query: {
-        me: async (parent, args, context) => {
-            if (context.user) {
-                const userData = await User.findOne({ _id: context.user._id })
-                .select('-__v -password')
-                // .populate('members'); is this what we want?
-
-                return userData;
-            }
-            throw new AuthenticationError('Not logged in');
-        },
         user: async (_, { email }) => {
             return User.findOne({ email })
         },
@@ -29,7 +19,6 @@ const resolvers = {
         },
     },
 
-
     Mutation: {
         addUser: async (_, args) => {
             const user = await User.create(args);
@@ -38,7 +27,7 @@ const resolvers = {
             return { token, user };
             console.log(`User was added`);
         },
-        login: async (_, { email, password }) => {
+        login: async (parent, { email, password }) => {
             const user = await User.findOne({ email });
 
             if (!user) {
@@ -54,6 +43,7 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
+
         addMember: async (_, args) => {
             const member = await Member.create(args);
 
@@ -69,6 +59,7 @@ const resolvers = {
         },
         deleteMember: async (_, { email }) => {
             return Member.findOneAndDelete()
+
         }
 
     }
