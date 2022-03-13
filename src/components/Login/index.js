@@ -4,7 +4,7 @@ function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    
+
 
     const handleInputChange = (e) => {
         const { target } = e;
@@ -21,7 +21,7 @@ function LoginForm() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(!errorMessage) {
+        if (!errorMessage) {
             console.log('Submit Form', email, password);
         };
     };
@@ -29,7 +29,7 @@ function LoginForm() {
     return (
         <section>
             <h1>Login</h1>
-            <form id = "login-form" onSubmit={handleSubmit}>
+            <form id="login-form" onSubmit={handleSubmit}>
                 <label htmlFor="email">Email:</label>
                 <input value={email} type="email" name="email" placeholder="email" onChange={handleInputChange} defaultValue={email} />
                 <label htmlFor="password">Password:</label>
@@ -45,4 +45,4 @@ function LoginForm() {
     )
 };
 
-export default LoginForm;
+export default { LoginForm };
