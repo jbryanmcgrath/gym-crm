@@ -69,13 +69,13 @@ const resolvers = {
                 return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
             }
         },
-        deleteMember: async (_, { email }, context) => {
+        deleteMember: async (_, args, context) => {
             if (context.user) {
-                const member = await Member.findOneAndDelete({ email });
+                const member = await Member.findOneAndDelete(args);
                 
                 await User.findByIdAndUpdate(
                     { id: context.user._id },
-                    { $pull: { members: member._id } },
+                    { $pull: { members: member } },
                     { new: true }
                 );
 
