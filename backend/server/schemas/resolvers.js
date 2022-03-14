@@ -2,11 +2,17 @@ const { AuthenticationError } = require("apollo-server-express");
 const Member = require("../models/Member");
 const User = require("../models/User");
 const { signToken } = require('../utils/auth');
+const Gym = require("../models/Gym")
 
 const resolvers = {
     Query: {
+        gym: async (_, { name, addres, city, state, zip, phoneNumber }) => {
+            return await Gym.find()
+        },
         user: async (_, { email }) => {
             return User.findOne({ email })
+                .select('-__v -password')
+                .populate('members')
         },
         users: async () => {
             return User.find()
@@ -20,6 +26,11 @@ const resolvers = {
     },
 
     Mutation: {
+        addGym: async (_, args) => {
+            const gym = await Gym.create(args)
+
+            return gym;
+        },
         addUser: async (_, args) => {
             const user = await User.create(args);
             const token = signToken(user);
@@ -45,29 +56,35 @@ const resolvers = {
         },
         addMember: async (parent, args, context) => {
             if (context.user) {
+                
                 const member = await Member.create({ ...args, user_email: context.user.email });
-            
-            await User.findByIdAndUpdate(
-                { _id: context.user._id },
-                { $push: { members: member._id } },
-                { new: true }
-            );
-            return member;
+                
+                await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $push: { members: member } },
+                    { new: true }
+                );
+                
+                return member;
+                }
+                throw new AuthenticationError('You need to be logged in!');
+            },
+        updateMember: async (_, args, context) => {
+            if (context.user) {
+                const updates = args.updatedEmail ? {
+                    ...args,
+                    email: args.updatedEmail
+                } : { ...args }
+                return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
+            }
+        },
+        deleteMember: async (_, args, context) => {
+            if (context.user) {
+                const member = await Member.findOneAndDelete(args);
+                return member;
             }
             throw new AuthenticationError('You need to be logged in!');
-        },
-        // updateMember: async (_, args) => {
-        //     const updates = args.updatedEmail ? {
-        //         ...args,
-        //         email: args.updatedEmail
-        //     } : { ...args }
-        //     return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
-        // },
-        // deleteMember: async (_, { email }) => {
-        //     return Member.findOneAndDelete()
-
-        // }
-
+        }
     }
 };
 
