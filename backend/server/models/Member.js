@@ -32,13 +32,6 @@ const newMemberSchema = new Schema({
         unique: true,
         match: [/^\d{10}$/, "Must match a phone number!"],
     },
-<<<<<<< HEAD
-    user_email: {
-        type: String,
-        required: true
-    }
-
-=======
     createdBy: {
         type: Schema.Types.ObjectId,
         ref: "User",
@@ -49,7 +42,6 @@ const newMemberSchema = new Schema({
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
     },
->>>>>>> 52df64c09c43cc1cfb45e5324386f4e3538851fe
 });
 
 const Member = model('Member', newMemberSchema);
