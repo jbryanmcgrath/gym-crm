@@ -1,11 +1,8 @@
 const { AuthenticationError } = require("apollo-server-express");
 const Member = require("../models/Member");
 const User = require("../models/User");
-<<<<<<< HEAD
 const { signToken } = require('../utils/auth');
-=======
 const Gym = require("../models/Gym")
->>>>>>> 52df64c09c43cc1cfb45e5324386f4e3538851fe
 
 const resolvers = {
     Query: {
