@@ -1,4 +1,5 @@
 const { Schema, model } = require('mongoose');
+const dateFormat = require('../utils/dateFormat')
 
 const newMemberSchema = new Schema({
     firstName: {
@@ -30,8 +31,17 @@ const newMemberSchema = new Schema({
         type: String,
         unique: true,
         match: [/^\d{10}$/, "Must match a phone number!"],
-    }
-
+    },
+    createdBy: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+        get: timestamp => dateFormat(timestamp)
+    },
 });
 
 const Member = model('Member', newMemberSchema);
