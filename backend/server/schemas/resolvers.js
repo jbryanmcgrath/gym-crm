@@ -7,6 +7,8 @@ const resolvers = {
     Query: {
         user: async (_, { email }) => {
             return User.findOne({ email })
+                .select('-__v -password')
+                .populate('members')
         },
         users: async () => {
             return User.find()
@@ -45,28 +47,42 @@ const resolvers = {
         },
         addMember: async (parent, args, context) => {
             if (context.user) {
+                
                 const member = await Member.create({ ...args, user_email: context.user.email });
-            
-            await User.findByIdAndUpdate(
-                { _id: context.user._id },
-                { $push: { members: member._id } },
-                { new: true }
-            );
-            return member;
+                
+                await User.findByIdAndUpdate(
+                    { _id: context.user._id },
+                    { $push: { members: member } },
+                    { new: true }
+                );
+                console.log(member);
+                return member;
+                }
+                throw new AuthenticationError('You need to be logged in!');
+            },
+        updateMember: async (_, args, context) => {
+            if (context.user) {
+                const updates = args.updatedEmail ? {
+                    ...args,
+                    email: args.updatedEmail
+                } : { ...args }
+                return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
+            }
+        },
+        deleteMember: async (_, { email }, context) => {
+            if (context.user) {
+                const member = await Member.findOneAndDelete({ email });
+                
+                await User.findByIdAndUpdate(
+                    { id: context.user._id },
+                    { $pull: { members: member._id } },
+                    { new: true }
+                );
+
+                return member;
             }
             throw new AuthenticationError('You need to be logged in!');
-        },
-        // updateMember: async (_, args) => {
-        //     const updates = args.updatedEmail ? {
-        //         ...args,
-        //         email: args.updatedEmail
-        //     } : { ...args }
-        //     return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
-        // },
-        // deleteMember: async (_, { email }) => {
-        //     return Member.findOneAndDelete()
-
-        // }
+        }
 
     }
 };
