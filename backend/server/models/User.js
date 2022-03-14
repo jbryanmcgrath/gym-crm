@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
   {
+
     firstName: {
       type: String,
       required: true,
@@ -24,7 +25,15 @@ const userSchema = new Schema(
       required: true,
       minlength: 5
     },
+<<<<<<< HEAD
     members: [
+=======
+    gym: {
+      type: Schema.Types.ObjectId,
+      ref: 'Gym'
+    },
+    clients: [
+>>>>>>> 52df64c09c43cc1cfb45e5324386f4e3538851fe
       {
         type: Schema.Types.ObjectId,
         ref: 'Member'

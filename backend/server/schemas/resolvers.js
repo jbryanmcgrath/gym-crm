@@ -1,10 +1,17 @@
 const { AuthenticationError } = require("apollo-server-express");
 const Member = require("../models/Member");
 const User = require("../models/User");
+<<<<<<< HEAD
 const { signToken } = require('../utils/auth');
+=======
+const Gym = require("../models/Gym")
+>>>>>>> 52df64c09c43cc1cfb45e5324386f4e3538851fe
 
 const resolvers = {
     Query: {
+        gym: async (_, { name, addres, city, state, zip, phoneNumber }) => {
+            return await Gym.find()
+        },
         user: async (_, { email }) => {
             return User.findOne({ email })
                 .select('-__v -password')
@@ -22,6 +29,11 @@ const resolvers = {
     },
 
     Mutation: {
+        addGym: async (_, args) => {
+            const gym = await Gym.create(args)
+
+            return gym;
+        },
         addUser: async (_, args) => {
             const user = await User.create(args);
             const token = signToken(user);
