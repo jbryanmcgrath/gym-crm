@@ -55,7 +55,7 @@ const resolvers = {
                     { $push: { members: member } },
                     { new: true }
                 );
-                console.log(member);
+                
                 return member;
                 }
                 throw new AuthenticationError('You need to be logged in!');
@@ -72,13 +72,6 @@ const resolvers = {
         deleteMember: async (_, args, context) => {
             if (context.user) {
                 const member = await Member.findOneAndDelete(args);
-                
-                await User.findByIdAndUpdate(
-                    { id: context.user._id },
-                    { $pull: { members: member } },
-                    { new: true }
-                );
-
                 return member;
             }
             throw new AuthenticationError('You need to be logged in!');
