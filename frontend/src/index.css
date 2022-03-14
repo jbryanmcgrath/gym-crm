@@ -1,6 +1,6 @@
-* {
+/* * {
   box-sizing: border-box;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-family: "Nunito";
   color: white;
   margin: 0;
   padding: 0;
@@ -29,4 +29,4 @@ a {
   60% {
     transform: translateY(3px);
   }
-}
+} */
