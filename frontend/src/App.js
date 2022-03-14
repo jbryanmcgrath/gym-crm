@@ -1,16 +1,13 @@
-import React from "react";
-import Home from './components/Home'
-import Header from "./components/Header";
+import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 
-function App() {
-  return (
-    <div className="App">
+const useStyles = makeStyles((theme) => ({
+  root: {
+    backgroundImage: `url(${process.env.Public_URL + '/images/gym-crm.jpg'})`
+  }
+}))
 
-      <Header />
-      <Home />
-
-    </div>
-  );
+export default function () {
+  const classes = useStyles()
+  return <div className={classes.root}></div>
 }
-
-export default App;
