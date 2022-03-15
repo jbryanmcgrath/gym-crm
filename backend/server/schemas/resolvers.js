@@ -58,7 +58,7 @@ const resolvers = {
             return { token, user };
         },
         addMember: async (parent, args, context) => {
-            if (context.user) {
+            if (context.user && context.user.role === "User") {
 
                 const member = await Member.create({ ...args, user_email: context.user.email });
 
