@@ -61,7 +61,15 @@ employeeSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
+<<<<<<< HEAD:backend/server/models/Employee.js
 employeeSchema.virtual('friendCount').get(function () {
+=======
+userSchema.virtual('role').get(function () {
+  return "User"
+});
+
+userSchema.virtual('friendCount').get(function () {
+>>>>>>> c2382ee3d3ca05a350bf59dee896fc6ba787594f:backend/server/models/User.js
   return this.friends.length;
 });
 

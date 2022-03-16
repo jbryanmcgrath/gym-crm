@@ -93,20 +93,30 @@ const resolvers = {
             return { token, employee };
         },
         addMember: async (parent, args, context) => {
+<<<<<<< HEAD
             if (context.employee) {
+=======
+
+            if (context.user) {
+>>>>>>> c2382ee3d3ca05a350bf59dee896fc6ba787594f
                 
                 const member = await Member.create({ ...args, createdBy: context.employee });
                 
                 await Gym.findByIdAndUpdate(
+<<<<<<< HEAD
                     { _id: context.employee.gym._id },
+=======
+                    { _id: context.user.gym._id },
+
+>>>>>>> c2382ee3d3ca05a350bf59dee896fc6ba787594f
                     { $push: { members: member } },
                     { new: true }
                 );
-                
+
                 return member;
-                }
-                throw new AuthenticationError('You need to be logged in!');
-            },
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
         updateMember: async (_, args, context) => {
             if (context.employee) {
                 const updates = args.updatedEmail ? {
