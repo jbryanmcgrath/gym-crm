@@ -4,15 +4,18 @@ const { gql } = require('apollo-server-express');
 //create our typeDefs
 const typeDefs = gql`
 scalar Date
+
     type Gym {
         _id:ID
-        name: String!
+        gymName: String!
         phoneNumber: String!
+        gymEmail: String!
         address:String!
         city:String!
         zip:String!
         state:String!
         members:[Member]
+        users: [User]
     }
 
     type User {
@@ -22,6 +25,7 @@ scalar Date
         email:String!
         gym: Gym
         clients: [Member]
+        admin: Boolean
     }
 
     type Member {
@@ -37,11 +41,12 @@ scalar Date
     }
 
     type Query {
-        gym(name:String, address:String, city:String, state:String, zip:String, phoneNumber:String): Gym
+        gym(gymName: String!): Gym
+        gyms: [Gym]
         user(email: String!): User
         users: [User]
         member(email:String!): Member
-        members(user_email: String): [Member]
+        members: [Member]
     }
 
     type Auth {
@@ -50,12 +55,13 @@ scalar Date
     }
     
     type Mutation {
-        addUser(firstName: String!, lastName: String!,email: String!, password: String!): Auth
+        initialUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+        addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         addMember(firstName: String!, lastName: String!, email: String!, age: Int, zip: Int, phoneNumber:String!): Member
         updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, age: Int, zip: Int, phoneNumber: String): Member!
         deleteMember(email: String!): Member
-        addGym( name: String!, phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!): Auth
+        addGym( gymName: String!, gymEmail: String! phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!): Gym
     }
     
 `
