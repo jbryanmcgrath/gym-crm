@@ -14,11 +14,11 @@ scalar Date
         city:String!
         zip:String!
         state:String!
-        members:[Member]
-        users: [User]
+        member:[Member]
+        employee: [Employee]
     }
 
-    type User {
+    type Employee {
         _id: ID
         firstName: String!
         lastName: String!
@@ -41,22 +41,22 @@ scalar Date
     }
 
     type Query {
-        gym(gymName: String!): Gym
+        gym(phoneNumber: String!): Gym
         gyms: [Gym]
-        user(email: String!): User
-        users: [User]
+        employee(email: String!): Employee
+        employees: [Employee]
         member(email:String!): Member
         members: [Member]
     }
 
     type Auth {
         token: ID!
-        user: User
+        employee: Employee
     }
     
     type Mutation {
-        initialUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-        addUser(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+        initialEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+        addEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Auth
         login(email: String!, password: String!): Auth
         addMember(firstName: String!, lastName: String!, email: String!, age: Int, zip: Int, phoneNumber:String!): Member
         updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, age: Int, zip: Int, phoneNumber: String): Member!
