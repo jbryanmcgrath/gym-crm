@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Collapse, Grid } from '@material-ui/core';
 import SortIcon from '@material-ui/icons/Sort';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
+import { GlobalContext } from '../store/GlobalProvider';
+
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,14 +57,30 @@ const useStyles = makeStyles((theme) => ({
     },
     links: {
         margin: "0 20px"
+
     }
 }));
 export default function Header() {
     const classes = useStyles();
+    const { userTab, setUserTab } = useContext(GlobalContext);
     const [checked, setChecked] = useState(false);
     useEffect(() => {
         setChecked(true);
     }, []);
+    const handleLoginClick = () => {
+        setUserTab(0)
+        window.location.href = '/login-signup'
+    }
+    const handleSignupClick = () => {
+        setUserTab(1)
+            (userTab === 1 ? window.location.href = '/login-signup' : null)
+    }
+    function changeColor(e) {
+        e.target.style.color = '#FF220C'
+    }
+    function changeColorBack(e) {
+        e.target.style.color = "##fff"
+    }
     return (
         <div className={classes.root} id="header">
             <AppBar className={classes.appbar} elevation={0}>
@@ -73,8 +92,10 @@ export default function Header() {
                         <Grid item xs={6} className={classes.parentGrid}>
                             <h1 className={classes.appbarTitle}>
                                 <div className={classes.loginSignUp}>
-                                    <span className={classes.links}>Login</span>{"   "}
-                                    <span className={classes.links}>Sign Up</span>
+                                    <span onMouseEnter={changeColor} onMouseLeave=
+                                        {changeColorBack} onClick={handleLoginClick} className={classes.links}>Login</span>
+                                    <span onMouseEnter={changeColor} onClick={handleSignupClick} onMouseLeave=
+                                        {changeColorBack} className={classes.links}>Sign Up</span>
                                 </div>
                             </h1>
                         </Grid>

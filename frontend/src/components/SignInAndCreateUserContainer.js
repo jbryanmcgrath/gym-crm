@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -6,11 +6,19 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Login from './Login'
 import Signup from './Sign-Up'
+import { GlobalContext } from '../store/GlobalProvider';
+
+
 const SignInAndCreateUserContainer = () => {
+    const { userTab } = useContext(GlobalContext)
     const [value, setValue] = useState(0)
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
+    console.log(userTab)
+    useEffect(() => {
+        setValue(userTab)
+    }, [])
 
     const paperStyle = { width: 340, margin: "20px auto" }
     function TabPanel(props) {
