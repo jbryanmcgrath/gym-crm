@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 
 const userSchema = new Schema(
   {
-
     firstName: {
       type: String,
       required: true,
@@ -34,7 +33,11 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'Member'
       }
-    ]
+    ],
+    admin: {
+      type: Boolean,
+      default: true
+    }
   },
   {
     toJSON: {

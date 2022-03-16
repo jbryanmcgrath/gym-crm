@@ -41,7 +41,7 @@ const newMemberSchema = new Schema({
         type: Date,
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
-    },
+    }
 });
 
 const Member = model('Member', newMemberSchema);

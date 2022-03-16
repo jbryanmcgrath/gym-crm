@@ -7,16 +7,6 @@ const gymSchema = new Schema(
             required: true,
             trim: true
         },
-        adminUsername: {
-            type: String,
-            required: true,
-            trim: true
-        },
-        adminPassword: {
-            type: String,
-            required: true,
-            minlength: 5
-        },
         gymEmail: {
             type: String,
             required: true,
@@ -46,7 +36,8 @@ const gymSchema = new Schema(
         users: [
             {
                 type: Schema.Types.ObjectId,
-                ref: "user"
+
+                ref: 'User'
             }
         ],
         members: [
@@ -56,6 +47,6 @@ const gymSchema = new Schema(
             }
         ]
     }
-)
+);
 const Gym = model('Gym', gymSchema)
 module.exports = Gym
