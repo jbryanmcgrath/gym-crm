@@ -46,6 +46,6 @@ const gymSchema = new Schema(
             }
         ]
     }
-)
+);
 const Gym = model('Gym', gymSchema)
 module.exports = Gym
