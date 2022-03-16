@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import SignInAndCreateUserContainer from './components/SignInAndCreateUserContainer';
 import { GlobalProvider } from './store/GlobalProvider';
+import CustomerTable from './components/CustomerTable'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
+            <Route path="/members" element={<CustomerTable />} />
           </Routes>
         </BrowserRouter>
       </GlobalProvider>
