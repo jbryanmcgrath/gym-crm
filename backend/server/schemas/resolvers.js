@@ -6,8 +6,8 @@ const Gym = require("../models/Gym")
 
 const resolvers = {
     Query: {
-        gym: async (parent, { gymName }) => {
-            return Gym.findOne({ gymName })
+        gym: async (parent, { phoneNumber }) => {
+            return Gym.findOne({ phoneNumber })
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
@@ -16,6 +16,7 @@ const resolvers = {
             return Employee.findOne({ email })
                 .select('-__v -password')
                 .populate('clients')
+                .populate('gym')
         },
         employees: async () => {
             return Employee.find()
@@ -94,19 +95,19 @@ const resolvers = {
         },
         addMember: async (parent, args, context) => {
             if (context.employee) {
-                
+                const currentEmployee = await Employee.findOne({ _id: context.employee._id });
                 const member = await Member.create({ ...args, createdBy: context.employee });
                 
                 await Gym.findByIdAndUpdate(
-                    { _id: context.employee.gym._id },
+                    { _id: currentEmployee.gym },
                     { $push: { members: member } },
                     { new: true }
                 );
-                
+
                 return member;
-                }
-                throw new AuthenticationError('You need to be logged in!');
-            },
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
         updateMember: async (_, args, context) => {
             if (context.employee) {
                 const updates = args.updatedEmail ? {

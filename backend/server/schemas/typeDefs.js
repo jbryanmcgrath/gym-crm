@@ -14,8 +14,8 @@ scalar Date
         city:String!
         zip:String!
         state:String!
-        member:[Member]
-        employee: [Employee]
+        members:[Member]
+        employees: [Employee]
     }
 
     type Employee {
@@ -56,7 +56,7 @@ scalar Date
     
     type Mutation {
         initialEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Auth
-        addEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+        addEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Employee
         login(email: String!, password: String!): Auth
         addMember(firstName: String!, lastName: String!, email: String!, age: Int, zip: Int, phoneNumber:String!): Member
         updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, age: Int, zip: Int, phoneNumber: String): Member!
