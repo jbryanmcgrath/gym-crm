@@ -61,6 +61,10 @@ userSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
+userSchema.virtual('role').get(function () {
+  return "User"
+});
+
 userSchema.virtual('friendCount').get(function () {
   return this.friends.length;
 });

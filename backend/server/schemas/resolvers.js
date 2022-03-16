@@ -93,20 +93,22 @@ const resolvers = {
             return { token, user };
         },
         addMember: async (parent, args, context) => {
+
             if (context.user) {
                 
                 const member = await Member.create({ ...args, createdBy: context.user });
                 
                 await Gym.findByIdAndUpdate(
                     { _id: context.user.gym._id },
+
                     { $push: { members: member } },
                     { new: true }
                 );
-                
+
                 return member;
-                }
-                throw new AuthenticationError('You need to be logged in!');
-            },
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
         updateMember: async (_, args, context) => {
             if (context.user) {
                 const updates = args.updatedEmail ? {
