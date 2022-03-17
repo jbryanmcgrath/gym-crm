@@ -23,6 +23,7 @@ scalar Date
         firstName: String!
         lastName: String!
         email:String!
+        phoneNumber:String!
         gym: Gym
         clients: [Member]
         admin: Boolean
@@ -55,7 +56,7 @@ scalar Date
     }
     
     type Mutation {
-        initialEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+        initialEmployee(firstName: String!, lastName: String!, email: String!, phoneNumber: String!,password: String!): Auth
         addEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Employee
         login(email: String!, password: String!): Auth
         addMember(firstName: String!, lastName: String!, email: String!, age: Int, zip: Int, phoneNumber:String!): Member

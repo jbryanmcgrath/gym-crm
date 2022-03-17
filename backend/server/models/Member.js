@@ -18,15 +18,6 @@ const newMemberSchema = new Schema({
         unique: true,
         match: [/.+@.+\..+/, "Must match an email address!"],
     },
-    age: {
-        type: Number,
-        max: 100,
-        required: false
-    },
-    zip: {
-        type: Number,
-        required: false,
-    },
     phoneNumber: {
         type: String,
         unique: true,
@@ -41,6 +32,15 @@ const newMemberSchema = new Schema({
         type: Date,
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
+    },
+    preferredName: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    assignedTrainer: {
+        type: Schema.Types.ObjectId,
+        required: false,
     }
 });
 

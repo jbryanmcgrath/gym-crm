@@ -5,6 +5,7 @@ import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import SignInAndCreateUserContainer from './components/SignInAndCreateUserContainer';
 import { GlobalProvider } from './store/GlobalProvider';
 import CustomerTable from './components/CustomerTable'
+import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,19 +18,32 @@ const useStyles = makeStyles((theme) => ({
     backgroundAttachment: ' fixed '
   },
 }));
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:3001/graphql',
+});
+
+const client = new ApolloClient({
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
+
+
 export default function App() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <GlobalProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
-            <Route path="/members" element={<CustomerTable />} />
-          </Routes>
-        </BrowserRouter>
-      </GlobalProvider>
+      <ApolloClient client={client}>
+        <GlobalProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
+              <Route path="/members" element={<CustomerTable />} />
+            </Routes>
+          </BrowserRouter>
+        </GlobalProvider>
+        <ApolloClient />
     </div>
   );
 }

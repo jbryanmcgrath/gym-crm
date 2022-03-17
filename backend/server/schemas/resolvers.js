@@ -7,7 +7,7 @@ const Gym = require("../models/Gym")
 const resolvers = {
     Query: {
         gym: async (parent, { phoneNumber }) => {
-            return Gym.findOne({ phone })
+            return Gym.findOne({ phoneNumber })
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
