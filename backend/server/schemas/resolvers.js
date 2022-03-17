@@ -16,6 +16,7 @@ const resolvers = {
             return Employee.findOne({ email })
                 .select('-__v -password')
                 .populate('clients')
+                .populate('gym')
         },
         employees: async () => {
             return Employee.find()
