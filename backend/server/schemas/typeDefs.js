@@ -37,9 +37,9 @@ scalar Date
     }
 
     type Query {
-        gym(name:String, address:String, city:String, state:String, zip:String, phoneNumber:String): Gym
-        user(email: String!): User
-        users: [User]
+        gym(phoneNumber:String): Gym
+        employee(email: String!): User
+        employees: [User]
         member(email:String!): Member
         members(user_email: String): [Member]
     }
