@@ -6,8 +6,8 @@ const Gym = require("../models/Gym")
 
 const resolvers = {
     Query: {
-        gym: async (parent, { gymName }) => {
-            return Gym.findOne({ gymName })
+        gym: async (parent, { phoneNumber }) => {
+            return Gym.findOne({ phone })
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
@@ -29,22 +29,22 @@ const resolvers = {
     },
 
     Mutation: {
-        initialEmployee: async(parent, args) => {
+        initialEmployee: async (parent, args) => {
             const employee = await Employee.create(args);
             const token = signToken(employee);
-            
+
             return { token, employee };
         },
         addGym: async (parent, args, context) => {
             if (context.employee) {
                 const newGym = await Gym.create(args);
-                
+
                 await Employee.findByIdAndUpdate(
                     { _id: context.employee._id },
                     { $push: { gym: newGym._id } },
                     { new: true }
                 )
-                
+
                 await Gym.findByIdAndUpdate(
                     { _id: newGym._id },
                     { $push: { employees: context.employee._id } },
@@ -55,22 +55,22 @@ const resolvers = {
         },
         addEmployee: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
-            
+
             if (currentEmployee && currentEmployee.admin) {
                 const newEmployee = await Employee.create(args);
-                
+
                 await Gym.findByIdAndUpdate(
                     { _id: currentEmployee.gym },
                     { $push: { employees: newEmployee } },
                     { new: true }
                 )
-                
+
                 await Employee.findByIdAndUpdate(
                     { _id: newEmployee._id },
                     { $push: { gym: currentEmployee.gym } },
                     { new: true }
                 )
-                
+
                 return newEmployee;
             } else {
                 throw new AuthenticationError('Requires admin access.')
@@ -78,13 +78,13 @@ const resolvers = {
         },
         login: async (parent, { email, password }) => {
             const employee = await Employee.findOne({ email });
-            
+
             if (!employee) {
                 throw new AuthenticationError('Incorrect Credentials Provided')
             }
-            
+
             const correctPw = await employee.isCorrectPassword(password);
-            
+
             if (!correctPw) {
                 throw new AuthenticationError('Incorrect Credentials Provided')
             }
@@ -93,22 +93,12 @@ const resolvers = {
             return { token, employee };
         },
         addMember: async (parent, args, context) => {
-<<<<<<< HEAD
             if (context.employee) {
-=======
 
-            if (context.user) {
->>>>>>> c2382ee3d3ca05a350bf59dee896fc6ba787594f
-                
                 const member = await Member.create({ ...args, createdBy: context.employee });
-                
-                await Gym.findByIdAndUpdate(
-<<<<<<< HEAD
-                    { _id: context.employee.gym._id },
-=======
-                    { _id: context.user.gym._id },
 
->>>>>>> c2382ee3d3ca05a350bf59dee896fc6ba787594f
+                await Gym.findByIdAndUpdate(
+                    { _id: context.employee.gym._id },
                     { $push: { members: member } },
                     { new: true }
                 );

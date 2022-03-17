@@ -36,12 +36,8 @@ const gymSchema = new Schema(
         employees: [
             {
                 type: Schema.Types.ObjectId,
-<<<<<<< HEAD
-                ref: 'Employees'
-=======
+                ref: 'Employee'
 
-                ref: 'User'
->>>>>>> c2382ee3d3ca05a350bf59dee896fc6ba787594f
             }
         ],
         members: [
