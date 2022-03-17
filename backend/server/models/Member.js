@@ -34,14 +34,14 @@ const newMemberSchema = new Schema({
     },
     createdBy: {
         type: Schema.Types.ObjectId,
-        ref: "User",
+        ref: "Employee",
         required: true
     },
     createdAt: {
         type: Date,
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
-    },
+    }
 });
 
 const Member = model('Member', newMemberSchema);

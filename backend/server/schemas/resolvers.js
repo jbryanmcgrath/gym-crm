@@ -1,24 +1,25 @@
-const { AuthenticationError } = require("apollo-server-express");
+const { AuthenticationError, AuthorizationError } = require("apollo-server-express");
 const Member = require("../models/Member");
-const User = require("../models/User");
+const Employee = require("../models/Employee");
 const { signToken } = require('../utils/auth');
 const Gym = require("../models/Gym")
 
 const resolvers = {
     Query: {
-        gym: async (_, { gymEmail }) => {
-            return await Gym.findOne(gymEmail)
-                .select('-__v -password')
-                .populate('members')
-                .populate('users')
-        },
-        user: async (_, { email }) => {
-            return User.findOne({ email })
-                .select('-__v -password')
+        gym: async (parent, { phoneNumber }) => {
+            return Gym.findOne({ phone })
+                .select('-__v')
+                .populate('employees')
                 .populate('members')
         },
-        users: async () => {
-            return User.find()
+        employee: async (parent, { email }) => {
+            return Employee.findOne({ email })
+                .select('-__v -password')
+                .populate('clients')
+                .populate('gym')
+        },
+        employees: async () => {
+            return Employee.find()
         },
         member: async (_, { email }) => {
             return Member.findOne({ email })
@@ -29,41 +30,76 @@ const resolvers = {
     },
 
     Mutation: {
-        addGym: async (_, args) => {
-            const gym = await Gym.create(args)
+        initialEmployee: async (parent, args) => {
+            const employee = await Employee.create(args);
+            const token = signToken(employee);
 
-            return gym;
+            return { token, employee };
         },
-        addUser: async (_, args) => {
-            const user = await User.create(args);
-            const token = signToken(user);
+        addGym: async (parent, args, context) => {
+            if (context.employee) {
+                const newGym = await Gym.create(args);
 
-            return { token, user };
-            console.log(`User was added`);
+                await Employee.findByIdAndUpdate(
+                    { _id: context.employee._id },
+                    { $push: { gym: newGym._id } },
+                    { new: true }
+                )
+
+                await Gym.findByIdAndUpdate(
+                    { _id: newGym._id },
+                    { $push: { employees: context.employee._id } },
+                    { new: true }
+                )
+                return newGym;
+            }
+        },
+        addEmployee: async (parent, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+
+            if (currentEmployee && currentEmployee.admin) {
+                const newEmployee = await Employee.create(args);
+
+                await Gym.findByIdAndUpdate(
+                    { _id: currentEmployee.gym },
+                    { $push: { employees: newEmployee } },
+                    { new: true }
+                )
+
+                await Employee.findByIdAndUpdate(
+                    { _id: newEmployee._id },
+                    { $push: { gym: currentEmployee.gym } },
+                    { new: true }
+                )
+
+                return newEmployee;
+            } else {
+                throw new AuthenticationError('Requires admin access.')
+            }
         },
         login: async (parent, { email, password }) => {
-            const user = await User.findOne({ email });
+            const employee = await Employee.findOne({ email });
 
-            if (!user) {
+            if (!employee) {
                 throw new AuthenticationError('Incorrect Credentials Provided')
             }
 
-            const correctPw = await user.isCorrectPassword(password);
+            const correctPw = await employee.isCorrectPassword(password);
 
             if (!correctPw) {
                 throw new AuthenticationError('Incorrect Credentials Provided')
             }
             console.log('Login successful!');
-            const token = signToken(user);
-            return { token, user };
+            const token = signToken(employee);
+            return { token, employee };
         },
         addMember: async (parent, args, context) => {
-            if (context.user && context.user.role === "User") {
+            if (context.employee) {
 
-                const member = await Member.create({ ...args, user_email: context.user.email });
+                const member = await Member.create({ ...args, createdBy: context.employee });
 
-                await User.findByIdAndUpdate(
-                    { _id: context.user._id },
+                await Gym.findByIdAndUpdate(
+                    { _id: context.employee.gym._id },
                     { $push: { members: member } },
                     { new: true }
                 );
@@ -73,7 +109,7 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
         updateMember: async (_, args, context) => {
-            if (context.user) {
+            if (context.employee) {
                 const updates = args.updatedEmail ? {
                     ...args,
                     email: args.updatedEmail
@@ -82,7 +118,7 @@ const resolvers = {
             }
         },
         deleteMember: async (_, args, context) => {
-            if (context.user) {
+            if (context.employee) {
                 const member = await Member.findOneAndDelete(args);
                 return member;
             }

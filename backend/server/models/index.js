@@ -1,5 +1,5 @@
-const User = require("./User");
+const Employee = require("./Employee");
 const Member = require("./Member")
 const Gym = require("./Gym")
 
-module.exports = { User, Member, Gym };
+module.exports = { Employee, Member, Gym };
