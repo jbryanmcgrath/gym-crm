@@ -65,6 +65,8 @@ const Signup = () => {
                     /> */}
                     <Button type='submit' variant='contained' color='primary'>Sign up</Button>
                 </form>
+
+                {error && <div>Signup Failed</div>}
             </Paper>
         </Grid>
     )
