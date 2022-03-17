@@ -22,6 +22,7 @@ module.exports = {
         }
     
         try {
+
         // decode and attach user data to request object
         const { data } = jwt.verify(token, secret, { maxAge: expiration });
         req.employee = data;
@@ -32,9 +33,11 @@ module.exports = {
         // return updated request object
         return req;
     },
+
     
     signToken: function({ email, _id }) {
         const payload = { email, _id };
+
 
         return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
     }

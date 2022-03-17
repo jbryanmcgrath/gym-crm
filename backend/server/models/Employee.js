@@ -61,10 +61,6 @@ employeeSchema.methods.isCorrectPassword = async function (password) {
   return bcrypt.compare(password, this.password);
 };
 
-employeeSchema.virtual('friendCount').get(function () {
-  return this.friends.length;
-});
-
 const Employee = model('Employee', employeeSchema);
 
 module.exports = Employee;
