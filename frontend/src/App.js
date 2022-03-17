@@ -43,7 +43,7 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </GlobalProvider>
-        <ApolloClient />
+        </ApolloClient>
     </div>
   );
 }
