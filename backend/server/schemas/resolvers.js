@@ -20,6 +20,9 @@ const resolvers = {
         },
         employees: async () => {
             return Employee.find()
+            .select('-__v -password')
+            .populate('clients')
+            .populate('gym')
         },
         member: async (_, { email }) => {
             return Member.findOne({ email })
