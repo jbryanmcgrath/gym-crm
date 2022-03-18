@@ -38,6 +38,7 @@ scalar Date
         phoneNumber: String!
         createdBy:String!
         createdAt:Date!
+        memberActive: Boolean
     }
 
     type Query {
@@ -62,6 +63,7 @@ scalar Date
         updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, age: Int, zip: Int, phoneNumber: String): Member!
         deleteMember(email: String!): Member
         addGym( gymName: String!, gymEmail: String! phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!): Gym
+        memberIsActive( memberActive: Boolean )
     }
     
 `

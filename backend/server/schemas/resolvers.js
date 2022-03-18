@@ -27,6 +27,11 @@ const resolvers = {
         members: async () => {
             return Member.find()
         },
+
+        // to find memberActive that have a 'true' boolean, as in they are AT the gym
+        members: async ({ memberActive }) => {
+            return Member.find({ memberActive : true})
+        },
     },
 
     Mutation: {
@@ -123,6 +128,12 @@ const resolvers = {
                 return member;
             }
             throw new AuthenticationError('You need to be logged in!');
+        },
+        // member sign in at gym. will be a boolean. true = member is AT the gym, until 'false'
+        memberIsActive: async (  ) => {
+            if (context.member) {
+                // function here
+            }
         }
     }
 };

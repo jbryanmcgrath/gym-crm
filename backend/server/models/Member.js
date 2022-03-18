@@ -41,6 +41,11 @@ const newMemberSchema = new Schema({
         type: Date,
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
+    },
+    // member active 'true' will count toward members activity AT the gym, 
+    // to measure peak times, how many clients are currently at gym
+    memberActive: {
+        type: Boolean
     }
 });
 
