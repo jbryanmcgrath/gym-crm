@@ -30,8 +30,11 @@ export const MUTATION_LOGIN = gql`mutation Login($email: String!, $password: Str
 }`;
 
 export const MUTATION_ADDEMPLOYEE = gql`mutation addEmployee($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
-  addEmployee(firstName: $firstName, lastName: $lastName, email: $email, password: $password) {
-    
-  }
-}`;
+    addEmployee(firstName: $firstName, lastName: $lastName, email: $email, password: $password) {
+      firstName
+      lastName
+      email
+      phoneNumber
+    }
+  }`;
 
