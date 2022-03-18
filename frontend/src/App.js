@@ -6,6 +6,7 @@ import SignInAndCreateUserContainer from './components/SignInAndCreateUserContai
 import { GlobalProvider } from './store/GlobalProvider';
 import CustomerTable from './components/CustomerTable'
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -20,11 +21,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:3001/graphql',
+  uri: '/graphql',
 });
 
+const authLink = setContext((_, { headers }) => {
+  const token = localStorage.getItem('id_token');
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : '',
+    },
+  }
+})
+
 const client = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
@@ -33,7 +44,7 @@ export default function App() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <ApolloClient client={client}>
+      <ApolloProvider client={client}>
         <GlobalProvider>
           <BrowserRouter>
             <Routes>
@@ -43,7 +54,7 @@ export default function App() {
             </Routes>
           </BrowserRouter>
         </GlobalProvider>
-        </ApolloClient>
+      </ApolloProvider>
     </div>
   );
 }
