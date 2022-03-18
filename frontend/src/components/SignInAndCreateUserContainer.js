@@ -50,15 +50,15 @@ const SignInAndCreateUserContainer = () => {
                 onChange={handleChange}
                 aria-label="disabled tabs example"
             >
-                <Tab label="Login" />
+                <Tab value={0} label="Login" />
 
-                <Tab label="Sign Up" />
+                <Tab value={1} label="Sign Up" />
             </Tabs>
             <TabPanel value={value} index={0}>
-                <Login handleChange={handleChange} />
+                <Login onChange={handleChange} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Signup handleChange={handleChange}  />
+                <Signup onChange={handleChange}  />
             </TabPanel>
         </Paper>
 
