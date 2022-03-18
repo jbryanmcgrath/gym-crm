@@ -4,6 +4,7 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import { useMutation } from '@apollo/client'
 import { MUTATION_INITIALEMPLOYEE } from '../utils/mutations';
 import Auth from '../utils/auth';
+
 // import Radio from '@material-ui/core/Radio';
 // import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -26,6 +27,15 @@ const Signup = () => {
     });
 
     const [initialEmployee, { error }] = useMutation(MUTATION_INITIALEMPLOYEE);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+    
+        setFormState({
+            ...formState,
+            [name]: value,
+        });
+    };
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
@@ -52,13 +62,13 @@ const Signup = () => {
                     <Typography variant='caption' gutterBottom>Please fill this form to create an account !</Typography>
                 </Grid>
                 <form onSubmit={handleFormSubmit}>
-                    <TextField fullWidth name='firstname' label='First Name' placeholder="Enter your name" />
-                    <TextField fullWidth name='lastname' label='Last Name' placeholder="Enter your name" />
-                    <TextField fullWidth name='email' label='Email' placeholder="Enter your email" />
+                    <TextField fullWidth name='firstName' label='First Name' placeholder="Enter your name" onChange={handleChange}  />
+                    <TextField fullWidth name='lastName' label='Last Name' placeholder="Enter your name" onChange={handleChange} />
+                    <TextField fullWidth name='email' label='Email' placeholder="Enter your email" onChange={handleChange} />
 
-                    <TextField fullWidth name='phone' label='Phone Number' placeholder="Enter your phone number" />
-                    <TextField fullWidth name='password' label='Password' placeholder="Enter your password" />
-                    <TextField fullWidth name='confirm' label='Confirm Password' placeholder="Confirm your password" />
+                    <TextField fullWidth name='phoneNumber' label='Phone Number' placeholder="Enter your phone number" onChange={handleChange} />
+                    <TextField fullWidth name='password' label='Password' placeholder="Enter your password" onChange={handleChange} />
+                    {/* <TextField fullWidth name='confirm' label='Confirm Password' placeholder="Confirm your password" /> */}
                     {/* <FormControlLabel
                         control={<Checkbox name="checkedA" />}
                         label="I accept the terms and conditions."
@@ -66,7 +76,7 @@ const Signup = () => {
                     <Button type='submit' variant='contained' color='primary'>Sign up</Button>
                 </form>
 
-                {/* {error && <div>Signup Failed</div>} */}
+                {error && <div>Signup Failed</div>}
             </Paper>
         </Grid>
     )
