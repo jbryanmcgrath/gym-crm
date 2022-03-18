@@ -34,7 +34,7 @@ const SignInAndCreateUserContainer = () => {
             >
                 {value === index && (
                     <Box>
-                        <Typography>{children}</Typography>
+                        <Typography component='span'>{children}</Typography>
                     </Box>
                 )}
             </div>
@@ -46,7 +46,7 @@ const SignInAndCreateUserContainer = () => {
             <Tabs
                 value={value}
                 indicatorColor="primary"
-                textColor="black"
+                textColor="primary"
                 onChange={handleChange}
                 aria-label="disabled tabs example"
             >
@@ -58,7 +58,7 @@ const SignInAndCreateUserContainer = () => {
                 <Login handleChange={handleChange} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Signup />
+                <Signup handleChange={handleChange}  />
             </TabPanel>
         </Paper>
 
