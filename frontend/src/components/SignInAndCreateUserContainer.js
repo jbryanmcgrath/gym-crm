@@ -9,10 +9,9 @@ import Signup from './Sign-Up'
 import { GlobalContext } from '../store/GlobalProvider';
 
 
-
 const SignInAndCreateUserContainer = () => {
-    const { userTab } = useContext(GlobalContext)
-    const [value, setValue] = useState(0)
+    const { userTab } = useContext(GlobalContext);
+    const [value, setValue] = useState(0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
@@ -35,7 +34,7 @@ const SignInAndCreateUserContainer = () => {
             >
                 {value === index && (
                     <Box>
-                        <Typography component={'span'}>{children}</Typography>
+                        <Typography>{children}</Typography>
                     </Box>
                 )}
             </div>
@@ -47,7 +46,7 @@ const SignInAndCreateUserContainer = () => {
             <Tabs
                 value={value}
                 indicatorColor="primary"
-                textColor="primary"
+                textColor="black"
                 onChange={handleChange}
                 aria-label="disabled tabs example"
             >

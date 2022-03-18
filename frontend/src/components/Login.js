@@ -42,4 +42,4 @@ const Login = ({ handleChange }) => {
     )
 }
 
-export default Login
+export default Login;
