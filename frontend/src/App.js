@@ -7,6 +7,9 @@ import { GlobalProvider } from './store/GlobalProvider';
 import CustomerTable from './components/CustomerTable'
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import Dashboard from './pages/Dashboard';
+import NewMember from './components/NewMember';
+import AddMember from './pages/AddMember';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +54,8 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
               <Route path="/members" element={<CustomerTable />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/add-members" element={<AddMember />} />
             </Routes>
           </BrowserRouter>
         </GlobalProvider>

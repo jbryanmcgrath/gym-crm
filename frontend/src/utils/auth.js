@@ -2,7 +2,7 @@ import decode from 'jwt-decode';
 
 class AuthService {
     getProfile() {
-    return decode(this.getToken());
+        return decode(this.getToken());
     }
 
     loggedIn() {
@@ -15,7 +15,7 @@ class AuthService {
         try {
             const decoded = decode(token);
             if (decoded.exp < Date.now() / 1000) {
-            return true;
+                return true;
             } else return false;
         } catch (err) {
             return false;
@@ -30,8 +30,6 @@ class AuthService {
     login(idToken) {
         // Saves user token to localStorage
         localStorage.setItem('id_token', idToken);
-
-        window.location.assign('/');
     }
 
     logout() {
@@ -39,7 +37,6 @@ class AuthService {
         // axios.defaults.headers.common["Authorization"] = null;
         localStorage.removeItem('id_token');
         // this will reload the page and reset the state of the application
-        window.location.assign('/');
     }
 }
 

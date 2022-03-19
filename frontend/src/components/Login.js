@@ -4,12 +4,13 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useMutation } from '@apollo/client'
-import { MUTATION_LOGIN} from '../utils/mutations';
+import { MUTATION_LOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 
 const Login = ({ handleChange }) => {
-
+    const navigate = useNavigate();
     const paperStyle = { padding: 20, height: '73vh', width: 300, margin: "0 auto" }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
     const btnstyle = { margin: '8px 0' }
@@ -24,7 +25,7 @@ const Login = ({ handleChange }) => {
     // changed name because of "handleChange" with the signup button
     const handleInputChange = (event) => {
         const { name, value } = event.target;
-    
+
         setFormState({
             ...formState,
             [name]: value,
@@ -47,6 +48,7 @@ const Login = ({ handleChange }) => {
             email: '',
             password: ''
         });
+        navigate("/dashboard")
     };
 
     return (
@@ -57,28 +59,28 @@ const Login = ({ handleChange }) => {
                     <h2>Login</h2>
                 </Grid>
                 <form onSubmit={handleFormSubmit}>
-                <TextField name='email' label='Email Username' placeholder='Enter username' fullWidth required onChange={handleInputChange} />
-                <TextField name='password' label='Password' placeholder='Enter password' type='password' fullWidth required onChange={handleInputChange} />
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            name="checkedB"
-                            color="primary"
-                        />
-                    }
-                    label="Remember me"
-                />
-                <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
-                <Typography >
-                    <Link href="#" >
-                        Forgot password?
-                    </Link>
-                </Typography>
-                <Typography > Do you have an account?  
-                    <Link href="#" onClick={() => handleChange("event", 1)} >
-                        Sign Up
-                    </Link>
-                </Typography>
+                    <TextField name='email' label='Email Username' placeholder='Enter username' fullWidth required onChange={handleInputChange} />
+                    <TextField name='password' label='Password' placeholder='Enter password' type='password' fullWidth required onChange={handleInputChange} />
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                name="checkedB"
+                                color="primary"
+                            />
+                        }
+                        label="Remember me"
+                    />
+                    <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
+                    <Typography >
+                        <Link href="#" >
+                            Forgot password?
+                        </Link>
+                    </Typography>
+                    <Typography > Do you have an account?
+                        <Link href="#" onClick={() => handleChange("event", 1)} >
+                            Sign Up
+                        </Link>
+                    </Typography>
                 </form>
             </Paper>
         </Grid>
