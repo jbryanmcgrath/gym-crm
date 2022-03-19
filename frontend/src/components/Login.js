@@ -63,7 +63,6 @@ const Login = ({ handleChange }) => {
                     <h2>Login</h2>
                 </Grid>
                 <form onSubmit={handleFormSubmit}>
-<<<<<<< HEAD
                 <TextField name='email' label='Email Username' placeholder='Enter username' fullWidth required onChange={handleInputChange} />
                 <TextField name='password' label='Password' placeholder='Enter password' type='password' fullWidth required onChange={handleInputChange} />
                 <FormControlLabel
@@ -86,30 +85,6 @@ const Login = ({ handleChange }) => {
                         Sign Up
                     </Link>
                 </Typography>
-=======
-                    <TextField name='email' label='Email Username' placeholder='Enter username' fullWidth required onChange={handleInputChange} />
-                    <TextField name='password' label='Password' placeholder='Enter password' type='password' fullWidth required onChange={handleInputChange} />
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                name="checkedB"
-                                color="primary"
-                            />
-                        }
-                        label="Remember me"
-                    />
-                    <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
-                    <Typography >
-                        <Link href="#" >
-                            Forgot password?
-                        </Link>
-                    </Typography>
-                    <Typography > Do you have an account?
-                        <Link href="#" onClick={() => handleChange("event", 1)} >
-                            Sign Up
-                        </Link>
-                    </Typography>
->>>>>>> 6160e809fac624dda0ec6dec0551680b63db2b3c
                 </form>
             </Paper>
         </Grid>
