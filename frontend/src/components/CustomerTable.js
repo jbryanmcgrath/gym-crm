@@ -203,9 +203,6 @@ function CustomerTable() {
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
 
     const { loading, data } = useQuery(QUERY_MEMBERS);
-    const MEMBERS  = data.gymMembers.members || [];
-    console.log(MEMBERS);
-
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -228,7 +225,7 @@ function CustomerTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {MEMBERS.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                    {loading ? <div>Loading Data</div> :  data.gymMembers.members.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                         <TableRow key={row.firstName}>
                             <TableCell>
                                 <Grid container>
@@ -266,7 +263,7 @@ function CustomerTable() {
                     <TablePagination
                         rowsPerPageOptions={[5, 10, 15]}
                         component="div"
-                        count={MEMBERS.length}
+                        count={loading ? 0 : data.gymMembers.members.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onChangePage={handleChangePage}

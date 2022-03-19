@@ -19,14 +19,13 @@ export const QUERY_MEMBERS = gql`
 query Query {
     gymMembers {
         members {
-        firstName
-        lastName
-        preferredName
-        email
-        phoneNumber
-        createdBy
-        createdAt
+            firstName
+            lastName
+            phoneNumber
+            createdBy
+            preferredName
+            email
         }
     }
-    }
+}
 `;
