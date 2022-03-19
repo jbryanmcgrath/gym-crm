@@ -17,7 +17,7 @@ import {
 
 const useStyles = makeStyles((theme) => ({
     table: {
-        minWidth: 650,
+
     },
     tableContainer: {
         borderRadius: 15,

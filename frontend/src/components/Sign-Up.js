@@ -4,6 +4,7 @@ import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOut
 import { useMutation } from '@apollo/client'
 import { MUTATION_INITIALEMPLOYEE } from '../utils/mutations';
 import Auth from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 // import Radio from '@material-ui/core/Radio';
 // import RadioGroup from '@material-ui/core/RadioGroup';
@@ -14,6 +15,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 
 const Signup = () => {
+    const navigate = useNavigate();
     const paperStyle = { padding: 20, width: 300, margin: "0 auto" }
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
@@ -30,7 +32,7 @@ const Signup = () => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-    
+
         setFormState({
             ...formState,
             [name]: value,
@@ -56,6 +58,7 @@ const Signup = () => {
             phonNumber: '',
             password: ''
         });
+        navigate("/dashboard")
     };
 
     return (
@@ -69,7 +72,7 @@ const Signup = () => {
                     <Typography variant='caption' gutterBottom>Please fill this form to create an account !</Typography>
                 </Grid>
                 <form onSubmit={handleFormSubmit}>
-                    <TextField fullWidth name='firstName' label='First Name' placeholder="Enter your name" onChange={handleChange}  />
+                    <TextField fullWidth name='firstName' label='First Name' placeholder="Enter your name" onChange={handleChange} />
                     <TextField fullWidth name='lastName' label='Last Name' placeholder="Enter your name" onChange={handleChange} />
                     <TextField fullWidth name='email' label='Email' placeholder="Enter your email" onChange={handleChange} />
 
