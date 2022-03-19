@@ -20,11 +20,11 @@ const resolvers = {
         },      
         gymMembers: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
-                let gym = currentEmployee.gym;
-                console.log(gym._id);
-                return Gym.findOne({ _id: gym._id })
-                    .select('-__v')
-                    .populate('members')
+            const gym = await Gym.findOne({ _id: currentEmployee.gym })
+            console.log(gym);
+            return Gym.findOne({ _id: gym._id })
+                .select('-__v')
+                .populate('members')
         },
         employees: async () => {
             return Employee.find()

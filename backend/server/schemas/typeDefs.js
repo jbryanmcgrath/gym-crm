@@ -45,7 +45,7 @@ scalar Date
     type Query {
         gym(phoneNumber: String!): Gym
         gyms: [Gym]
-        gymMembers: [Member]
+        gymMembers: Gym
         employee(email: String!): Employee
         employees: [Employee]
         member(email:String!): Member
