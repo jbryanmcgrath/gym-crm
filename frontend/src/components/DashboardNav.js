@@ -2,6 +2,7 @@ import React from 'react'
 import { Settings } from '@material-ui/icons';
 import styled from 'styled-components';
 import AuthService from '../utils/auth';
+import { useNavigate } from 'react-router-dom';
 
 const NavbarContainer = styled.div`
     width: 100%;
@@ -40,9 +41,10 @@ const IconContainer = styled.div`
 
 const Navbar = () => {
     const auth = AuthService;
+    const navigate = useNavigate();
     const handleLogout = () => {
         auth.logout();
-        window.location.reload()
+        navigate('/');
     }
     return (
         <NavbarContainer>
