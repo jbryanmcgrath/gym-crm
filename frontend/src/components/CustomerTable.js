@@ -48,150 +48,150 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const MEMBERS = [{
-    "firstName": "1 Bryan",
-    "lastName": "McGrath",
-    "email": "jbryanmcgrath@gmail.com",
-    "phoneNumber": "5416997799",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Bryan",
-    "joinDate": "01/01/2022"
-},
-{
-    "firstName": "2 Coleman",
-    "lastName": "Legget",
-    "email": "coleleg@gmail.com",
-    "phoneNumber": "1111111111",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Coleman",
-    "joinDate": "01/15/2022"
-},
-{
-    "firstName": "3 Dennis",
-    "lastName": "Khasperkov",
-    "email": "dennis11@live.com",
-    "phoneNumber": "5433333333",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Dennis",
-    "joinDate": "01/16/2022"
-},
-{
-    "firstName": "4 Sarah",
-    "lastName": "Wesley",
-    "email": "swesly@live.com",
-    "phoneNumber": "5433332222",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Sarah",
-    "joinDate": "04/16/2000"
-},
-{
-    "firstName": "5 Bryan",
-    "lastName": "McGrath",
-    "email": "jbryanmcgrath@gmail.com",
-    "phoneNumber": "5416997799",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Sarah",
-    "joinDate": "01/01/2022"
-},
-{
-    "firstName": "6 Coleman",
-    "lastName": "Legget",
-    "email": "coleleg@gmail.com",
-    "phoneNumber": "1111111111",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Coleman",
-    "joinDate": "01/15/2022"
-},
-{
-    "firstName": "7 Dennis",
-    "lastName": "Khasperkov",
-    "email": "dennis11@live.com",
-    "phoneNumber": "5433333333",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Dennis",
-    "joinDate": "01/16/2022"
-},
-{
-    "firstName": "8 Sarah",
-    "lastName": "Wesley",
-    "email": "swesly@live.com",
-    "phoneNumber": "5433332222",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Sarah",
-    "joinDate": "04/16/2000"
-}, {
-    "firstName": "9 Bryan",
-    "lastName": "McGrath",
-    "email": "jbryanmcgrath@gmail.com",
-    "phoneNumber": "5416997799",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "bryan",
-    "joinDate": "01/01/2022"
-},
-{
-    "firstName": "10 Coleman",
-    "lastName": "Legget",
-    "email": "coleleg@gmail.com",
-    "phoneNumber": "1111111111",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Coleman",
-    "joinDate": "01/15/2022"
-},
-{
-    "firstName": "11 Dennis",
-    "lastName": "Khasperkov",
-    "email": "dennis11@live.com",
-    "phoneNumber": "5433333333",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Sarah",
-    "joinDate": "01/16/2022"
-},
-{
-    "firstName": "12 Sarah",
-    "lastName": "Wesley",
-    "email": "swesly@live.com",
-    "phoneNumber": "5433332222",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Sarah",
-    "joinDate": "04/16/2000"
-}, {
-    "firstName": "13 Bryan",
-    "lastName": "McGrath",
-    "email": "jbryanmcgrath@gmail.com",
-    "phoneNumber": "5416997799",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Sarah",
-    "joinDate": "01/01/2022"
-},
-{
-    "firstName": "14 Coleman",
-    "lastName": "Legget",
-    "email": "coleleg@gmail.com",
-    "phoneNumber": "1111111111",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Sarah",
-    "joinDate": "01/15/2022"
-},
-{
-    "firstName": "15 Dennis",
-    "lastName": "Khasperkov",
-    "email": "dennis11@live.com",
-    "phoneNumber": "5433333333",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Sarah",
-    "joinDate": "01/16/2022"
-},
-{
-    "firstName": "16 Sarah",
-    "lastName": "Wesley",
-    "email": "swesly@live.com",
-    "phoneNumber": "5433332222",
-    "createdBy": "jm707d@gmail.com",
-    "preferredName": "Sarah",
-    "joinDate": "04/16/2000"
-}
+// const MEMBERS = [{
+//     "firstName": "1 Bryan",
+//     "lastName": "McGrath",
+//     "email": "jbryanmcgrath@gmail.com",
+//     "phoneNumber": "5416997799",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Bryan",
+//     "joinDate": "01/01/2022"
+// },
+// {
+//     "firstName": "2 Coleman",
+//     "lastName": "Legget",
+//     "email": "coleleg@gmail.com",
+//     "phoneNumber": "1111111111",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Coleman",
+//     "joinDate": "01/15/2022"
+// },
+// {
+//     "firstName": "3 Dennis",
+//     "lastName": "Khasperkov",
+//     "email": "dennis11@live.com",
+//     "phoneNumber": "5433333333",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Dennis",
+//     "joinDate": "01/16/2022"
+// },
+// {
+//     "firstName": "4 Sarah",
+//     "lastName": "Wesley",
+//     "email": "swesly@live.com",
+//     "phoneNumber": "5433332222",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Sarah",
+//     "joinDate": "04/16/2000"
+// },
+// {
+//     "firstName": "5 Bryan",
+//     "lastName": "McGrath",
+//     "email": "jbryanmcgrath@gmail.com",
+//     "phoneNumber": "5416997799",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Sarah",
+//     "joinDate": "01/01/2022"
+// },
+// {
+//     "firstName": "6 Coleman",
+//     "lastName": "Legget",
+//     "email": "coleleg@gmail.com",
+//     "phoneNumber": "1111111111",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Coleman",
+//     "joinDate": "01/15/2022"
+// },
+// {
+//     "firstName": "7 Dennis",
+//     "lastName": "Khasperkov",
+//     "email": "dennis11@live.com",
+//     "phoneNumber": "5433333333",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Dennis",
+//     "joinDate": "01/16/2022"
+// },
+// {
+//     "firstName": "8 Sarah",
+//     "lastName": "Wesley",
+//     "email": "swesly@live.com",
+//     "phoneNumber": "5433332222",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Sarah",
+//     "joinDate": "04/16/2000"
+// }, {
+//     "firstName": "9 Bryan",
+//     "lastName": "McGrath",
+//     "email": "jbryanmcgrath@gmail.com",
+//     "phoneNumber": "5416997799",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "bryan",
+//     "joinDate": "01/01/2022"
+// },
+// {
+//     "firstName": "10 Coleman",
+//     "lastName": "Legget",
+//     "email": "coleleg@gmail.com",
+//     "phoneNumber": "1111111111",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Coleman",
+//     "joinDate": "01/15/2022"
+// },
+// {
+//     "firstName": "11 Dennis",
+//     "lastName": "Khasperkov",
+//     "email": "dennis11@live.com",
+//     "phoneNumber": "5433333333",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Sarah",
+//     "joinDate": "01/16/2022"
+// },
+// {
+//     "firstName": "12 Sarah",
+//     "lastName": "Wesley",
+//     "email": "swesly@live.com",
+//     "phoneNumber": "5433332222",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Sarah",
+//     "joinDate": "04/16/2000"
+// }, {
+//     "firstName": "13 Bryan",
+//     "lastName": "McGrath",
+//     "email": "jbryanmcgrath@gmail.com",
+//     "phoneNumber": "5416997799",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Sarah",
+//     "joinDate": "01/01/2022"
+// },
+// {
+//     "firstName": "14 Coleman",
+//     "lastName": "Legget",
+//     "email": "coleleg@gmail.com",
+//     "phoneNumber": "1111111111",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Sarah",
+//     "joinDate": "01/15/2022"
+// },
+// {
+//     "firstName": "15 Dennis",
+//     "lastName": "Khasperkov",
+//     "email": "dennis11@live.com",
+//     "phoneNumber": "5433333333",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Sarah",
+//     "joinDate": "01/16/2022"
+// },
+// {
+//     "firstName": "16 Sarah",
+//     "lastName": "Wesley",
+//     "email": "swesly@live.com",
+//     "phoneNumber": "5433332222",
+//     "createdBy": "jm707d@gmail.com",
+//     "preferredName": "Sarah",
+//     "joinDate": "04/16/2000"
+// }
 
-]
+// ]
 
 function CustomerTable() {
     const classes = useStyles();

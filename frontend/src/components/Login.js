@@ -49,6 +49,10 @@ const Login = ({ handleChange }) => {
         });
     };
 
+    const handleSignInButton = async () => {
+        window.location.href = '/dashboard';
+    };
+
     return (
         <Grid>
             <Paper style={paperStyle}>
@@ -68,7 +72,7 @@ const Login = ({ handleChange }) => {
                     }
                     label="Remember me"
                 />
-                <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
+                <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={handleSignInButton} fullWidth>Sign in</Button>
                 <Typography >
                     <Link href="#" >
                         Forgot password?

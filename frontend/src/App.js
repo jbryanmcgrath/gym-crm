@@ -1,12 +1,13 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Home from './pages/Home';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import SignInAndCreateUserContainer from './components/SignInAndCreateUserContainer';
 import { GlobalProvider } from './store/GlobalProvider';
 import CustomerTable from './components/CustomerTable'
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
+import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -51,6 +52,7 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
               <Route path="/members" element={<CustomerTable />} />
+              <Route path ="/dashboard" element={<Dashboard />} />
             </Routes>
           </BrowserRouter>
         </GlobalProvider>

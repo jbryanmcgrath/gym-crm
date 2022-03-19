@@ -17,6 +17,14 @@ const resolvers = {
                 .select('-__v -password')
                 .populate('clients')
                 .populate('gym')
+        },      
+        gymMembers: async (parent, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+                let gym = currentEmployee.gym;
+                console.log(gym._id);
+                return Gym.findOne({ _id: gym._id })
+                    .select('-__v')
+                    .populate('members')
         },
         employees: async () => {
             return Employee.find()
@@ -95,11 +103,12 @@ const resolvers = {
         },
         addMember: async (parent, args, context) => {
             if (context.employee) {
+                const currentEmployee = await Employee.findOne({ _id: context.employee._id });
 
                 const member = await Member.create({ ...args, createdBy: context.employee });
 
                 await Gym.findByIdAndUpdate(
-                    { _id: context.employee.gym._id },
+                    { _id: currentEmployee.gym },
                     { $push: { members: member } },
                     { new: true }
                 );
