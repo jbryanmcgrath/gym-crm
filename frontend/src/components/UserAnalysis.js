@@ -62,7 +62,7 @@ const StyledChart = styled(Chart)(() => ({
     },
 }));
 
-export default class Demo extends React.PureComponent {
+export default class MemberGraph extends React.PureComponent {
     constructor(props) {
         super(props);
 
