@@ -1,25 +1,16 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-<<<<<<< HEAD
-import { Routes, Route, BrowserRouter } from 'react-router-dom';
-=======
 import Home from './pages/Home';
 import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom';
->>>>>>> 6160e809fac624dda0ec6dec0551680b63db2b3c
 import SignInAndCreateUserContainer from './components/SignInAndCreateUserContainer';
 import { GlobalProvider } from './store/GlobalProvider';
 import CustomerTable from './components/CustomerTable'
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
-<<<<<<< HEAD
-import Home from './pages/Home';
-import Dashboard from './pages/Dashboard';
-=======
 import Dashboard from './pages/Dashboard';
 import NewMember from './components/NewMember';
 import AddMember from './pages/AddMember';
 import AuthService from './utils/auth'
->>>>>>> 6160e809fac624dda0ec6dec0551680b63db2b3c
 
 
 const useStyles = makeStyles((theme) => ({
@@ -65,12 +56,8 @@ export default function App() {
               <Route path="/" element={<Home />} />
               <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
               <Route path="/members" element={<CustomerTable />} />
-<<<<<<< HEAD
-              <Route path ="/dashboard" element={<Dashboard />} />
-=======
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/add-members" element={<AddMember />} />
->>>>>>> 6160e809fac624dda0ec6dec0551680b63db2b3c
             </Routes>
           </BrowserRouter>
         </GlobalProvider>
