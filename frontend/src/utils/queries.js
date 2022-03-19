@@ -13,4 +13,20 @@ export const QUERY_GYM = gql`
         state
         }
     }
-`
+`;
+
+export const QUERY_MEMBERS = gql`
+query Query {
+    gymMembers {
+        members {
+        firstName
+        lastName
+        preferredName
+        email
+        phoneNumber
+        createdBy
+        createdAt
+        }
+    }
+    }
+`;

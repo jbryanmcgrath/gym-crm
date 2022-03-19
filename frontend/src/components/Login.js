@@ -41,6 +41,7 @@ const Login = ({ handleChange }) => {
             });
 
             Auth.login(data.login.token);
+            console.log(data.login.token);
         } catch (e) {
             console.error(e);
         }
@@ -48,11 +49,8 @@ const Login = ({ handleChange }) => {
             email: '',
             password: ''
         });
-        navigate("/dashboard")
-    };
-
-    const handleSignInButton = async () => {
-        window.location.href = '/dashboard';
+        
+        navigate("/dashboard");
     };
 
     return (
@@ -74,7 +72,7 @@ const Login = ({ handleChange }) => {
                     }
                     label="Remember me"
                 />
-                <Button type='submit' color='primary' variant="contained" style={btnstyle} onClick={handleSignInButton} fullWidth>Sign in</Button>
+                <Button type='submit' color='primary' variant="contained" style={btnstyle} fullWidth>Sign in</Button>
                 <Typography >
                     <Link href="#" >
                         Forgot password?

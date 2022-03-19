@@ -14,6 +14,9 @@ import {
     TablePagination,
     TableFooter
 } from '@material-ui/core';
+import Auth from '../utils/auth';
+import { useQuery } from '@apollo/client';
+import { QUERY_MEMBERS } from '../utils/queries';
 
 const useStyles = makeStyles((theme) => ({
     table: {
@@ -193,10 +196,16 @@ const useStyles = makeStyles((theme) => ({
 
 // ]
 
+
 function CustomerTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
+
+    const { loading, data } = useQuery(QUERY_MEMBERS);
+    const MEMBERS  = data.gymMembers.members || [];
+    console.log(MEMBERS);
+
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
