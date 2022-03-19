@@ -1,6 +1,7 @@
 import React from 'react'
 import { Settings } from '@material-ui/icons';
 import styled from 'styled-components';
+import AuthService from '../utils/auth';
 
 const NavbarContainer = styled.div`
     width: 100%;
@@ -38,6 +39,11 @@ const IconContainer = styled.div`
 
 
 const Navbar = () => {
+    const auth = AuthService;
+    const handleLogout = () => {
+        auth.logout();
+        window.location.reload()
+    }
     return (
         <NavbarContainer>
             <NavbarWrapper>
@@ -45,8 +51,8 @@ const Navbar = () => {
                     <Logo>GymCRM.</Logo>
                 </TopLeft>
                 <TopRight>
-                    <IconContainer>
-                        Logout
+                    <IconContainer >
+                        <span onClick={handleLogout}>Logout</span>
                     </IconContainer>
                     <IconContainer>
                         <Settings />

@@ -15,7 +15,6 @@ const SignInAndCreateUserContainer = () => {
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    console.log(userTab)
     useEffect(() => {
         setValue(userTab)
     }, [])
@@ -58,7 +57,7 @@ const SignInAndCreateUserContainer = () => {
                 <Login onChange={handleChange} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Signup onChange={handleChange}  />
+                <Signup onChange={handleChange} />
             </TabPanel>
         </Paper>
 
