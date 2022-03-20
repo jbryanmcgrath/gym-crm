@@ -17,7 +17,7 @@ const resolvers = {
                 .select('-__v -password')
                 .populate('clients')
                 .populate('gym')
-        },      
+        },
         gymMembers: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             const gym = await Gym.findOne({ _id: currentEmployee.gym })
@@ -103,10 +103,13 @@ const resolvers = {
             return { token, employee };
         },
         addMember: async (parent, args, context) => {
-            if (context.employee) {
-                const currentEmployee = await Employee.findOne({ _id: context.employee._id });
 
-                const member = await Member.create({ ...args, createdBy: context.employee });
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+
+            if (currentEmployee) {
+
+
+                const member = await Member.create({ ...args, createdBy: currentEmployee });
 
                 await Gym.findByIdAndUpdate(
                     { _id: currentEmployee.gym },

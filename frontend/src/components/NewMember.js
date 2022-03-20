@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TheList } from "../styles/styled-elements"
 import styled from "styled-components";
+import { useMutation } from '@apollo/client';
+import { MUTATION_ADDMEMBER } from '../utils/mutations';
+import { useNavigate } from 'react-router-dom';
+import Auth from '../utils/auth';
 
 const UserForm = styled.form`
     display: flex;
@@ -43,38 +47,78 @@ const UserButton = styled.button`
 `
 
 const NewMember = () => {
+    const navigate = useNavigate();
+    const [formState, setFormState] = useState({
+        firstName: '',
+        lastName: '',
+        email: '',
+        phoneNumber: '',
+        preferredName: ''
+    })
+
+    const [addMember, { error }] = useMutation(MUTATION_ADDMEMBER)
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+
+
+        setFormState({
+            ...formState,
+            [name]: value,
+        });
+    };
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault()
+
+
+        try {
+            const { data } = await addMember({
+                variables: { ...formState }
+
+            })
+            Auth.login(data.initialEmployee.token);
+        } catch (e) {
+            console.error(e);
+        }
+        setFormState({
+            firstName: '',
+            lastName: '',
+            email: '',
+            phoneNumber: '',
+            preferredName: ''
+        })
+        navigate('/dashboard')
+    };
     return (
         <TheList>
             <h1>New Member</h1>
-            <UserForm>
-                <UserItem>
+            <UserForm onSubmit={handleFormSubmit}>
+                <UserItem >
                     <label>First Name</label>
-                    <input type="text" placeholder="John" />
-                </UserItem>
-                <UserItem>
+                    <input name='firstName' type="text" placeholder="John" onChange={handleChange} />
+                </UserItem >
+                <UserItem >
                     <label>Last Name</label>
-                    <input type="text" placeholder="Smith" />
+                    <input name='lastName' type="text" placeholder="Smith" onChange={handleChange} />
                 </UserItem>
-                <UserItem>
+                <UserItem >
                     <label>Email</label>
-                    <input type="email" placeholder="john@gmail.com" />
+                    <input name='email' type="email" placeholder="john@gmail.com" onChange={handleChange} />
                 </UserItem>
-                <UserItem>
+                <UserItem >
                     <label>Phone Number</label>
-                    <input type="text" placeholder="+1 123 456 78" />
+                    <input name='phoneNumber' type="text" placeholder="+1 123 456 78" onChange={handleChange} />
                 </UserItem>
-                <UserItem>
-                    <label>Phone Number</label>
-                    <input type="text" placeholder="+1 123 456 78" />
-                </UserItem>
-                <UserItem>
+                <UserItem >
                     <label>Preferred Name</label>
-                    <input type="text" placeholder="Jane" />
+                    <input name='preferredName' type="text" placeholder="Jane" onChange={handleChange} />
                 </UserItem>
                 <UserButton>Create</UserButton>
             </UserForm>
         </TheList>
     )
 }
+
 
 export default NewMember

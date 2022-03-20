@@ -55,7 +55,7 @@ const Signup = () => {
             firstName: '',
             lastName: '',
             email: '',
-            phonNumber: '',
+            phoneNumber: '',
             password: ''
         });
         navigate("/dashboard")
