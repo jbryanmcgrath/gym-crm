@@ -68,6 +68,7 @@ const resolvers = {
         },
         newEmployee: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            console.log(currentEmployee);
 
             if (currentEmployee && currentEmployee.admin) {
                 const newEmployee = await Employee.create(args);

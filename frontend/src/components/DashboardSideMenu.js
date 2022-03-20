@@ -93,7 +93,7 @@ const Sidebar = () => {
                             <MyWork />
                             Manage
                         </SidebarListItem>
-                        <Link to='/new-employee' className='link'>
+                        <Link to='/add-employee' className='link'>
                             <SidebarListItem>
                                 < MyPermIdentity />
                                 Add

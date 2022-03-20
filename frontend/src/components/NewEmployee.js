@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useMutation } from '@apollo/client';
 import { MUTATION_NEWEMPLOYEE } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';
-
+import Auth from '../utils/auth';
 
 const UserForm = styled.form`
     display: flex;
@@ -54,9 +54,9 @@ const NewEmployee = () => {
         email: '',
         phoneNumber: '',
         password: ''
-    })
+    });
 
-    const [newEmployee, { error }] = useMutation(MUTATION_NEWEMPLOYEE)
+    const [newEmployee, { error }] = useMutation(MUTATION_NEWEMPLOYEE);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -71,11 +71,11 @@ const NewEmployee = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault()
 
-
         try {
             await newEmployee({
-                variables: { ...formState }
-            })
+                    variables: { ...formState }
+                });
+    
         } catch (e) {
             console.error(e);
         }
@@ -85,7 +85,7 @@ const NewEmployee = () => {
             email: '',
             phoneNumber: '',
             password: ''
-        })
+        });
         navigate('/dashboard')
     };
     return (
@@ -110,7 +110,7 @@ const NewEmployee = () => {
                 </UserItem>
                 <UserItem >
                     <label>Password</label>
-                    <input name='password' type="password" placeholder="" onChange={handleChange} />
+                    <input name='password' type="password" placeholder="password" onChange={handleChange} />
                 </UserItem>
                 <UserButton>Create</UserButton>
             </UserForm>
