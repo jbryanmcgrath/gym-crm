@@ -7,7 +7,7 @@ const Gym = require("../models/Gym")
 const resolvers = {
     Query: {
         gym: async (parent, { phoneNumber }) => {
-            return Gym.findOne({ phone })
+            return Gym.findOne({ phoneNumber })
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
@@ -17,6 +17,15 @@ const resolvers = {
                 .select('-__v -password')
                 .populate('clients')
                 .populate('gym')
+        },
+        gymMembers: async (parent, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee.gym) {
+            const gym = await Gym.findOne({ _id: currentEmployee.gym })
+                return Gym.findOne({ _id: gym._id })
+                    .select('-__v')
+                    .populate('members')
+            }
         },
         employees: async () => {
             return Employee.find()
@@ -37,8 +46,9 @@ const resolvers = {
             return { token, employee };
         },
         addGym: async (parent, args, context) => {
-            if (context.employee) {
-                const newGym = await Gym.create(args);
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee) {
+                const newGym = await Gym.create({ ...args, ownerFirstName: currentEmployee.firstName, ownerLastName: currentEmployee.lastName });
 
                 await Employee.findByIdAndUpdate(
                     { _id: context.employee._id },
@@ -48,7 +58,7 @@ const resolvers = {
 
                 await Gym.findByIdAndUpdate(
                     { _id: newGym._id },
-                    { $push: { employees: context.employee._id } },
+                    { $push: { employees: currentEmployee._id } },
                     { new: true }
                 )
                 return newGym;
@@ -94,12 +104,16 @@ const resolvers = {
             return { token, employee };
         },
         addMember: async (parent, args, context) => {
-            if (context.employee) {
 
-                const member = await Member.create({ ...args, createdBy: context.employee });
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+
+            if (currentEmployee) {
+
+
+                const member = await Member.create({ ...args, createdBy: currentEmployee });
 
                 await Gym.findByIdAndUpdate(
-                    { _id: context.employee.gym._id },
+                    { _id: currentEmployee.gym },
                     { $push: { members: member } },
                     { new: true }
                 );

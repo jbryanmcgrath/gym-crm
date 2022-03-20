@@ -10,12 +10,11 @@ import { GlobalContext } from '../store/GlobalProvider';
 
 
 const SignInAndCreateUserContainer = () => {
-    const { userTab } = useContext(GlobalContext)
-    const [value, setValue] = useState(0)
+    const { userTab } = useContext(GlobalContext);
+    const [value, setValue] = useState(0);
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    console.log(userTab)
     useEffect(() => {
         setValue(userTab)
     }, [])
@@ -34,7 +33,7 @@ const SignInAndCreateUserContainer = () => {
             >
                 {value === index && (
                     <Box>
-                        <Typography>{children}</Typography>
+                        <Typography component='span'>{children}</Typography>
                     </Box>
                 )}
             </div>
@@ -46,19 +45,19 @@ const SignInAndCreateUserContainer = () => {
             <Tabs
                 value={value}
                 indicatorColor="primary"
-                textColor="black"
+                textColor="primary"
                 onChange={handleChange}
                 aria-label="disabled tabs example"
             >
-                <Tab label="Login" />
+                <Tab value={0} label="Login" />
 
-                <Tab label="Sign Up" />
+                <Tab value={1} label="Sign Up" />
             </Tabs>
             <TabPanel value={value} index={0}>
-                <Login handleChange={handleChange} />
+                <Login onChange={handleChange} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <Signup />
+                <Signup onChange={handleChange} />
             </TabPanel>
         </Paper>
 
