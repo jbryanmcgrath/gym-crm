@@ -8,6 +8,8 @@ scalar Date
     type Gym {
         _id:ID
         gymName: String!
+        onwerFirstName: String
+        ownerLastName: String
         phoneNumber: String!
         gymEmail: String!
         address:String!
@@ -64,7 +66,7 @@ scalar Date
         addMember(firstName: String!, lastName: String!, email: String!, age: Int, zip: Int, phoneNumber:String!, preferredName: String!): Member
         updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, age: Int, zip: Int, phoneNumber: String): Member!
         deleteMember(email: String!): Member
-        addGym( gymName: String!, gymEmail: String! phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!): Gym
+        addGym( gymName: String!, gymEmail: String! phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!, ownerFirstName: String, ownerLastName: String): Gym
     }
     
 `

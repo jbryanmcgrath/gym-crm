@@ -20,8 +20,8 @@ const resolvers = {
         },      
         gymMembers: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee.gym) {
             const gym = await Gym.findOne({ _id: currentEmployee.gym })
-            if (currentEmployee) {
                 return Gym.findOne({ _id: gym._id })
                     .select('-__v')
                     .populate('members')
@@ -46,8 +46,9 @@ const resolvers = {
             return { token, employee };
         },
         addGym: async (parent, args, context) => {
-            if (context.employee) {
-                const newGym = await Gym.create(args);
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee) {
+                const newGym = await Gym.create({ ...args, ownerFirstName: currentEmployee.firstName, ownerLastName: currentEmployee.lastName });
 
                 await Employee.findByIdAndUpdate(
                     { _id: context.employee._id },
@@ -57,7 +58,7 @@ const resolvers = {
 
                 await Gym.findByIdAndUpdate(
                     { _id: newGym._id },
-                    { $push: { employees: context.employee._id } },
+                    { $push: { employees: currentEmployee._id } },
                     { new: true }
                 )
                 return newGym;

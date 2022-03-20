@@ -13,6 +13,14 @@ const gymSchema = new Schema(
             unique: true,
             match: [/.+@.+\..+/, 'Must match an email address!']
         },
+        ownerFirstName: {
+            type: String,
+            trim: true
+        },
+        ownerLastName: {
+            type: String,
+            trim: true
+        },
         phoneNumber: {
             type: String,
             required: true
