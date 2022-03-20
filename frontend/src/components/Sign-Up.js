@@ -6,10 +6,6 @@ import { MUTATION_ADDGYM } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-// import FormControl from '@material-ui/core/FormControl';
-// import FormLabel from '@material-ui/core/FormLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 
 
 const Signup = () => {
