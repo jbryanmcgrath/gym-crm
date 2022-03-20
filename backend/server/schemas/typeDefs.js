@@ -8,6 +8,8 @@ scalar Date
     type Gym {
         _id:ID
         gymName: String!
+        onwerFirstName: String
+        ownerLastName: String
         phoneNumber: String!
         gymEmail: String!
         address:String!
@@ -23,6 +25,7 @@ scalar Date
         firstName: String!
         lastName: String!
         email:String!
+        phoneNumber:String!
         gym: Gym
         clients: [Member]
         admin: Boolean
@@ -38,12 +41,17 @@ scalar Date
         phoneNumber: String!
         createdBy:String!
         createdAt:Date!
+<<<<<<< HEAD
         memberActive: Boolean
+=======
+        preferredName: String!
+>>>>>>> develop
     }
 
     type Query {
         gym(phoneNumber: String!): Gym
         gyms: [Gym]
+        gymMembers: Gym
         employee(email: String!): Employee
         employees: [Employee]
         member(email:String!): Member
@@ -56,14 +64,18 @@ scalar Date
     }
     
     type Mutation {
-        initialEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Auth
+        initialEmployee(firstName: String!, lastName: String!, email: String!, phoneNumber: String!,password: String!): Auth
         addEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Employee
         login(email: String!, password: String!): Auth
-        addMember(firstName: String!, lastName: String!, email: String!, age: Int, zip: Int, phoneNumber:String!): Member
+        addMember(firstName: String!, lastName: String!, email: String!, phoneNumber:String!, preferredName: String!): Member
         updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, age: Int, zip: Int, phoneNumber: String): Member!
         deleteMember(email: String!): Member
+<<<<<<< HEAD
         addGym( gymName: String!, gymEmail: String! phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!): Gym
         memberIsActive( memberActive: Boolean )
+=======
+        addGym( gymName: String!, gymEmail: String! phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!, ownerFirstName: String, ownerLastName: String): Gym
+>>>>>>> develop
     }
     
 `

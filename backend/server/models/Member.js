@@ -18,15 +18,6 @@ const newMemberSchema = new Schema({
         unique: true,
         match: [/.+@.+\..+/, "Must match an email address!"],
     },
-    age: {
-        type: Number,
-        max: 100,
-        required: false
-    },
-    zip: {
-        type: Number,
-        required: false,
-    },
     phoneNumber: {
         type: String,
         unique: true,
@@ -42,10 +33,21 @@ const newMemberSchema = new Schema({
         default: Date.now,
         get: timestamp => dateFormat(timestamp)
     },
+<<<<<<< HEAD
     // member active 'true' will count toward members activity AT the gym, 
     // to measure peak times, how many clients are currently at gym
     memberActive: {
         type: Boolean
+=======
+    preferredName: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    assignedTrainer: {
+        type: Schema.Types.ObjectId,
+        required: false,
+>>>>>>> develop
     }
 });
 

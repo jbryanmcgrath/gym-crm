@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, IconButton, Toolbar, Collapse, Grid } from '@material-ui/core';
-import SortIcon from '@material-ui/icons/Sort';
+
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { Link as Scroll } from 'react-scroll';
 import { GlobalContext } from '../store/GlobalProvider';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -62,6 +63,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function Header() {
     const classes = useStyles();
+    const navigate = useNavigate();
     const { userTab, setUserTab } = useContext(GlobalContext);
     const [checked, setChecked] = useState(false);
     useEffect(() => {
@@ -69,17 +71,17 @@ export default function Header() {
     }, []);
     const handleLoginClick = () => {
         setUserTab(0)
-        window.location.href = '/login-signup'
+        navigate("/login-signup")
     }
     const handleSignupClick = () => {
         setUserTab(1)
-            (userTab === 1 ? window.location.href = '/login-signup' : null)
+        navigate("/login-signup")
     }
     function changeColor(e) {
         e.target.style.color = '#FF220C'
     }
     function changeColorBack(e) {
-        e.target.style.color = "##fff"
+        e.target.style.color = "#fff"
     }
     return (
         <div className={classes.root} id="header">

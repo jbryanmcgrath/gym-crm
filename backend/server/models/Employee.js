@@ -19,6 +19,11 @@ const employeeSchema = new Schema(
       unique: true,
       match: [/.+@.+\..+/, 'Must match an email address!']
     },
+    phoneNumber: {
+      type: String,
+      require: true,
+      unique: true
+    },
     password: {
       type: String,
       required: true,
