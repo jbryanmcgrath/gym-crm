@@ -22,7 +22,6 @@ export const MUTATION_ADDGYM = gql`mutation addGym($gymName: String!, $ownerFirs
   zip: $zip, 
   state: $state
   password:$password) {
-    token{
       gymName
       ownerFirstName  
       ownerLastName
@@ -33,7 +32,6 @@ export const MUTATION_ADDGYM = gql`mutation addGym($gymName: String!, $ownerFirs
       zip
       state
       password
-    }
   }
 }`;
 

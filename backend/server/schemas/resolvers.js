@@ -47,9 +47,8 @@ const resolvers = {
         },
         addGym: async (parent, args, context) => {
             const gym = await Gym.create(args)
-            const token = signToken(gym)
 
-            return { token, gym }
+            return { gym }
             // if (currentEmployee) {
             //     const newGym = await Gym.create({ ...args, ownerFirstName: currentEmployee.firstName, ownerLastName: currentEmployee.lastName });
 

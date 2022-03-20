@@ -4,14 +4,15 @@ import Home from './pages/Home';
 import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom';
 import SignInAndCreateUserContainer from './components/SignInAndCreateUserContainer';
 import { GlobalProvider } from './store/GlobalProvider';
-import CustomerTable from './components/CustomerTable'
+
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Dashboard from './pages/Dashboard';
-import NewMember from './components/NewMember';
+
 import AddMember from './pages/AddMember';
 import AuthService from './utils/auth'
-import NewEmployee from './components/NewEmployee';
+import AddEmployee from './components/NewEmployee';
+import ViewMembers from './pages/ViewMembers'
 
 
 
@@ -57,10 +58,10 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
-              <Route path="/members" element={<CustomerTable />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/members" element={<ViewMembers />} />
               <Route path="/add-members" element={<AddMember />} />
-              <Route path="/new-employee" element={<NewEmployee />} />
+              <Route path="/add-employee" element={<AddEmployee />} />
             </Routes>
           </BrowserRouter>
         </GlobalProvider>

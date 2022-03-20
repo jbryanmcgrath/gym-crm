@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useMutation } from '@apollo/client';
 import { MUTATION_NEWEMPLOYEE } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';
-import Auth from '../utils/auth';
+
 
 const UserForm = styled.form`
     display: flex;
@@ -73,11 +73,9 @@ const NewEmployee = () => {
 
 
         try {
-            const { data } = await newEmployee({
+            await newEmployee({
                 variables: { ...formState }
-
             })
-            Auth.login(data.initialEmployee.token);
         } catch (e) {
             console.error(e);
         }
