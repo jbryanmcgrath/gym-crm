@@ -11,7 +11,7 @@ import Dashboard from './pages/Dashboard';
 
 import AddMember from './pages/AddMember';
 import AuthService from './utils/auth'
-import AddEmployee from './components/NewEmployee';
+import AddEmployee from './pages/AddEmployee';
 import ViewMembers from './pages/ViewMembers'
 
 

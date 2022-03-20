@@ -2,7 +2,7 @@ import React from 'react'
 import { Settings } from '@material-ui/icons';
 import styled from 'styled-components';
 import AuthService from '../utils/auth';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const NavbarContainer = styled.div`
     width: 100%;
@@ -12,6 +12,7 @@ const NavbarContainer = styled.div`
     top: 0;
     z-index: 999;
 `
+
 const NavbarWrapper = styled.div`
     height: 100%;
     padding: 0px 20px;
@@ -19,6 +20,7 @@ const NavbarWrapper = styled.div`
     align-items: center;
     justify-content: space-between;
 `
+
 const Logo = styled.span`
     font-weight: bold;
     font-size: 30px;
@@ -42,6 +44,9 @@ const IconContainer = styled.div`
 const Navbar = () => {
     const auth = AuthService;
     const navigate = useNavigate();
+    const handleLogoToDashboard = () => {
+        navigate("/dashboard")
+    }
     const handleLogout = () => {
         auth.logout();
         navigate('/');
@@ -50,7 +55,7 @@ const Navbar = () => {
         <NavbarContainer>
             <NavbarWrapper>
                 <TopLeft>
-                    <Logo>GymCRM.</Logo>
+                    <Logo onClick={handleLogoToDashboard}>GymCRM.</Logo>
                 </TopLeft>
                 <TopRight>
                     <IconContainer >
