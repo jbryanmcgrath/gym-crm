@@ -11,6 +11,8 @@ import Dashboard from './pages/Dashboard';
 import NewMember from './components/NewMember';
 import AddMember from './pages/AddMember';
 import AuthService from './utils/auth'
+import NewEmployee from './components/NewEmployee';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,6 +60,7 @@ export default function App() {
               <Route path="/members" element={<CustomerTable />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/add-members" element={<AddMember />} />
+              <Route path="/new-employee" element={<NewEmployee />} />
             </Routes>
           </BrowserRouter>
         </GlobalProvider>
