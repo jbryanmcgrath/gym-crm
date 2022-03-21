@@ -38,7 +38,7 @@ const newMemberSchema = new Schema({
     // to measure peak times, how many clients are currently at gym
     memberActive: {
         type: Boolean
-=======
+    },
     preferredName: {
         type: String,
         required: true,
@@ -47,8 +47,7 @@ const newMemberSchema = new Schema({
     assignedTrainer: {
         type: Schema.Types.ObjectId,
         required: false,
->>>>>>> develop
-    }
+    },
 });
 
 const Member = model('Member', newMemberSchema);
