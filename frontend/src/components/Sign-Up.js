@@ -13,9 +13,7 @@ const Signup = () => {
     const paperStyle = { padding: 20, width: 300, margin: "0 auto" }
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+
 
     const [formState, setFormState] = useState({
         gymName: '',
@@ -43,7 +41,7 @@ const Signup = () => {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault();
-
+        console.log(formState)
         try {
             const { data } = await addGym({
                 variables: { ...formState }
