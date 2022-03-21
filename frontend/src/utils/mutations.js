@@ -1,39 +1,31 @@
 import { gql } from '@apollo/client';
 
-export const MUTATION_INITIALEMPLOYEE = gql`mutation initialEmployee($firstName: String!, $lastName: String!, $email: String!, $password: String!, $phoneNumber: String!) {
-    initialEmployee(firstName: $firstName, lastName: $lastName, email: $email, password: $password, phoneNumber: $phoneNumber) {
-      token
-      employee {
-        phoneNumber
-        email
-        lastName
-        firstName
-        _id
-      }
-    }
-  }
-`
-export const MUTATION_ADDGYM = gql`mutation addGym($gymName: String!, $ownerFirstName:STRING!,$ownerLastName:STRING!,$phoneNumber: String!, $gymEmail: String!,  $address: String!, $city: String!, $zip: String!, $state: String!, $password:String!) {
-  addGym(gymName: $gymName,          ownerFirstName:$ownerFirstName, ownerLastName:$ownerLastName,
-  phoneNumber: $phoneNumber, 
-  gymEmail: $gymEmail,  
-  address: $address, 
-  city: $city, 
-  zip: $zip, 
-  state: $state
-  password:$password) {
-      gymName
-      ownerFirstName  
-      ownerLastName
-      phoneNumber
-      gymEmail
-      address
-      city
-      zip
-      state
-      password
+
+export const MUTATION_OWNER = gql`mutation owner($firstName: String!, $lastName: String!, $email: String!, $phoneNumber: String!, $password: String!) {
+  owner(firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password) {
+    token
   }
 }`;
+
+export const MUTATION_GYMINFO = gql`
+mutation addGym($gymName: String!, $address: String!, $city: String!, $zip: String!, $state: String!) {
+  addGym(gymName: $gymName, address: $address, city: $city, zip: $zip, state: $state) {
+    _id
+    gymName
+    address
+    city
+    zip
+    state
+  }
+}
+`
+
+export const MUTATION_OWNERLOGIN = gql`mutation ownerLogin($email: String!, $password: String!) {
+  ownerLogin(email: $email, password: $password) {
+    token
+  }
+}
+`
 
 export const MUTATION_LOGIN = gql`mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {

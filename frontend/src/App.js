@@ -13,6 +13,7 @@ import AddMember from './pages/AddMember';
 import AuthService from './utils/auth'
 import AddEmployee from './pages/AddEmployee';
 import ViewMembers from './pages/ViewMembers'
+import GymInfo from './components/GymInfo'
 
 
 
@@ -58,6 +59,7 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
+              <Route path="gym-info" element={<GymInfo />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/members" element={<ViewMembers />} />
               <Route path="/add-members" element={<AddMember />} />

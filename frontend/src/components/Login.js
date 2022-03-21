@@ -4,7 +4,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useMutation } from '@apollo/client'
-import { MUTATION_LOGIN } from '../utils/mutations';
+import { MUTATION_LOGIN, MUTATION_OWNERLOGIN } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
 import { GlobalContext } from '../store/GlobalProvider';
@@ -22,6 +22,7 @@ const Login = ({ handleChange }) => {
     });
 
     const [login, { error }] = useMutation(MUTATION_LOGIN);
+
 
     // changed name because of "handleChange" with the signup button
     const handleInputChange = (event) => {

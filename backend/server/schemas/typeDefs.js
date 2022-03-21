@@ -4,18 +4,24 @@ const { gql } = require('apollo-server-express');
 //create our typeDefs
 const typeDefs = gql`
 scalar Date
-
+    type Owner {
+        _id:ID
+        firstName:String!
+        lastName:String!
+        email:String!
+        phoneNumber:String!
+        password:String!
+        gym:Gym
+        admin:Boolean!
+    }
     type Gym {
         _id:ID
         gymName: String!
-        ownerFirstName: String
-        ownerLastName: String
-        phoneNumber: String!
-        gymEmail: String!
         address:String!
         city:String!
         zip:String!
         state:String!
+        owner:Owner
         members:[Member]
         employees: [Employee]
     }
@@ -28,7 +34,6 @@ scalar Date
         phoneNumber:String!
         gym: Gym
         clients: [Member]
-        admin: Boolean
     }
 
     type Member {
@@ -51,15 +56,17 @@ scalar Date
         employees: [Employee]
         member(email:String!): Member
         members: [Member]
+        owner(phoneNumber: String!): Gym
     }
 
     type Auth {
         token: ID!
         employee: Employee
     }
+
     
     type Mutation {
-        initialEmployee(firstName: String!, lastName: String!, email: String!, phoneNumber: String!,password: String!): Auth
+        owner(firstName: String!, lastName: String!, email: String!, phoneNumber: String!,password: String!): Auth
 
 
         newEmployee(firstName: String!, 
@@ -68,7 +75,7 @@ scalar Date
         phoneNumber:String! 
         password: String!): Employee
 
-
+        ownerLogin(email:String!, password:String!):Auth
         login(email: String!, password: String!): Auth
 
 
@@ -85,16 +92,11 @@ scalar Date
         deleteMember(email: String!): Member
 
 
-        addGym( gymName: String!,
-            ownerFirstName: String!, 
-            ownerLastName: String!,
-            gymEmail: String!,
-            phoneNumber: String!, 
+        addGym( gymName: String!, 
             address:String!, 
             city:String!, 
             zip:String!, 
-            state:String!,
-            password:String! ): Gym
+            state:String! ): Gym
     }
     
 `

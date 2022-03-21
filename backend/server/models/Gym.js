@@ -7,26 +7,6 @@ const gymSchema = new Schema(
             required: true,
             trim: true
         },
-        ownerFirstName: {
-            type: String,
-            trim: true
-        },
-        ownerLastName: {
-            type: String,
-            trim: true
-        },
-        phoneNumber: {
-            type: String,
-            required: true
-        },
-        gymEmail: {
-            type: String,
-            required: true,
-            unique: true,
-            match: [/.+@.+\..+/, 'Must match an email address!']
-        },
-
-
         address: {
             type: String,
             required: true
@@ -43,11 +23,12 @@ const gymSchema = new Schema(
             type: String,
             required: true
         },
-        password: {
-            type: String,
-            required: true,
-            minLength: 8
-        },
+        owner: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Owner'
+            }
+        ],
         employees: [
             {
                 type: Schema.Types.ObjectId,

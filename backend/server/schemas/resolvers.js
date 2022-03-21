@@ -3,6 +3,7 @@ const Member = require("../models/Member");
 const Employee = require("../models/Employee");
 const { signToken } = require('../utils/auth');
 const Gym = require("../models/Gym")
+const Owner = require("../models/Owner")
 
 const resolvers = {
     Query: {
@@ -11,6 +12,7 @@ const resolvers = {
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
+                .populate('owner')
         },
         employee: async (parent, { email }) => {
             return Employee.findOne({ email })
@@ -39,11 +41,11 @@ const resolvers = {
     },
 
     Mutation: {
-        initialEmployee: async (parent, args) => {
-            const employee = await Employee.create(args);
-            const token = signToken(employee);
+        owner: async (parent, args) => {
+            const owner = await Owner.create(args);
+            const token = signToken(owner);
 
-            return { token, employee };
+            return { token, owner };
         },
         addGym: async (parent, args, context) => {
             const gym = await Gym.create(args)
@@ -90,9 +92,24 @@ const resolvers = {
                 throw new AuthenticationError('Requires admin access.')
             }
         },
+        ownerLogin: async (parent, { email, password }) => {
+            const owner = await Owner.findOne({ email });
+
+            if (!owner) {
+                throw new AuthenticationError('Incorrect Credentials Provided')
+            }
+
+            const correctPw = await owner.isCorrectPassword(password);
+
+            if (!correctPw) {
+                throw new AuthenticationError('Incorrect Credentials Provided')
+            }
+            console.log('Login successful!');
+            const token = signToken(owner);
+            return { token, owner };
+        },
         login: async (parent, { email, password }) => {
             const employee = await Employee.findOne({ email });
-
             if (!employee) {
                 throw new AuthenticationError('Incorrect Credentials Provided')
             }
