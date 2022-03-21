@@ -40,15 +40,7 @@ scalar Date
         preferredName: String!
         createdBy:String!
         createdAt:Date!
-<<<<<<< HEAD
-<<<<<<< HEAD
         memberActive: Boolean
-=======
-        preferredName: String!
->>>>>>> develop
-=======
-        
->>>>>>> bryan
     }
 
     type Query {
@@ -92,7 +84,7 @@ scalar Date
 
         deleteMember(email: String!): Member
 
-        memberIsActive( memberActive: Boolean )
+        memberIsActive( memberActive: Boolean ) : Member
 
 
 
