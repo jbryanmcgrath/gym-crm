@@ -3,6 +3,7 @@ const Member = require("../models/Member");
 const Employee = require("../models/Employee");
 const { signToken } = require('../utils/auth');
 const Gym = require("../models/Gym")
+const Owner = require("../models/Owner")
 
 const resolvers = {
     Query: {
@@ -11,6 +12,7 @@ const resolvers = {
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
+                .populate('owner')
         },
         employee: async (parent, { email }) => {
             return Employee.findOne({ email })
@@ -21,7 +23,7 @@ const resolvers = {
         gymMembers: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee.gym) {
-            const gym = await Gym.findOne({ _id: currentEmployee.gym })
+                const gym = await Gym.findOne({ _id: currentEmployee.gym })
                 return Gym.findOne({ _id: gym._id })
                     .select('-__v')
                     .populate('members')
@@ -39,33 +41,36 @@ const resolvers = {
     },
 
     Mutation: {
-        initialEmployee: async (parent, args) => {
-            const employee = await Employee.create(args);
-            const token = signToken(employee);
+        owner: async (parent, args) => {
+            const owner = await Owner.create(args);
+            const token = signToken(owner);
 
-            return { token, employee };
+            return { token, owner };
         },
         addGym: async (parent, args, context) => {
-            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
-            if (currentEmployee) {
-                const newGym = await Gym.create({ ...args, ownerFirstName: currentEmployee.firstName, ownerLastName: currentEmployee.lastName });
+            const gym = await Gym.create(args)
 
-                await Employee.findByIdAndUpdate(
-                    { _id: context.employee._id },
-                    { $push: { gym: newGym._id } },
-                    { new: true }
-                )
+            return gym
+            // if (currentEmployee) {
+            //     const newGym = await Gym.create({ ...args, ownerFirstName: currentEmployee.firstName, ownerLastName: currentEmployee.lastName });
 
-                await Gym.findByIdAndUpdate(
-                    { _id: newGym._id },
-                    { $push: { employees: currentEmployee._id } },
-                    { new: true }
-                )
-                return newGym;
-            }
+            //     await Employee.findByIdAndUpdate(
+            //         { _id: context.employee._id },
+            //         { $push: { gym: newGym._id } },
+            //         { new: true }
+            //     )
+
+            //     await Gym.findByIdAndUpdate(
+            //         { _id: newGym._id },
+            //         { $push: { employees: currentEmployee._id } },
+            //         { new: true }
+            //     )
+            //     return newGym;
+            // }
         },
-        addEmployee: async (parent, args, context) => {
+        newEmployee: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            console.log(currentEmployee);
 
             if (currentEmployee && currentEmployee.admin) {
                 const newEmployee = await Employee.create(args);
@@ -87,9 +92,24 @@ const resolvers = {
                 throw new AuthenticationError('Requires admin access.')
             }
         },
+        ownerLogin: async (parent, { email, password }) => {
+            const owner = await Owner.findOne({ email });
+
+            if (!owner) {
+                throw new AuthenticationError('Incorrect Credentials Provided')
+            }
+
+            const correctPw = await owner.isCorrectPassword(password);
+
+            if (!correctPw) {
+                throw new AuthenticationError('Incorrect Credentials Provided')
+            }
+            console.log('Login successful!');
+            const token = signToken(owner);
+            return { token, owner };
+        },
         login: async (parent, { email, password }) => {
             const employee = await Employee.findOne({ email });
-
             if (!employee) {
                 throw new AuthenticationError('Incorrect Credentials Provided')
             }

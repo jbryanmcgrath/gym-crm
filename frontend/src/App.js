@@ -4,13 +4,17 @@ import Home from './pages/Home';
 import { Routes, Route, BrowserRouter, useNavigate } from 'react-router-dom';
 import SignInAndCreateUserContainer from './components/SignInAndCreateUserContainer';
 import { GlobalProvider } from './store/GlobalProvider';
-import CustomerTable from './components/CustomerTable'
+
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import { setContext } from '@apollo/client/link/context';
 import Dashboard from './pages/Dashboard';
-import NewMember from './components/NewMember';
+
 import AddMember from './pages/AddMember';
 import AuthService from './utils/auth'
+import AddEmployee from './pages/AddEmployee';
+import ViewMembers from './pages/ViewMembers'
+import GymInfo from './components/GymInfo'
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -55,9 +59,11 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
-              <Route path="/members" element={<CustomerTable />} />
+              <Route path="gym-info" element={<GymInfo />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/members" element={<ViewMembers />} />
               <Route path="/add-members" element={<AddMember />} />
+              <Route path="/add-employee" element={<AddEmployee />} />
             </Routes>
           </BrowserRouter>
         </GlobalProvider>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TheList } from "../styles/styled-elements"
 import styled from "styled-components";
 import { useMutation } from '@apollo/client';
-import { MUTATION_ADDMEMBER } from '../utils/mutations';
+import { MUTATION_NEWEMPLOYEE } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';
 import Auth from '../utils/auth';
 
@@ -46,17 +46,17 @@ const UserButton = styled.button`
     cursor: pointer;
 `
 
-const NewMember = () => {
+const NewEmployee = () => {
     const navigate = useNavigate();
     const [formState, setFormState] = useState({
         firstName: '',
         lastName: '',
         email: '',
         phoneNumber: '',
-        preferredName: ''
+        password: ''
     });
 
-    const [addMember, { error }] = useMutation(MUTATION_ADDMEMBER);
+    const [newEmployee, { error }] = useMutation(MUTATION_NEWEMPLOYEE);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -72,10 +72,10 @@ const NewMember = () => {
         event.preventDefault()
 
         try {
-            await addMember({
-                variables: { ...formState }
-            });
-            
+            await newEmployee({
+                    variables: { ...formState }
+                });
+    
         } catch (e) {
             console.error(e);
         }
@@ -84,13 +84,13 @@ const NewMember = () => {
             lastName: '',
             email: '',
             phoneNumber: '',
-            preferredName: ''
-        })
+            password: ''
+        });
         navigate('/dashboard')
     };
     return (
         <TheList>
-            <h1>New Member</h1>
+            <h1>New Employee</h1>
             <UserForm onSubmit={handleFormSubmit}>
                 <UserItem >
                     <label>First Name</label>
@@ -109,8 +109,8 @@ const NewMember = () => {
                     <input name='phoneNumber' type="text" placeholder="+1 123 456 78" onChange={handleChange} />
                 </UserItem>
                 <UserItem >
-                    <label>Preferred Name</label>
-                    <input name='preferredName' type="text" placeholder="Jane" onChange={handleChange} />
+                    <label>Password</label>
+                    <input name='password' type="password" placeholder="password" onChange={handleChange} />
                 </UserItem>
                 <UserButton>Create</UserButton>
             </UserForm>
@@ -119,4 +119,4 @@ const NewMember = () => {
 }
 
 
-export default NewMember
+export default NewEmployee

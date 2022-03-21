@@ -1,12 +1,11 @@
-import { CssBaseline } from '@material-ui/core'
-import React, { useEffect } from 'react'
+import { CssBaseline } from "@material-ui/core";
+import React, { useEffect } from 'react';
+import AuthService from '../utils/auth';
+import { useNavigate } from "react-router-dom";
+import CustomerTable from '../components/CustomerTable';
 import Navbar from '../components/DashboardNav'
-import NewMember from '../components/NewMember'
-import { useNavigate } from 'react-router-dom'
-import AuthService from '../utils/auth'
 
-
-export default function AddMember() {
+export default function MemberView() {
     const navigate = useNavigate();
     const loggedIn = AuthService.loggedIn()
     console.log(loggedIn)
@@ -21,7 +20,7 @@ export default function AddMember() {
         <div>
             <CssBaseline />
             <Navbar />
-            <NewMember />
+            <CustomerTable />
         </div>
     )
 }
