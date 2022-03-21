@@ -7,12 +7,6 @@ const gymSchema = new Schema(
             required: true,
             trim: true
         },
-        gymEmail: {
-            type: String,
-            required: true,
-            unique: true,
-            match: [/.+@.+\..+/, 'Must match an email address!']
-        },
         ownerFirstName: {
             type: String,
             trim: true
@@ -25,6 +19,14 @@ const gymSchema = new Schema(
             type: String,
             required: true
         },
+        gymEmail: {
+            type: String,
+            required: true,
+            unique: true,
+            match: [/.+@.+\..+/, 'Must match an email address!']
+        },
+
+
         address: {
             type: String,
             required: true
@@ -40,6 +42,11 @@ const gymSchema = new Schema(
         state: {
             type: String,
             required: true
+        },
+        password: {
+            type: String,
+            required: true,
+            minLength: 8
         },
         employees: [
             {

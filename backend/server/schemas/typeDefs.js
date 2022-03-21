@@ -8,7 +8,7 @@ scalar Date
     type Gym {
         _id:ID
         gymName: String!
-        onwerFirstName: String
+        ownerFirstName: String
         ownerLastName: String
         phoneNumber: String!
         gymEmail: String!
@@ -36,16 +36,19 @@ scalar Date
         firstName: String!
         lastName: String!
         email: String!
-        age: Int 
-        zip: Int
         phoneNumber: String!
+        preferredName: String!
         createdBy:String!
         createdAt:Date!
+<<<<<<< HEAD
 <<<<<<< HEAD
         memberActive: Boolean
 =======
         preferredName: String!
 >>>>>>> develop
+=======
+        
+>>>>>>> bryan
     }
 
     type Query {
@@ -65,17 +68,44 @@ scalar Date
     
     type Mutation {
         initialEmployee(firstName: String!, lastName: String!, email: String!, phoneNumber: String!,password: String!): Auth
-        addEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Employee
+
+
+        newEmployee(firstName: String!, 
+        lastName: String!, 
+        email: String!,
+        phoneNumber:String! 
+        password: String!): Employee
+
+
         login(email: String!, password: String!): Auth
-        addMember(firstName: String!, lastName: String!, email: String!, phoneNumber:String!, preferredName: String!): Member
+
+
+        addMember(firstName: String!, 
+        lastName: String!, 
+        email: String!, 
+        phoneNumber:String!, 
+        preferredName: String!): Member
+
+
         updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, age: Int, zip: Int, phoneNumber: String): Member!
+
+
         deleteMember(email: String!): Member
-<<<<<<< HEAD
-        addGym( gymName: String!, gymEmail: String! phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!): Gym
+
         memberIsActive( memberActive: Boolean )
-=======
-        addGym( gymName: String!, gymEmail: String! phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!, ownerFirstName: String, ownerLastName: String): Gym
->>>>>>> develop
+
+
+
+        addGym( gymName: String!,
+            ownerFirstName: String!, 
+            ownerLastName: String!,
+            gymEmail: String!,
+            phoneNumber: String!, 
+            address:String!, 
+            city:String!, 
+            zip:String!, 
+            state:String!,
+            password:String! ): Gym
     }
     
 `

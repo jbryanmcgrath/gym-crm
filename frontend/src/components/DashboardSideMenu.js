@@ -68,6 +68,12 @@ const Sidebar = () => {
                                 Members
                             </SidebarListItem>
                         </Link>
+                        <Link to="/add-members" className="link">
+                            <SidebarListItem>
+                                <MyPermIdentity />
+                                Add Members
+                            </SidebarListItem>
+                        </Link>
                         <Link to="/scheduler" className="link">
                             <SidebarListItem>
                                 <MyStorefront />
@@ -87,10 +93,12 @@ const Sidebar = () => {
                             <MyWork />
                             Manage
                         </SidebarListItem>
-                        <SidebarListItem>
-                            < MyWork />
-                            Add
-                        </SidebarListItem>
+                        <Link to='/add-employee' className='link'>
+                            <SidebarListItem>
+                                < MyPermIdentity />
+                                Add
+                            </SidebarListItem>
+                        </Link>
                     </SidebarList>
                 </SidebarMenu>
             </SidebarWrapper>

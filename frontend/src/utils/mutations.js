@@ -13,9 +13,25 @@ export const MUTATION_INITIALEMPLOYEE = gql`mutation initialEmployee($firstName:
     }
   }
 `
-export const MUTATION_ADDGYM = gql`mutation addGym($gymName: String!, $gymEmail: String!, $phoneNumber: String!, $address: String!, $city: String!, $zip: String!, $state: String!) {
-  addGym(gymName: $gymName, gymEmail: $gymEmail, phoneNumber: $phoneNumber, address: $address, city: $city, zip: $zip, state: $state) {
-    gymName
+export const MUTATION_ADDGYM = gql`mutation addGym($gymName: String!, $ownerFirstName:STRING!,$ownerLastName:STRING!,$phoneNumber: String!, $gymEmail: String!,  $address: String!, $city: String!, $zip: String!, $state: String!, $password:String!) {
+  addGym(gymName: $gymName,          ownerFirstName:$ownerFirstName, ownerLastName:$ownerLastName,
+  phoneNumber: $phoneNumber, 
+  gymEmail: $gymEmail,  
+  address: $address, 
+  city: $city, 
+  zip: $zip, 
+  state: $state
+  password:$password) {
+      gymName
+      ownerFirstName  
+      ownerLastName
+      phoneNumber
+      gymEmail
+      address
+      city
+      zip
+      state
+      password
   }
 }`;
 
@@ -29,12 +45,13 @@ export const MUTATION_LOGIN = gql`mutation Login($email: String!, $password: Str
   }
 }`;
 
-export const MUTATION_ADDEMPLOYEE = gql`mutation addEmployee($firstName: String!, $lastName: String!, $email: String!, $password: String!) {
-  addEmployee(firstName: $firstName, lastName: $lastName, email: $email, password: $password) {
+export const MUTATION_NEWEMPLOYEE = gql `mutation newEmployee($firstName: String!, $lastName: String!, $email: String!, $phoneNumber: String!, $password: String!) {
+  newEmployee(firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password) {
     firstName
     lastName
     email
-    password
+    phoneNumber
+    _id
   }
 }`;
 
