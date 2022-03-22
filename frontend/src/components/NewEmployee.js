@@ -53,14 +53,9 @@ const UserButton = styled.button`
 
 const NewEmployee = () => {
     const navigate = useNavigate();
-    const [formState, setFormState] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        password: '',
-        admin: true
-    });
+    const [formState, setFormState] = useState(null);
+
+    console.log(formState)
 
     const [newEmployee, { error }] = useMutation(MUTATION_NEWEMPLOYEE);
 
@@ -74,25 +69,38 @@ const NewEmployee = () => {
         });
     };
 
+    const isTrue = (bol) => {
+        if (bol === 'true') {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    const handleRadio = (event) => {
+        const { name, value } = event.target;
+
+
+        setFormState({
+            ...formState,
+            [name]: isTrue(value)
+        });
+    };
+
     const handleFormSubmit = async (event) => {
         event.preventDefault()
 
         try {
             await newEmployee({
-                    variables: { ...formState }
-                });
-    
+                variables: { ...formState }
+            });
+
         } catch (e) {
             console.error(e);
         }
-        setFormState({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            password: '',
-            admin: true
-        });
+        setFormState(
+            null
+        );
         navigate('/dashboard')
     };
     return (
@@ -120,17 +128,23 @@ const NewEmployee = () => {
                     <input name='password' type="password" placeholder="password" onChange={handleChange} />
                 </UserItem>
                 <UserItem>
-                    <FormLabel id="demo-controlled-radio-buttons-group">Admin</FormLabel>
-                    <RadioGroup name='admin'onChange={handleChange}>
-                        <FormControlLabel value='1' control={<Radio/>} label="True" />
-                        <FormControlLabel value='2' control={<Radio/>} label="False" />
-                    </RadioGroup>
+                    <FormControl>
+                        <FormLabel id="demo-controlled-radio-buttons-group">Admin</FormLabel>
+                        <RadioGroup name='admin' onChange={handleRadio}>
+                            <FormControlLabel value={true} control={<Radio />} label="True"
+
+                            />
+                            <FormControlLabel value={false} control={<Radio />} label="False"
+
+                            />
+                        </RadioGroup>
+                    </FormControl>
                 </UserItem>
                 <UserButton>Create</UserButton>
             </UserForm>
         </TheList>
     )
-}
+};
 
 
-export default NewEmployee
+export default NewEmployee;
