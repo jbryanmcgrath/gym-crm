@@ -32,12 +32,15 @@ const resolvers = {
         employees: async () => {
             return Employee.find()
         },
-        member: async (_, { email }) => {
-            return Member.findOne({ email })
+        member: async (_, { email, memberActive }) => {
+            return Member.findOne({ email, memberActive })
         },
         members: async () => {
             return Member.find()
         },
+        memberPhone: async(_, {phoneNumber}) => {
+            return Member.findOne({phoneNumber})
+        }
     },
 
     Mutation: {
@@ -141,7 +144,17 @@ const resolvers = {
                 return member;
             }
             throw new AuthenticationError('You need to be logged in!');
+        },
+        memberIsActive: async (parent, { context }) => {
+
+            if (context.member) {
+                return Member.findOneAndUpdate({ memberActive: true })
+            }
+            else {
+                return false;
+            }
         }
+
     }
 };
 

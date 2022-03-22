@@ -46,6 +46,10 @@ const newMemberSchema = new Schema({
         type: Boolean,
         required: false,
         default: false
+    },
+    memberActive: {
+        type: Boolean,
+        default: false
     }
 });
 
