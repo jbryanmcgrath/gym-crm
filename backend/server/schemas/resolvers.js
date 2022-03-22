@@ -3,6 +3,7 @@ const Member = require("../models/Member");
 const Employee = require("../models/Employee");
 const { signToken } = require('../utils/auth');
 const Gym = require("../models/Gym")
+const Owner = require("../models/Owner")
 
 const resolvers = {
     Query: {
@@ -11,6 +12,7 @@ const resolvers = {
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
+                .populate('owner')
         },
         employee: async (parent, { email }) => {
             return Employee.findOne({ email })
@@ -21,7 +23,7 @@ const resolvers = {
         gymMembers: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee.gym) {
-            const gym = await Gym.findOne({ _id: currentEmployee.gym })
+                const gym = await Gym.findOne({ _id: currentEmployee.gym })
                 return Gym.findOne({ _id: gym._id })
                     .select('-__v')
                     .populate('members')
@@ -39,16 +41,16 @@ const resolvers = {
     },
 
     Mutation: {
-        initialEmployee: async (parent, args) => {
-            const employee = await Employee.create(args);
-            const token = signToken(employee);
+        owner: async (parent, args) => {
+            const owner = await Employee.create({...args, owner: true });
+            const token = signToken(owner);
 
-            return { token, employee };
+            return { token, owner };
         },
         addGym: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
-            if (currentEmployee) {
-                const newGym = await Gym.create({ ...args, ownerFirstName: currentEmployee.firstName, ownerLastName: currentEmployee.lastName });
+            if (currentEmployee.owner) {
+                const newGym = await Gym.create({ ...args, owner: currentEmployee._id });
 
                 await Employee.findByIdAndUpdate(
                     { _id: context.employee._id },
@@ -61,11 +63,14 @@ const resolvers = {
                     { $push: { employees: currentEmployee._id } },
                     { new: true }
                 )
+
+
                 return newGym;
             }
         },
-        addEmployee: async (parent, args, context) => {
+        newEmployee: async (parent, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            console.log(currentEmployee);
 
             if (currentEmployee && currentEmployee.admin) {
                 const newEmployee = await Employee.create(args);
@@ -89,7 +94,6 @@ const resolvers = {
         },
         login: async (parent, { email, password }) => {
             const employee = await Employee.findOne({ email });
-
             if (!employee) {
                 throw new AuthenticationError('Incorrect Credentials Provided')
             }

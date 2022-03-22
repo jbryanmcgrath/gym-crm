@@ -42,7 +42,12 @@ const employeeSchema = new Schema(
     admin: {
       type: Boolean,
       default: true
-    }
+    },
+    owner: {
+      type: Boolean,
+      required: false,
+      default: false
+  }
   },
   {
     toJSON: {

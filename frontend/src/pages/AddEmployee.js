@@ -1,12 +1,12 @@
 import { CssBaseline } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import Navbar from '../components/DashboardNav'
-import NewMember from '../components/NewMember'
+import NewEmployee from '../components/NewEmployee'
 import { useNavigate } from 'react-router-dom'
 import AuthService from '../utils/auth'
 
 
-export default function AddMember() {
+export default function AddEmployee() {
     const navigate = useNavigate();
     const loggedIn = AuthService.loggedIn()
     console.log(loggedIn)
@@ -18,10 +18,10 @@ export default function AddMember() {
 
 
     return (
-        <div>
+        < div >
             <CssBaseline />
             <Navbar />
-            <NewMember />
-        </div>
+            <NewEmployee />
+        </div >
     )
 }

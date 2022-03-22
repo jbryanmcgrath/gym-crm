@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Grid, Paper, Avatar, Typography, TextField, Button } from '@material-ui/core'
 import AddCircleOutlineOutlinedIcon from '@material-ui/icons/AddCircleOutlineOutlined';
 import { useMutation } from '@apollo/client'
-import { MUTATION_OWNER } from '../utils/mutations';
+import { MUTATION_GYMINFO } from '../utils/mutations';
 import Auth from '../utils/auth';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,14 +16,14 @@ const Signup = () => {
 
 
     const [formState, setFormState] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        password: ''
+        gymName: '',
+        address: '',
+        city: '',
+        zip: '',
+        state: ''
     });
 
-    const [owner, { error }] = useMutation(MUTATION_OWNER);
+    const [gymInfo, { error }] = useMutation(MUTATION_GYMINFO);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -38,23 +38,22 @@ const Signup = () => {
         event.preventDefault();
         console.log(formState)
         try {
-            const { data } = await owner({
+            const { data } = await gymInfo({
                 variables: { ...formState }
             });
 
-            Auth.login(data.owner.token);
         } catch (e) {
             console.error(e);
         }
         setFormState({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            password: ''
+            gymName: '',
+            address: '',
+            city: '',
+            zip: '',
+            state: ''
 
         });
-        navigate("/gym-info")
+        navigate("/dashboard")
     };
 
     return (
@@ -64,32 +63,32 @@ const Signup = () => {
                     <Avatar style={avatarStyle}>
                         <AddCircleOutlineOutlinedIcon />
                     </Avatar>
-                    <h2 style={headerStyle}>Sign Up</h2>
-                    <Typography variant='caption' gutterBottom>Please fill this form to start an account!</Typography>
+                    <h2 style={headerStyle}>Gym Info</h2>
+                    <Typography variant='caption' gutterBottom>Please enter your gym information to finish creating an account !</Typography>
                 </Grid>
                 <form onSubmit={handleFormSubmit}>
                     {/* <TextField fullWidth name='gymName' label='Name of Gym' placeholder='Enter your Gym name' onChange={handleChange} /> */}
 
-                    <TextField fullWidth name='firstName' label='First Name' placeholder="Enter your first name" onChange={handleChange} />
+                    <TextField fullWidth name='gymName' label='Gym Name' placeholder="Enter your gym's name" onChange={handleChange} />
 
-                    <TextField fullWidth name='lastName' label='Last Name' placeholder="Enter your last name" onChange={handleChange} />
+                    <TextField fullWidth name='address' label='Street Address' placeholder="Enter your stree address" onChange={handleChange} />
 
-                    <TextField fullWidth name='email' label='Email' placeholder="Enter your gym email" onChange={handleChange} />
+                    {/* <TextField fullWidth name='email' label='Email' placeholder="Enter your gym email" onChange={handleChange} />
 
-                    <TextField fullWidth name='phoneNumber' label='Phone Number' placeholder="Enter gym phone number" onChange={handleChange} />
+                    <TextField fullWidth name='phoneNumber' label='Phone Number' placeholder="Enter gym phone number" onChange={handleChange} /> */}
 
 
                     {/* <TextField fullWidth name='address' label='Address' placeholder="Enter your gym address" onChange={handleChange} /> */}
 
-                    {/* <TextField fullWidth name='city' label='City' placeholder="Enter the city" onChange={handleChange} />
+                    <TextField fullWidth name='city' label='City' placeholder="Enter the city" onChange={handleChange} />
 
                     <TextField fullWidth name='zip' label='Zip' placeholder="Enter the zip" onChange={handleChange} />
 
-                    <TextField fullWidth name='state' label='State' placeholder="Enter the State" onChange={handleChange} /> */}
+                    <TextField fullWidth name='state' label='State' placeholder="Enter the State" onChange={handleChange} />
 
-                    <TextField fullWidth name='password' label='Password' placeholder="Enter your password" onChange={handleChange} />
+                    {/* <TextField fullWidth name='password' label='Password' placeholder="Enter your password" onChange={handleChange} /> */}
 
-                    <Button type='submit' variant='contained' color='primary' >Sign up</Button>
+                    <Button type='submit' variant='contained' color='primary' >Create Account</Button>
                 </form>
 
                 {error && <div>Signup Failed</div>}

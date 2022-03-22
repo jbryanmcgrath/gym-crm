@@ -23,9 +23,9 @@ module.exports = {
 
         try {
 
-        // decode and attach user data to request object
-        const { data } = jwt.verify(token, secret, { maxAge: expiration });
-        req.employee = data;
+            // decode and attach user data to request object
+            const { data } = jwt.verify(token, secret, { maxAge: expiration });
+            req.employee = data;
         } catch {
             console.log('Invalid token');
         }
@@ -34,8 +34,8 @@ module.exports = {
         return req;
     },
 
-    
-    signToken: function({ email, _id }) {
+
+    signToken: function ({ email, _id }) {
         const payload = { email, _id };
 
 
