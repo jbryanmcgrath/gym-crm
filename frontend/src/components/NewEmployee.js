@@ -53,14 +53,9 @@ const UserButton = styled.button`
 
 const NewEmployee = () => {
     const navigate = useNavigate();
-    const [formState, setFormState] = useState({
-        firstName: '',
-        lastName: '',
-        email: '',
-        phoneNumber: '',
-        password: '',
-        admin: true
-    });
+    const [formState, setFormState] = useState(null);
+
+    console.log(formState)
 
     const [newEmployee, { error }] = useMutation(MUTATION_NEWEMPLOYEE);
 
@@ -74,6 +69,23 @@ const NewEmployee = () => {
         });
     };
 
+    const isTrue = (bol) => {
+        if (bol === 'true') {
+            return true
+        } else {
+            return false
+        }
+    }
+
+    const handleRadio = (event) => {
+        const { name, value } = event.target;
+
+
+        setFormState({
+            ...formState,
+            [name]: isTrue(value)
+        });
+    };
 
     const handleFormSubmit = async (event) => {
         event.preventDefault()
@@ -86,14 +98,9 @@ const NewEmployee = () => {
         } catch (e) {
             console.error(e);
         }
-        setFormState({
-            firstName: '',
-            lastName: '',
-            email: '',
-            phoneNumber: '',
-            password: '',
-            admin: true
-        });
+        setFormState(
+            null
+        );
         navigate('/dashboard')
     };
     return (
@@ -123,9 +130,13 @@ const NewEmployee = () => {
                 <UserItem>
                     <FormControl>
                         <FormLabel id="demo-controlled-radio-buttons-group">Admin</FormLabel>
-                        <RadioGroup name='admin' onChange={handleChange}>
-                            <FormControlLabel value='true' control={<Radio />} label="True" />
-                            <FormControlLabel value='false' control={<Radio />} label="False" />
+                        <RadioGroup name='admin' onChange={handleRadio}>
+                            <FormControlLabel value={true} control={<Radio />} label="True"
+
+                            />
+                            <FormControlLabel value={false} control={<Radio />} label="False"
+
+                            />
                         </RadioGroup>
                     </FormControl>
                 </UserItem>
