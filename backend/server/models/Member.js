@@ -41,6 +41,11 @@ const newMemberSchema = new Schema({
     assignedTrainer: {
         type: Schema.Types.ObjectId,
         required: false,
+    },
+    owner: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 });
 

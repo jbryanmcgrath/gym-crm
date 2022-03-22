@@ -5,6 +5,11 @@ import { useMutation } from '@apollo/client';
 import { MUTATION_NEWEMPLOYEE } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';
 import Auth from '../utils/auth';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 const UserForm = styled.form`
     display: flex;
@@ -53,7 +58,8 @@ const NewEmployee = () => {
         lastName: '',
         email: '',
         phoneNumber: '',
-        password: ''
+        password: '',
+        admin: true
     });
 
     const [newEmployee, { error }] = useMutation(MUTATION_NEWEMPLOYEE);
@@ -84,7 +90,8 @@ const NewEmployee = () => {
             lastName: '',
             email: '',
             phoneNumber: '',
-            password: ''
+            password: '',
+            admin: true
         });
         navigate('/dashboard')
     };
@@ -111,6 +118,13 @@ const NewEmployee = () => {
                 <UserItem >
                     <label>Password</label>
                     <input name='password' type="password" placeholder="password" onChange={handleChange} />
+                </UserItem>
+                <UserItem>
+                    <FormLabel id="demo-controlled-radio-buttons-group">Admin</FormLabel>
+                    <RadioGroup name='admin'onChange={handleChange}>
+                        <FormControlLabel value='1' control={<Radio/>} label="True" />
+                        <FormControlLabel value='2' control={<Radio/>} label="False" />
+                    </RadioGroup>
                 </UserItem>
                 <UserButton>Create</UserButton>
             </UserForm>

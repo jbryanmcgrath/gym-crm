@@ -42,7 +42,6 @@ const Signup = () => {
                 variables: { ...formState }
             });
 
-            Auth.login(data.owner.token);
         } catch (e) {
             console.error(e);
         }

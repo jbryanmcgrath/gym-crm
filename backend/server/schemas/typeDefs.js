@@ -34,6 +34,7 @@ scalar Date
         phoneNumber:String!
         gym: Gym
         clients: [Member]
+        admin: Boolean
     }
 
     type Member {
@@ -73,7 +74,8 @@ scalar Date
         lastName: String!, 
         email: String!,
         phoneNumber:String! 
-        password: String!): Employee
+        password: String!,
+        admin: Boolean!): Employee
 
         ownerLogin(email:String!, password:String!):Auth
         login(email: String!, password: String!): Auth

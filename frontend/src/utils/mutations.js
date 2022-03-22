@@ -17,15 +17,7 @@ mutation addGym($gymName: String!, $address: String!, $city: String!, $zip: Stri
     zip
     state
   }
-}
-`
-
-export const MUTATION_OWNERLOGIN = gql`mutation ownerLogin($email: String!, $password: String!) {
-  ownerLogin(email: $email, password: $password) {
-    token
-  }
-}
-`
+}`;
 
 export const MUTATION_LOGIN = gql`mutation Login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
@@ -37,13 +29,14 @@ export const MUTATION_LOGIN = gql`mutation Login($email: String!, $password: Str
   }
 }`;
 
-export const MUTATION_NEWEMPLOYEE = gql`mutation newEmployee($firstName: String!, $lastName: String!, $email: String!, $phoneNumber: String!, $password: String!) {
-  newEmployee(firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password) {
+export const MUTATION_NEWEMPLOYEE = gql`mutation newEmployee($firstName: String!, $lastName: String!, $email: String!, $phoneNumber: String!, $password: String!, $admin: Boolean!) {
+  newEmployee(firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, password: $password, admin: $admin) {
+    _id
     firstName
     lastName
     email
     phoneNumber
-    _id
+    admin
   }
 }`;
 
