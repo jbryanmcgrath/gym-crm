@@ -119,15 +119,6 @@ const NewEmployee = () => {
                     <label>Password</label>
                     <input name='password' type="password" placeholder="password" onChange={handleChange} />
                 </UserItem>
-                <UserItem>
-                    <FormControl>
-                    <FormLabel id="demo-controlled-radio-buttons-group">Admin</FormLabel>
-                    <RadioGroup name='admin'onChange={handleChange}>
-                        <FormControlLabel value='1' control={<Radio/>} label="True" />
-                        <FormControlLabel value='2' control={<Radio/>} label="False" />
-                    </RadioGroup>
-                    </FormControl>
-                </UserItem>
                 <UserButton>Create</UserButton>
             </UserForm>
         </TheList>
@@ -135,4 +126,4 @@ const NewEmployee = () => {
 };
 
 
-export default NewEmployee
+export default NewEmployee;
