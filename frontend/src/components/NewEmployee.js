@@ -128,11 +128,6 @@ const NewEmployee = () => {
                     <input name='password' type="password" placeholder="password" onChange={handleChange} />
                 </UserItem>
                 <UserItem>
-<<<<<<< HEAD
-                    <label>Would you like to make this employee an admin?</label>
-                    <Radio onChange={handleChange} value="true" name="admin" label="yes"></Radio>
-                    <Radio onChange={handleChange} value="false" name="admin" label="no"></Radio> 
-=======
                     <FormControl>
                         <FormLabel id="demo-controlled-radio-buttons-group">Admin</FormLabel>
                         <RadioGroup name='admin' onChange={handleRadio}>
@@ -144,7 +139,6 @@ const NewEmployee = () => {
                             />
                         </RadioGroup>
                     </FormControl>
->>>>>>> 7265508d04b8445adb602c91ce7520f69822bf95
                 </UserItem>
                 <UserButton>Create</UserButton>
             </UserForm>
