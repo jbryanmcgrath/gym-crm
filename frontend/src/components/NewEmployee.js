@@ -74,14 +74,15 @@ const NewEmployee = () => {
         });
     };
 
+
     const handleFormSubmit = async (event) => {
         event.preventDefault()
 
         try {
             await newEmployee({
-                    variables: { ...formState }
-                });
-    
+                variables: { ...formState }
+            });
+
         } catch (e) {
             console.error(e);
         }
@@ -121,11 +122,11 @@ const NewEmployee = () => {
                 </UserItem>
                 <UserItem>
                     <FormControl>
-                    <FormLabel id="demo-controlled-radio-buttons-group">Admin</FormLabel>
-                    <RadioGroup name='admin'onChange={handleChange}>
-                        <FormControlLabel value='1' control={<Radio/>} label="True" />
-                        <FormControlLabel value='2' control={<Radio/>} label="False" />
-                    </RadioGroup>
+                        <FormLabel id="demo-controlled-radio-buttons-group">Admin</FormLabel>
+                        <RadioGroup name='admin' onChange={handleChange}>
+                            <FormControlLabel value='true' control={<Radio />} label="True" />
+                            <FormControlLabel value='false' control={<Radio />} label="False" />
+                        </RadioGroup>
                     </FormControl>
                 </UserItem>
                 <UserButton>Create</UserButton>
