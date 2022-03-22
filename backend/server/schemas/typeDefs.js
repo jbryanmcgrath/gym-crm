@@ -75,7 +75,7 @@ scalar Date
         email: String!,
         phoneNumber:String! 
         password: String!,
-        admin: Boolean!): Employee
+        admin: Boolean): Employee
 
         ownerLogin(email:String!, password:String!):Auth
         login(email: String!, password: String!): Auth
