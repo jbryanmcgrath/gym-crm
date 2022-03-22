@@ -74,14 +74,15 @@ const NewEmployee = () => {
         });
     };
 
+
     const handleFormSubmit = async (event) => {
         event.preventDefault()
 
         try {
             await newEmployee({
-                    variables: { ...formState }
-                });
-    
+                variables: { ...formState }
+            });
+
         } catch (e) {
             console.error(e);
         }
@@ -118,6 +119,11 @@ const NewEmployee = () => {
                 <UserItem >
                     <label>Password</label>
                     <input name='password' type="password" placeholder="password" onChange={handleChange} />
+                </UserItem>
+                <UserItem>
+                    <label>Would you like to make this employee an admin?</label>
+                    <Radio onChange={handleChange} value="true" name="admin" label="yes"></Radio>
+                    <Radio onChange={handleChange} value="false" name="admin" label="no"></Radio> 
                 </UserItem>
                 <UserButton>Create</UserButton>
             </UserForm>
