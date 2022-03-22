@@ -85,7 +85,7 @@ scalar Date
         phoneNumber:String!, 
         preferredName: String!): Member
 
-        updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, phoneNumber: String): Member!
+        updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, phoneNumber: String, preferredName: String): Member!
 
         deleteMember(email: String!): Member
 
