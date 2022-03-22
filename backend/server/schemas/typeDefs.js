@@ -69,7 +69,6 @@ scalar Date
     type Mutation {
         owner(firstName: String!, lastName: String!, email: String!, phoneNumber: String!,password: String!): Auth
 
-
         newEmployee(firstName: String!, 
         lastName: String!, 
         email: String!,
@@ -80,19 +79,19 @@ scalar Date
         ownerLogin(email:String!, password:String!):Auth
         login(email: String!, password: String!): Auth
 
-
         addMember(firstName: String!, 
         lastName: String!, 
         email: String!, 
         phoneNumber:String!, 
         preferredName: String!): Member
 
-
-        updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, age: Int, zip: Int, phoneNumber: String): Member!
-
+        updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, phoneNumber: String): Member!
 
         deleteMember(email: String!): Member
 
+        updateEmployee(firstName: String, lastName: String, email: String, phoneNumber: String, updatedEmail: String password: String, admin: Boolean): Employee!
+
+        deleteEmployee(email: String!): Employee
 
         addGym( gymName: String!, 
             address:String!, 

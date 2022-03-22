@@ -127,7 +127,8 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
         updateMember: async (_, args, context) => {
-            if (context.employee) {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee) {
                 const updates = args.updatedEmail ? {
                     ...args,
                     email: args.updatedEmail
@@ -136,12 +137,31 @@ const resolvers = {
             }
         },
         deleteMember: async (_, args, context) => {
-            if (context.employee) {
-                const member = await Member.findOneAndDelete(args);
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee) {
+                const member = await Member.findOneAndDelete({ email: args.email });
                 return member;
             }
-            throw new AuthenticationError('You need to be logged in!');
-        }
+            throw new AuthenticationError('You need to be an admin to perform this task!');
+        },
+        updateEmployee: async (_, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee && currentEmployee.admin) {
+                const updates = args.updatedEmail ? {
+                    ...args,
+                    email: args.updatedEmail
+                } : { ...args }
+                return Employee.findOneAndUpdate({ email: args.email }, updates, { new: true })
+            }
+        },
+        deleteEmployee: async (_, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee && currentEmployee.admin) {
+                const employee = await Employee.findOneAndDelete({ email: args.email });
+                return employee;
+            }
+            throw new AuthenticationError('You need to be an admin to perform this task!');
+        },
     }
 };
 
