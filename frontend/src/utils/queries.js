@@ -22,7 +22,7 @@ query Query {
             firstName
             lastName
             phoneNumber
-            createdBy
+            createdAt
             preferredName
             email
         }
