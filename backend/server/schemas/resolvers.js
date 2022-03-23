@@ -24,7 +24,7 @@ const resolvers = {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee.gym) {
                 const gym = await Gym.findOne({ _id: currentEmployee.gym })
-                return Gym.findOne({ _id: gym._id })
+                return Gym.findOne({ _id: gym })
                     .select('-__v')
                     .populate('members')
             }
@@ -33,7 +33,7 @@ const resolvers = {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee.gym) {
                 const gym = await Gym.findOne({ _id: currentEmployee.gym })
-                return Gym.findOne({ _id: gym._id })
+                return Gym.findOne({ _id: gym })
                     .select('-__v')
                     .populate('employees')
             }
