@@ -24,9 +24,18 @@ const resolvers = {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee.gym) {
                 const gym = await Gym.findOne({ _id: currentEmployee.gym })
-                return Gym.findOne({ _id: gym._id })
+                return Gym.findOne({ _id: gym })
                     .select('-__v')
                     .populate('members')
+            }
+        },
+        gymEmployees: async (parent, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee.gym) {
+                const gym = await Gym.findOne({ _id: currentEmployee.gym })
+                return Gym.findOne({ _id: gym })
+                    .select('-__v')
+                    .populate('employees')
             }
         },
         employees: async () => {
@@ -127,7 +136,8 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
         },
         updateMember: async (_, args, context) => {
-            if (context.employee) {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee) {
                 const updates = args.updatedEmail ? {
                     ...args,
                     email: args.updatedEmail
@@ -136,12 +146,32 @@ const resolvers = {
             }
         },
         deleteMember: async (_, args, context) => {
-            if (context.employee) {
-                const member = await Member.findOneAndDelete(args);
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee) {
+                const member = await Member.findOneAndDelete({ email: args.email });
                 return member;
             }
             throw new AuthenticationError('You need to be logged in!');
-        }
+        },
+        updateEmployee: async (_, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee && currentEmployee.admin) {
+                const updates = args.updatedEmail ? {
+                    ...args,
+                    email: args.updatedEmail
+                } : { ...args }
+                return Employee.findOneAndUpdate({ email: args.email }, updates, { new: true })
+            }
+            throw new AuthenticationError('You need to be an admin to perform this task!');
+        },
+        deleteEmployee: async (_, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee && currentEmployee.admin) {
+                const employee = await Employee.findOneAndDelete({ email: args.email });
+                return employee;
+            }
+            throw new AuthenticationError('You need to be an admin to perform this task!');
+        },
     }
 };
 

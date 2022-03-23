@@ -84,7 +84,7 @@ const NewMember = () => {
             lastName: '',
             email: '',
             phoneNumber: '',
-            preferredName: ''
+            preferredName: '',
         })
         navigate('/dashboard')
     };

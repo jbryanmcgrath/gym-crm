@@ -1,5 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import {
     Table,
     TableBody,
@@ -12,20 +14,28 @@ import {
     Grid,
     Typography,
     TablePagination,
-    TableFooter
+    TableFooter, IconButton
 } from '@material-ui/core';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
 import { QUERY_MEMBERS } from '../utils/queries';
+import { Autorenew } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
-    table: {
 
-    },
     tableContainer: {
         borderRadius: 15,
         margin: '10px 10px',
-        maxWidth: 950
+        maxWidth: "auto",
+        alignItems: "center"
+
+
+    },
+    tableHeaderCellName: {
+        fontWeight: 'bold',
+        backgroundColor: theme.palette.primary.dark,
+        color: theme.palette.getContrastText(theme.palette.primary.dark),
+        paddingLeft: "120px"
     },
     tableHeaderCell: {
         fontWeight: 'bold',
@@ -34,173 +44,24 @@ const useStyles = makeStyles((theme) => ({
     },
     avatar: {
         backgroundColor: theme.palette.primary.light,
-        color: theme.palette.getContrastText(theme.palette.primary.light)
+        color: theme.palette.getContrastText(theme.palette.primary.light),
+        marginRight: "50px"
     },
     name: {
         fontWeight: 'bold',
         color: theme.palette.secondary.dark
     },
-    status: {
-        fontWeight: 'bold',
-        fontSize: '0.75rem',
-        color: 'white',
-        backgroundColor: 'grey',
-        borderRadius: 8,
-        padding: '3px 10px',
-        display: 'inline-block'
+    spacingForIcons: {
+        justifyContent: "true"
     }
 }));
 
-// const MEMBERS = [{
-//     "firstName": "1 Bryan",
-//     "lastName": "McGrath",
-//     "email": "jbryanmcgrath@gmail.com",
-//     "phoneNumber": "5416997799",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Bryan",
-//     "joinDate": "01/01/2022"
-// },
-// {
-//     "firstName": "2 Coleman",
-//     "lastName": "Legget",
-//     "email": "coleleg@gmail.com",
-//     "phoneNumber": "1111111111",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Coleman",
-//     "joinDate": "01/15/2022"
-// },
-// {
-//     "firstName": "3 Dennis",
-//     "lastName": "Khasperkov",
-//     "email": "dennis11@live.com",
-//     "phoneNumber": "5433333333",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Dennis",
-//     "joinDate": "01/16/2022"
-// },
-// {
-//     "firstName": "4 Sarah",
-//     "lastName": "Wesley",
-//     "email": "swesly@live.com",
-//     "phoneNumber": "5433332222",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Sarah",
-//     "joinDate": "04/16/2000"
-// },
-// {
-//     "firstName": "5 Bryan",
-//     "lastName": "McGrath",
-//     "email": "jbryanmcgrath@gmail.com",
-//     "phoneNumber": "5416997799",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Sarah",
-//     "joinDate": "01/01/2022"
-// },
-// {
-//     "firstName": "6 Coleman",
-//     "lastName": "Legget",
-//     "email": "coleleg@gmail.com",
-//     "phoneNumber": "1111111111",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Coleman",
-//     "joinDate": "01/15/2022"
-// },
-// {
-//     "firstName": "7 Dennis",
-//     "lastName": "Khasperkov",
-//     "email": "dennis11@live.com",
-//     "phoneNumber": "5433333333",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Dennis",
-//     "joinDate": "01/16/2022"
-// },
-// {
-//     "firstName": "8 Sarah",
-//     "lastName": "Wesley",
-//     "email": "swesly@live.com",
-//     "phoneNumber": "5433332222",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Sarah",
-//     "joinDate": "04/16/2000"
-// }, {
-//     "firstName": "9 Bryan",
-//     "lastName": "McGrath",
-//     "email": "jbryanmcgrath@gmail.com",
-//     "phoneNumber": "5416997799",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "bryan",
-//     "joinDate": "01/01/2022"
-// },
-// {
-//     "firstName": "10 Coleman",
-//     "lastName": "Legget",
-//     "email": "coleleg@gmail.com",
-//     "phoneNumber": "1111111111",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Coleman",
-//     "joinDate": "01/15/2022"
-// },
-// {
-//     "firstName": "11 Dennis",
-//     "lastName": "Khasperkov",
-//     "email": "dennis11@live.com",
-//     "phoneNumber": "5433333333",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Sarah",
-//     "joinDate": "01/16/2022"
-// },
-// {
-//     "firstName": "12 Sarah",
-//     "lastName": "Wesley",
-//     "email": "swesly@live.com",
-//     "phoneNumber": "5433332222",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Sarah",
-//     "joinDate": "04/16/2000"
-// }, {
-//     "firstName": "13 Bryan",
-//     "lastName": "McGrath",
-//     "email": "jbryanmcgrath@gmail.com",
-//     "phoneNumber": "5416997799",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Sarah",
-//     "joinDate": "01/01/2022"
-// },
-// {
-//     "firstName": "14 Coleman",
-//     "lastName": "Legget",
-//     "email": "coleleg@gmail.com",
-//     "phoneNumber": "1111111111",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Sarah",
-//     "joinDate": "01/15/2022"
-// },
-// {
-//     "firstName": "15 Dennis",
-//     "lastName": "Khasperkov",
-//     "email": "dennis11@live.com",
-//     "phoneNumber": "5433333333",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Sarah",
-//     "joinDate": "01/16/2022"
-// },
-// {
-//     "firstName": "16 Sarah",
-//     "lastName": "Wesley",
-//     "email": "swesly@live.com",
-//     "phoneNumber": "5433332222",
-//     "createdBy": "jm707d@gmail.com",
-//     "preferredName": "Sarah",
-//     "joinDate": "04/16/2000"
-// }
-
-// ]
 
 
 function CustomerTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(5);
+    const [rowsPerPage, setRowsPerPage] = React.useState(15);
 
     const { loading, data } = useQuery(QUERY_MEMBERS);
 
@@ -218,50 +79,49 @@ function CustomerTable() {
             <Table className={classes.table} aria-label="simple table">
                 <TableHead>
                     <TableRow>
-                        <TableCell className={classes.tableHeaderCell}>Member Info</TableCell>
-                        <TableCell className={classes.tableHeaderCell}>Assigned Trainer</TableCell>
+                        <TableCell className={classes.tableHeaderCellName}> Member</TableCell>
+                        <TableCell className={classes.tableHeaderCell}>Contact Info</TableCell>
                         <TableCell className={classes.tableHeaderCell}>Joining Date</TableCell>
-                        <TableCell className={classes.tableHeaderCell}>Status</TableCell>
+                        <TableCell className={classes.tableHeaderCell}>Edit/Delete</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {loading ? <div>Loading Data</div> :  data.gymMembers.members.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                    {loading ? <div>Loading Data</div> : data.gymMembers.members.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                         <TableRow key={row.firstName}>
                             <TableCell>
                                 <Grid container>
                                     <Grid item lg={2}>
                                         <Avatar alt={row.firstName} src='.' className={classes.avatar} />
                                     </Grid>
-                                    <Grid item lg={10}>
-                                        <Typography className={classes.name}>{row.firstName}</Typography>
-                                        <Typography className={classes.name}>{row.lastName}</Typography>
-                                        <Typography color="textSecondary" variant="body2">{row.email}</Typography>
-                                        <Typography color="textSecondary" variant="body2">{row.phoneNumber}</Typography>
+                                    <Grid item lg={4}>
+                                        <Typography className={classes.name}>{row.firstName}   {row.lastName}</Typography>
+                                        {/* <Typography className={classes.name}>{row.lastName}</Typography> */}
+                                        <Typography color="textSecondary" variant="body2">Preferred Name :  {row.preferredName}</Typography>
+
                                     </Grid>
                                 </Grid>
                             </TableCell>
                             <TableCell>
-                                <Typography color="primary" variant="subtitle2">{row.createdBy}</Typography>
-                                <Typography color="textSecondary" variant="body2">Preferred Name :<br></br>{row.preferredName}</Typography>
+                                <Typography color="primary" variant="subtitle2">{row.email}</Typography>
+                                <Typography color="textSecondary" variant="body2">{row.phoneNumber}</Typography>
                             </TableCell>
-                            <TableCell>{row.joinDate}</TableCell>
+                            <TableCell>{row.createdAt}</TableCell>
                             <TableCell>
                                 <Typography
-                                    className={classes.status}
-                                    style={{
-                                        backgroundColor:
-                                            ((row.status === 'Active' && 'green') ||
-                                                (row.status === 'Pending' && 'blue') ||
-                                                (row.status === 'Blocked' && 'orange'))
-                                    }}
-                                >{row.status}</Typography>
+                                ><IconButton aria-label="delete">
+                                        <DeleteIcon />
+                                    </IconButton>
+                                    <IconButton aria-label="edit">
+                                        <EditIcon />
+                                    </IconButton>
+                                </Typography>
                             </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
                 <TableFooter>
                     <TablePagination
-                        rowsPerPageOptions={[5, 10, 15]}
+                        rowsPerPageOptions={[15, 30, 45]}
                         component="div"
                         count={loading ? 0 : data.gymMembers.members.length}
                         rowsPerPage={rowsPerPage}
