@@ -89,10 +89,12 @@ const Sidebar = () => {
                 <SidebarMenu>
                     <SidebarTitle>Employees</SidebarTitle>
                     <SidebarList>
-                        <SidebarListItem>
-                            <MyWork />
-                            Manage
-                        </SidebarListItem>
+                        <Link to='/employees' className='link'>
+                            <SidebarListItem>
+                                <MyWork />
+                                Manage
+                            </SidebarListItem>
+                        </Link>
                         <Link to='/add-employee' className='link'>
                             <SidebarListItem>
                                 < MyPermIdentity />

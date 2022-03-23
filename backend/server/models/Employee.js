@@ -47,7 +47,7 @@ const employeeSchema = new Schema(
       type: Boolean,
       required: false,
       default: false
-  }
+    }
   },
   {
     toJSON: {
