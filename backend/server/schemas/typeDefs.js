@@ -46,7 +46,7 @@ scalar Date
         preferredName: String!
         createdBy:String!
         createdAt:Date!
-        memberActive: boolean
+        memberActive: Boolean
         
     }
 
@@ -57,7 +57,7 @@ scalar Date
         gymEmployees: Gym
         employee(email: String!): Employee
         employees: [Employee]
-        member(email:String!, phoneNumber:String): Member
+        member(email:String!): Member
         members: [Member]
         owner(phoneNumber: String!): Gym
     }

@@ -41,8 +41,8 @@ const resolvers = {
         employees: async () => {
             return Employee.find()
         },
-        member: async (_, { email, phoneNumber, memberActive }) => {
-            return Member.findOne({ email, phoneNumber, memberActive })
+        member: async (_, { email }) => {
+            return Member.findOne({ email })
         },
         members: async () => {
             return Member.find()
