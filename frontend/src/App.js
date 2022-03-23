@@ -15,6 +15,7 @@ import AddEmployee from './pages/AddEmployee';
 import ViewMembers from './pages/ViewMembers'
 import GymInfo from './components/GymInfo'
 import UserAnalysis from './components/UserAnalysis';
+import MemberCheckin from './components/MemberCheckin';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -65,6 +66,7 @@ export default function App() {
               <Route path="/add-members" element={<AddMember />} />
               <Route path="/add-employee" element={<AddEmployee />} />
               <Route path="/user-analysis" element={<UserAnalysis />} />
+              <Route path="/member-checkin" element={<MemberCheckin />} />
             </Routes>
           </BrowserRouter>
         </GlobalProvider>
