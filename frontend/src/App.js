@@ -14,7 +14,7 @@ import AuthService from './utils/auth'
 import AddEmployee from './pages/AddEmployee';
 import ViewMembers from './pages/ViewMembers'
 import GymInfo from './components/GymInfo'
-
+import UserAnalysis from './components/UserAnalysis';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -64,6 +64,7 @@ export default function App() {
               <Route path="/members" element={<ViewMembers />} />
               <Route path="/add-members" element={<AddMember />} />
               <Route path="/add-employee" element={<AddEmployee />} />
+              <Route path="/user-analysis" element={<UserAnalysis />} />
             </Routes>
           </BrowserRouter>
         </GlobalProvider>
