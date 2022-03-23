@@ -29,6 +29,15 @@ const resolvers = {
                     .populate('members')
             }
         },
+        gymEmployees: async (parent, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if (currentEmployee.gym) {
+                const gym = await Gym.findOne({ _id: currentEmployee.gym })
+                return Gym.findOne({ _id: gym._id })
+                    .select('-__v')
+                    .populate('employees')
+            }
+        },
         employees: async () => {
             return Employee.find()
         },
@@ -142,7 +151,7 @@ const resolvers = {
                 const member = await Member.findOneAndDelete({ email: args.email });
                 return member;
             }
-            throw new AuthenticationError('You need to be an admin to perform this task!');
+            throw new AuthenticationError('You need to be logged in!');
         },
         updateEmployee: async (_, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
@@ -153,6 +162,7 @@ const resolvers = {
                 } : { ...args }
                 return Employee.findOneAndUpdate({ email: args.email }, updates, { new: true })
             }
+            throw new AuthenticationError('You need to be an admin to perform this task!');
         },
         deleteEmployee: async (_, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });

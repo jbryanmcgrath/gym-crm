@@ -53,6 +53,7 @@ scalar Date
         gym(phoneNumber: String!): Gym
         gyms: [Gym]
         gymMembers: Gym
+        gymEmployees: Gym
         employee(email: String!): Employee
         employees: [Employee]
         member(email:String!): Member
