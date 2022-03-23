@@ -27,7 +27,7 @@ scalar Date
     }
 
     type Employee {
-        _id: IDg
+        _id: ID
         firstName: String!
         lastName: String!
         email:String!

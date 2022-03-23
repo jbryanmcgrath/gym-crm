@@ -19,7 +19,7 @@ const MemberCheckin = ({ handleChange }) => {
     })
     const [memberIsActive, { error }] = useMutation(MUTATION_MEMBERISACTIVE);
 
-    const handlePhoneSearch = useQuery(QUERY_MEMBERPHONE);
+    const handlePhoneSearch = useQuery(QUERY_MEMBER);
 
     const handleCheckin = () => {
         setMemberActive('true')
