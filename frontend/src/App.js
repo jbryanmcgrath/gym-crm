@@ -61,6 +61,7 @@ export default function App() {
               <Route path="/login-signup" element={<SignInAndCreateUserContainer />} />
               <Route path="gym-info" element={<GymInfo />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              {/* <Route path="/scheduler" element={<Scheduler />} /> */}
               <Route path="/members" element={<ViewMembers />} />
               <Route path="/add-members" element={<AddMember />} />
               <Route path="/add-employee" element={<AddEmployee />} />
