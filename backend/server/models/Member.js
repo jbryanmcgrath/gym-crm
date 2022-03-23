@@ -42,6 +42,9 @@ const newMemberSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: false,
     },
+    memberActive: {
+        type: Boolean
+    }
 });
 
 const Member = model('Member', newMemberSchema);

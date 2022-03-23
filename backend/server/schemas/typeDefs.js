@@ -46,6 +46,7 @@ scalar Date
         preferredName: String!
         createdBy:String!
         createdAt:Date!
+        memberActive: boolean
         
     }
 
@@ -56,7 +57,7 @@ scalar Date
         gymEmployees: Gym
         employee(email: String!): Employee
         employees: [Employee]
-        member(email:String!): Member
+        member(email:String!, phoneNumber:String): Member
         members: [Member]
         owner(phoneNumber: String!): Gym
     }
@@ -94,11 +95,14 @@ scalar Date
 
         deleteEmployee(email: String!): Employee
 
+        memberIsActive(memberActive: Boolean): Member
+
         addGym( gymName: String!, 
             address:String!, 
             city:String!, 
             zip:String!, 
             state:String! ): Gym
+
     }
     
 `
