@@ -41,8 +41,8 @@ const resolvers = {
         employees: async () => {
             return Employee.find()
         },
-        member: async (_, { email }) => {
-            return Member.findOne({ email })
+        member: async (_, { email, phoneNumber, memberActive }) => {
+            return Member.findOne({ email, phoneNumber, memberActive })
         },
         members: async () => {
             return Member.find()
@@ -171,6 +171,13 @@ const resolvers = {
                 return employee;
             }
             throw new AuthenticationError('You need to be an admin to perform this task!');
+        },
+        memberIsActive: async (parent, { phoneNumber }) => {
+            const member = await Member.findOne({ phoneNumber })
+            if (member) {
+                const member = await Member.findOneAndUpdate({ memberActive: bool })
+                return member;
+            }
         },
     }
 };
