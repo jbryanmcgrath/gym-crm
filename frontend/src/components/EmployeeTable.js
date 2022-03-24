@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -63,6 +63,7 @@ function EmployeeTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
+    const [formState, setFormState] = useState(null);
 
     const { loading, data } = useQuery(QUERY_EMPLOYEES);
 
@@ -109,7 +110,7 @@ function EmployeeTable() {
                                 <Typography color="primary" variant="subtitle2">{row.email}</Typography>
                                 <Typography color="textSecondary" variant="body2">{row.phoneNumber}</Typography>
                             </TableCell>
-                            <TableCell >{row.admin}</TableCell>
+                            <TableCell >{row.admin ? "Yes" : "No"}</TableCell>
                             <TableCell>
                                 <Typography
                                 ><IconButton aria-label="delete">
