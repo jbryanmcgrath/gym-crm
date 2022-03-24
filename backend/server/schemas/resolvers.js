@@ -7,12 +7,15 @@ const Owner = require("../models/Owner")
 
 const resolvers = {
     Query: {
-        gym: async (parent, { phoneNumber }) => {
-            return Gym.findOne({ phoneNumber })
+        gym: async (parent, context ) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+            if(currentEmployee.gym) {
+            return Gym.findOne({_id: currentEmployee.gym})
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
                 .populate('owner')
+            }
         },
         employee: async (parent, { email }) => {
             return Employee.findOne({ email })
@@ -179,6 +182,16 @@ const resolvers = {
                 return member;
             }
         },
+        updateGym: async (parent, args, context) => {
+            const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+
+            if (currentEmployee && currentEmployee.gym) {
+                const gym = currentEmployee.gym
+                const updates = { ...args, _id: gym}
+
+                return Gym.findOneAndUpdate ({ _id: gym }, updates, {new: true})
+            } 
+        }
     }
 };
 
