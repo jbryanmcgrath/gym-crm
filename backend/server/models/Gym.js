@@ -24,7 +24,7 @@ const gymSchema = new Schema(
             required: true
         },
         memberCount: {
-            type: String,
+            type: Number,
             required: false
         },
         owner: [

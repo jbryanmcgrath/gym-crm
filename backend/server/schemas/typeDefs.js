@@ -25,7 +25,7 @@ scalar Date
         owner:Owner
         members:[Member]
         employees: [Employee]
-        memberCount: String
+        memberCount: Number
     }
 
     type Employee {
@@ -98,7 +98,7 @@ scalar Date
 
         memberIsActive(memberActive: Boolean): Member
 
-        updateGym(memberCount: String): Gym
+        updateGym(memberCount: Number): Gym
 
         addGym( gymName: String!, 
             address:String!, 
