@@ -27,7 +27,7 @@ import Scheduler from "./components/Scheduler";
 const useStyles = makeStyles((theme) => ({
   root: {
     minHeight: "100vh",
-    //backgroundImage: `url(${process.env.PUBLIC_URL + "/images/gym-crm.jpg"})`,
+    backgroundImage: `url(${process.env.PUBLIC_URL + "/images/gym-crm.jpg"})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     backgroundPosition: "center center",
