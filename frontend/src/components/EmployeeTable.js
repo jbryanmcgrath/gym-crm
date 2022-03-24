@@ -18,7 +18,7 @@ import {
 } from '@material-ui/core';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
-import { QUERY_MEMBERS } from '../utils/queries';
+import { QUERY_EMPLOYEES } from '../utils/queries';
 import { Autorenew } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
@@ -58,12 +58,12 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-function CustomerTable() {
+function EmployeeTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
 
-    const { loading, data } = useQuery(QUERY_MEMBERS);
+    const { loading, data } = useQuery(QUERY_EMPLOYEES);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -74,6 +74,12 @@ function CustomerTable() {
         setPage(0);
     };
 
+    const adminBoolean = (bol) => {
+        let bool = true
+
+    }
+
+
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table">
@@ -81,12 +87,12 @@ function CustomerTable() {
                     <TableRow>
                         <TableCell className={classes.tableHeaderCellName}> Employee</TableCell>
                         <TableCell className={classes.tableHeaderCell}>Contact Info</TableCell>
-                        <TableCell className={classes.tableHeaderCell}>Admin/Owner</TableCell>
+                        <TableCell className={classes.tableHeaderCell}>Admin</TableCell>
                         <TableCell className={classes.tableHeaderCell}>Edit/Delete</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {loading ? <div>Loading Data</div> : data.gymMembers.members.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
+                    {loading ? <div>Loading Data</div> : data.gymEmployees.employees.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
                         <TableRow key={row.firstName}>
                             <TableCell>
                                 <Grid container>
@@ -95,8 +101,8 @@ function CustomerTable() {
                                     </Grid>
                                     <Grid item lg={4}>
                                         <Typography className={classes.name}>{row.firstName}   {row.lastName}</Typography>
-                                        {/* <Typography className={classes.name}>{row.lastName}</Typography> */}
-                                        <Typography color="textSecondary" variant="body2">Preferred Name :  {row.preferredName}</Typography>
+                                        {/* <Typography className={classes.name}>{row.lastName}</Typography>
+                                        <Typography color="textSecondary" variant="body2">Preferred Name :  {row.preferredName}</Typography> */}
 
                                     </Grid>
                                 </Grid>
@@ -105,7 +111,7 @@ function CustomerTable() {
                                 <Typography color="primary" variant="subtitle2">{row.email}</Typography>
                                 <Typography color="textSecondary" variant="body2">{row.phoneNumber}</Typography>
                             </TableCell>
-                            <TableCell>{row.createdAt}</TableCell>
+                            <TableCell>{row.admin}</TableCell>
                             <TableCell>
                                 <Typography
                                 ><IconButton aria-label="delete">
@@ -123,7 +129,7 @@ function CustomerTable() {
                     <TablePagination
                         rowsPerPageOptions={[15, 30, 45]}
                         component="div"
-                        count={loading ? 0 : data.gymMembers.members.length}
+                        count={loading ? 0 : data.gymEmployees.employees.length}
                         rowsPerPage={rowsPerPage}
                         page={page}
                         onChangePage={handleChangePage}
@@ -135,4 +141,4 @@ function CustomerTable() {
     );
 }
 
-export default CustomerTable;
+export default EmployeeTable;
