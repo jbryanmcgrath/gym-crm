@@ -49,3 +49,9 @@ export const MUTATION_ADDMEMBER = gql`mutation addMember($firstName: String!, $l
     preferredName
   }
 }`;
+
+export const MUTATION_MEMBERCOUNT = gql`mutation memberCount($memberCount: String) {
+  updateGym(memberCount: $memberCount) {
+    memberCount
+  }
+}`;
