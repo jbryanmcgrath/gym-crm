@@ -2,6 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import UpdateEmployee from './UpdateEmployee'
 import {
     Table,
     TableBody,
@@ -74,10 +75,7 @@ function EmployeeTable() {
         setPage(0);
     };
 
-    const adminBoolean = (bol) => {
-        let bool = true
 
-    }
 
 
     return (
@@ -111,7 +109,7 @@ function EmployeeTable() {
                                 <Typography color="primary" variant="subtitle2">{row.email}</Typography>
                                 <Typography color="textSecondary" variant="body2">{row.phoneNumber}</Typography>
                             </TableCell>
-                            <TableCell>{row.admin}</TableCell>
+                            <TableCell >{row.admin}</TableCell>
                             <TableCell>
                                 <Typography
                                 ><IconButton aria-label="delete">
