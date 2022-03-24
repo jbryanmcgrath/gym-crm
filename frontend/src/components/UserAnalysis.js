@@ -86,7 +86,7 @@ export default class MemberGraph extends React.PureComponent {
 
                     <LineSeries
                         name="Members Activly Going to Gym"
-                        valueField="membersActiveInGym"
+                        valueField="membersActiveAtGym"
                         argumentField="month"
                         seriesComponent={Line}
                     />

@@ -23,6 +23,10 @@ const gymSchema = new Schema(
             type: String,
             required: true
         },
+        memberCount: {
+            type: String,
+            required: false
+        },
         owner: [
             {
                 type: Schema.Types.ObjectId,
@@ -41,7 +45,7 @@ const gymSchema = new Schema(
                 type: Schema.Types.ObjectId,
                 ref: 'Member'
             }
-        ]
+        ],
     }
 );
 const Gym = model('Gym', gymSchema)
