@@ -25,6 +25,7 @@ scalar Date
         owner:Owner
         members:[Member]
         employees: [Employee]
+        memberCount: String
     }
 
     type Employee {
@@ -51,7 +52,7 @@ scalar Date
     }
 
     type Query {
-        gym(phoneNumber: String!): Gym
+        gym: Gym
         gyms: [Gym]
         gymMembers: Gym
         gymEmployees: Gym
@@ -96,6 +97,8 @@ scalar Date
         deleteEmployee(email: String!): Employee
 
         memberIsActive(memberActive: Boolean): Member
+
+        updateGym(memberCount: String): Gym
 
         addGym( gymName: String!, 
             address:String!, 
