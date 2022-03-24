@@ -14,6 +14,7 @@ scalar Date
         gym:Gym
         admin:Boolean!
     }
+    
     type Gym {
         _id:ID
         gymName: String!
@@ -47,7 +48,6 @@ scalar Date
         createdBy:String!
         createdAt:Date!
         memberActive: Boolean
-        
     }
 
     type Query {
@@ -57,8 +57,9 @@ scalar Date
         gymEmployees: Gym
         employee(email: String!): Employee
         employees: [Employee]
-        member(email:String!): Member
+        member(phoneNumber:String!): Member
         members: [Member]
+        memberActive: Gym
         owner(phoneNumber: String!): Gym
     }
 
@@ -67,7 +68,6 @@ scalar Date
         employee: Employee
     }
 
-    
     type Mutation {
         owner(firstName: String!, lastName: String!, email: String!, phoneNumber: String!,password: String!): Auth
 
@@ -87,7 +87,7 @@ scalar Date
         phoneNumber:String!, 
         preferredName: String!): Member
 
-        updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, phoneNumber: String, preferredName: String): Member!
+        updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, phoneNumber: String, preferredName: String, memberActive: Boolean): Member!
 
         deleteMember(email: String!): Member
 
@@ -102,9 +102,7 @@ scalar Date
             city:String!, 
             zip:String!, 
             state:String! ): Gym
-
-    }
-    
+    } 
 `
 
 //export the typeDefs

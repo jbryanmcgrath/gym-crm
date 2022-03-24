@@ -171,14 +171,7 @@ const resolvers = {
                 return employee;
             }
             throw new AuthenticationError('You need to be an admin to perform this task!');
-        },
-        memberIsActive: async (parent, { phoneNumber }) => {
-            const member = await Member.findOne({ phoneNumber })
-            if (member) {
-                const member = await Member.findOneAndUpdate({ memberActive: bool })
-                return member;
-            }
-        },
+        }
     }
 };
 
