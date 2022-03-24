@@ -29,3 +29,17 @@ query Query {
     }
 }
 `;
+
+export const QUERY_EMPLOYEES = gql`
+    query Query {
+       gymEmployees {
+       employees {
+       firstName
+       lastName
+       email
+       phoneNumber
+       admin
+    }
+  }
+}
+`
