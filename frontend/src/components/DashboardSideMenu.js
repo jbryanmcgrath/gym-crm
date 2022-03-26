@@ -80,10 +80,12 @@ const Sidebar = () => {
                                 Calender
                             </SidebarListItem>
                         </Link>
+                        <Link to="/user-analysis" className='link'>
                         <SidebarListItem>
                             <MyAssessment />
                             Reports
                         </SidebarListItem>
+                        </Link>
                     </SidebarList>
                 </SidebarMenu>
                 <SidebarMenu>
