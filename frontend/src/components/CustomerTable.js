@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -21,6 +22,7 @@ import { useQuery } from '@apollo/client';
 import { QUERY_MEMBERS } from '../utils/queries';
 import { Autorenew } from '@material-ui/icons';
 
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 const useStyles = makeStyles((theme) => ({
 
     tableContainer: {
@@ -84,7 +86,8 @@ function CustomerTable() {
                         <TableCell className={classes.tableHeaderCell}>Contact Info</TableCell>
                         <TableCell className={classes.tableHeaderCell}>Joining Date</TableCell>
                         <TableCell className={classes.tableHeaderCell}>Edit/Delete</TableCell>
-                    </TableRow>
+                        <TableCell className={classes.tableHeaderCell}>Member Check In</TableCell>                    
+                        </TableRow>
                 </TableHead>
                 <TableBody>
                     {loading ? <div>Loading Data</div> : data.gymMembers.members.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
@@ -115,6 +118,12 @@ function CustomerTable() {
                                     <IconButton aria-label="edit">
                                         <EditIcon />
                                     </IconButton>
+                                </Typography>
+                            </TableCell>
+                            <TableCell>
+                                <Typography
+                                ><Switch {...label} defaultChecked />
+                                    
                                 </Typography>
                             </TableCell>
                         </TableRow>
