@@ -78,15 +78,6 @@ const Signup = () => {
 
                     <TextField fullWidth name='phoneNumber' required label='Phone Number' placeholder="Enter gym phone number" onChange={handleChange} />
 
-
-                    {/* <TextField fullWidth name='address' label='Address' placeholder="Enter your gym address" onChange={handleChange} /> */}
-
-                    {/* <TextField fullWidth name='city' label='City' placeholder="Enter the city" onChange={handleChange} />
-
-                    <TextField fullWidth name='zip' label='Zip' placeholder="Enter the zip" onChange={handleChange} />
-
-                    <TextField fullWidth name='state' label='State' placeholder="Enter the State" onChange={handleChange} /> */}
-
                     <TextField fullWidth name='password' label='Password' placeholder="Enter your password" onChange={handleChange} />
 
                     <Button style={buttonStyle} type='submit' variant='contained' color='primary'  >Sign up</Button>
