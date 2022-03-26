@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -21,6 +21,9 @@ import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_MEMBERS } from '../utils/queries';
 import { MUTATION_DELETEMEMBER } from '../utils/mutations';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 const useStyles = makeStyles((theme) => ({
@@ -58,14 +61,28 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+};
 
 
 function CustomerTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
-
     const { loading, data } = useQuery(QUERY_MEMBERS);
+
+    const [openModal, setOpenModal] = useState(false)
 
 
     const handleChangePage = (event, newPage) => {
@@ -76,11 +93,21 @@ function CustomerTable() {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+    const [deleteMember, { error }] = useMutation(MUTATION_DELETEMEMBER)
 
-    const deleteMember = (id) => {
-
+    const handleDelete = async (id) => {
+        if (id) {
+            await deleteMember({ variable: { _id: id } })
+        }
+        console.log(error)
     }
 
+    const handleClose = () => {
+        setOpenModal(false)
+    }
+    const handleOpen = () => {
+        setOpenModal(true)
+    }
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table">
@@ -116,13 +143,35 @@ function CustomerTable() {
                             <TableCell>{row.createdAt}</TableCell>
                             <TableCell>
                                 <Typography
-                                ><IconButton onClick={() => deleteMember(row.id)} aria-label="delete">
+                                ><IconButton onClick={() => handleDelete(row._id)} aria-label="delete">
                                         <DeleteIcon />
                                     </IconButton>
-                                    <IconButton aria-label="edit">
+                                    <IconButton aria-label="edit" onClick={handleOpen}>
                                         <EditIcon />
                                     </IconButton>
                                 </Typography>
+                                <Modal
+                                    open={openModal}
+                                    onClose={handleClose}>
+                                    <Box sx={{ ...style, width: 200 }}>
+                                        <h2 id="child-modal-title">Update Member</h2>
+                                        <form id="child-modal-description">
+                                            <label for="fname">First name:</label>
+                                            <input type="text" id="fname"  ></input>
+                                            <label for="fname">Last name:</label>
+                                            <input type="text" id="fname"  ></input>
+                                            <label for="email">Email:</label>
+                                            <input type="text" id="email"  ></input>
+                                            <label for="phone">Phone:</label>
+                                            <input type="text"   ></input>
+                                            <label for="prefferredName">Prefferred Name:</label>
+                                            <input type="text"   ></input>
+
+
+                                        </form>
+                                        <Button onClick={handleClose}>Submit Changes</Button>
+                                    </Box>
+                                </Modal>
                             </TableCell>
                             <TableCell>
                                 <Typography
