@@ -18,9 +18,9 @@ import {
     TableFooter, IconButton
 } from '@material-ui/core';
 import Auth from '../utils/auth';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_MEMBERS } from '../utils/queries';
-import { Autorenew } from '@material-ui/icons';
+import { MUTATION_DELETEMEMBER } from '../utils/mutations';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 const useStyles = makeStyles((theme) => ({
@@ -67,6 +67,7 @@ function CustomerTable() {
 
     const { loading, data } = useQuery(QUERY_MEMBERS);
 
+
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -76,6 +77,9 @@ function CustomerTable() {
         setPage(0);
     };
 
+    const deleteMember = (id) => {
+
+    }
 
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
@@ -112,7 +116,7 @@ function CustomerTable() {
                             <TableCell>{row.createdAt}</TableCell>
                             <TableCell>
                                 <Typography
-                                ><IconButton aria-label="delete">
+                                ><IconButton onClick={() => deleteMember(row.id)} aria-label="delete">
                                         <DeleteIcon />
                                     </IconButton>
                                     <IconButton aria-label="edit">

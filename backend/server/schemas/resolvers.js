@@ -151,7 +151,7 @@ const resolvers = {
         deleteMember: async (_, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee) {
-                const member = await Member.findOneAndDelete({ email: args.email });
+                const member = await Member.findOneAndDelete({ _id: args._id });
                 return member;
             }
             throw new AuthenticationError('You need to be logged in!');

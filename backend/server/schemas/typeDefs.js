@@ -90,7 +90,7 @@ scalar Date
 
         updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, phoneNumber: String, preferredName: String, memberActive: Boolean): Member!
 
-        deleteMember(email: String!): Member
+        deleteMember(_id: ID): Member
 
         updateEmployee(firstName: String, lastName: String, email: String, phoneNumber: String, updatedEmail: String password: String, admin: Boolean): Employee!
 

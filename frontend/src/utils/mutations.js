@@ -56,3 +56,16 @@ export const MUTATION_MEMBERCOUNT = gql`mutation memberCount($memberCount: Numbe
     memberCount
   }
 }`;
+
+export const MUTATION_DELETEMEMBER = gql`
+ mutation DeleteMember($id: ID) {
+  deleteMember(_id: $id) {
+    _id
+    firstName
+    lastName
+    email
+    phoneNumber
+    preferredName
+  }
+}
+`
