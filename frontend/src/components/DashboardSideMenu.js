@@ -2,6 +2,7 @@ import React from 'react'
 import { PermIdentity, Storefront, Assessment, Work } from "@material-ui/icons";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import UserAnalysis from '../components/UserAnalysis'
 
 const SidebarContainer = styled.div`
     flex: 1;
@@ -57,56 +58,60 @@ const MyWork = styled(Work)`
 
 const Sidebar = () => {
     return (
-        <SidebarContainer>
-            <SidebarWrapper>
-                <SidebarMenu>
-                    <SidebarTitle>Dashboard</SidebarTitle>
-                    <SidebarList>
-                        <Link to="/members" className="link">
-                            <SidebarListItem>
-                                <MyPermIdentity />
-                                Members
-                            </SidebarListItem>
-                        </Link>
-                        <Link to="/add-members" className="link">
-                            <SidebarListItem>
-                                <MyPermIdentity />
-                                Add Members
-                            </SidebarListItem>
-                        </Link>
-                        <Link to="/scheduler" className="link">
-                            <SidebarListItem>
-                                <MyStorefront />
-                                Calender
-                            </SidebarListItem>
-                        </Link>
-                        <Link to="/user-analysis" className='link'>
-                        <SidebarListItem>
-                            <MyAssessment />
-                            Reports
-                        </SidebarListItem>
-                        </Link>
-                    </SidebarList>
-                </SidebarMenu>
-                <SidebarMenu>
-                    <SidebarTitle>Employees</SidebarTitle>
-                    <SidebarList>
-                        <Link to='/employees' className='link'>
-                            <SidebarListItem>
-                                <MyWork />
-                                Manage
-                            </SidebarListItem>
-                        </Link>
-                        <Link to='/add-employee' className='link'>
-                            <SidebarListItem>
-                                < MyPermIdentity />
-                                Add
-                            </SidebarListItem>
-                        </Link>
-                    </SidebarList>
-                </SidebarMenu>
-            </SidebarWrapper>
-        </SidebarContainer>
+        <div>
+            <SidebarContainer>
+                <SidebarWrapper>
+                    <SidebarMenu>
+                        <SidebarTitle>Dashboard</SidebarTitle>
+                        <SidebarList>
+                            <Link to="/members" className="link">
+                                <SidebarListItem>
+                                    <MyPermIdentity />
+                                    Members
+                                </SidebarListItem>
+                            </Link>
+                            <Link to="/add-members" className="link">
+                                <SidebarListItem>
+                                    <MyPermIdentity />
+                                    Add Members
+                                </SidebarListItem>
+                            </Link>
+                            <Link to="/scheduler" className="link">
+                                <SidebarListItem>
+                                    <MyStorefront />
+                                    Calender
+                                </SidebarListItem>
+                            </Link>
+                            <Link to="/user-analysis" className='link'>
+                                <SidebarListItem>
+                                    <MyAssessment />
+                                    Reports
+                                </SidebarListItem>
+                            </Link>
+                        </SidebarList>
+                    </SidebarMenu>
+                    <SidebarMenu>
+                        <SidebarTitle>Employees</SidebarTitle>
+                        <SidebarList>
+                            <Link to='/employees' className='link'>
+                                <SidebarListItem>
+                                    <MyWork />
+                                    Manage
+                                </SidebarListItem>
+                            </Link>
+                            <Link to='/add-employee' className='link'>
+                                <SidebarListItem>
+                                    < MyPermIdentity />
+                                    Add
+                                </SidebarListItem>
+                            </Link>
+                        </SidebarList>
+                    </SidebarMenu>
+                </SidebarWrapper>
+            </SidebarContainer>
+            <UserAnalysis />
+        </div>
+
     )
 }
 
