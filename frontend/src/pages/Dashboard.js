@@ -1,11 +1,13 @@
 import { CssBaseline } from '@material-ui/core'
 import React, { useEffect } from 'react'
 import DashboardSideMenu from "../components/DashboardSideMenu"
-import CustomerTable from '../components/CustomerTable'
+import CheckedInCustomerTable from '../components/CustomerTable'
 import Navbar from '../components/DashboardNav'
 import NewMember from '../components/NewMember'
 import { useNavigate } from 'react-router-dom'
 import AuthService from '../utils/auth'
+import SearchBar from '../components/SearchBar'
+
 
 
 
@@ -25,6 +27,7 @@ export default function Dashboard() {
             <CssBaseline />
             <Navbar />
             <DashboardSideMenu />
+            <SearchBar />
         </div>
     )
 }
