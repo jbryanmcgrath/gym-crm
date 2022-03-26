@@ -69,15 +69,14 @@ const Signup = () => {
                     <Typography variant='caption' gutterBottom>Please fill this form to start an account!</Typography>
                 </Grid>
                 <form onSubmit={handleFormSubmit}>
-                    {/* <TextField fullWidth name='gymName' label='Name of Gym' placeholder='Enter your Gym name' onChange={handleChange} /> */}
 
-                    <TextField fullWidth name='firstName' label='First Name' placeholder="Enter your first name" onChange={handleChange} />
+                    <TextField fullWidth name='firstName' label='First Name' placeholder="Enter your first name" required onChange={handleChange} />
 
-                    <TextField fullWidth name='lastName' label='Last Name' placeholder="Enter your last name" onChange={handleChange} />
+                    <TextField fullWidth name='lastName' label='Last Name' placeholder="Enter your last name" required onChange={handleChange} />
 
-                    <TextField fullWidth name='email' label='Email' placeholder="Enter your gym email" onChange={handleChange} />
+                    <TextField fullWidth name='email' label='Email' placeholder="Enter your gym email" required onChange={handleChange} />
 
-                    <TextField fullWidth name='phoneNumber' label='Phone Number' placeholder="Enter gym phone number" onChange={handleChange} />
+                    <TextField fullWidth name='phoneNumber' required label='Phone Number' placeholder="Enter gym phone number" onChange={handleChange} />
 
 
                     {/* <TextField fullWidth name='address' label='Address' placeholder="Enter your gym address" onChange={handleChange} /> */}
