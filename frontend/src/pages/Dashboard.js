@@ -8,7 +8,7 @@ import UserAnalysis from '../components/UserAnalysis'
 import NewMember from '../components/NewMember'
 import { useNavigate } from 'react-router-dom'
 import AuthService from '../utils/auth'
-import SearchBar from '../components/SearchBar'
+
 
 
 
@@ -31,7 +31,7 @@ export default function Dashboard() {
 
             <DashboardSideMenu />
 
-            <SearchBar />
+
         </div>
     )
 }
