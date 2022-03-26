@@ -13,6 +13,7 @@ const Signup = () => {
     const paperStyle = { padding: 20, width: 300, margin: "0 auto" }
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
+    const buttonStyle = { marginTop: '25px' }
 
 
     const [formState, setFormState] = useState({
@@ -89,7 +90,7 @@ const Signup = () => {
 
                     <TextField fullWidth name='password' label='Password' placeholder="Enter your password" onChange={handleChange} />
 
-                    <Button type='submit' variant='contained' color='primary' >Sign up</Button>
+                    <Button style={buttonStyle} type='submit' variant='contained' color='primary'  >Sign up</Button>
                 </form>
 
                 {error && <div>Signup Failed</div>}
