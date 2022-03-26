@@ -74,6 +74,7 @@ function CustomerTable() {
         setPage(0);
     };
 
+
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table">

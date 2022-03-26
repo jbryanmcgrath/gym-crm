@@ -7,14 +7,14 @@ const Owner = require("../models/Owner")
 
 const resolvers = {
     Query: {
-        gym: async (parent, context ) => {
+        gym: async (parent, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
-            if(currentEmployee.gym) {
-            return Gym.findOne({_id: currentEmployee.gym})
-                .select('-__v')
-                .populate('employees')
-                .populate('members')
-                .populate('owner')
+            if (currentEmployee.gym) {
+                return Gym.findOne({ _id: currentEmployee.gym })
+                    .select('-__v')
+                    .populate('employees')
+                    .populate('members')
+                    .populate('owner')
             }
         },
         employee: async (parent, { email }) => {
@@ -54,7 +54,7 @@ const resolvers = {
 
     Mutation: {
         owner: async (parent, args) => {
-            const owner = await Employee.create({...args, owner: true });
+            const owner = await Employee.create({ ...args, owner: true });
             const token = signToken(owner);
 
             return { token, owner };
@@ -180,10 +180,10 @@ const resolvers = {
 
             if (currentEmployee && currentEmployee.gym) {
                 const gym = currentEmployee.gym
-                const updates = { ...args, _id: gym}
+                const updates = { ...args, _id: gym }
 
-                return Gym.findOneAndUpdate ({ _id: gym }, updates, {new: true})
-            } 
+                return Gym.findOneAndUpdate({ _id: gym }, updates, { new: true })
+            }
         }
     }
 };
