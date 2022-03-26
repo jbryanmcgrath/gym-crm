@@ -151,11 +151,22 @@ function CustomerTable() {
                                     open={openModal}
                                     onClose={handleClose}>
                                     <Box sx={{ ...style, width: 200 }}>
-                                        <h2 id="child-modal-title">Text in a child modal</h2>
-                                        <p id="child-modal-description">
-                                            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                                        </p>
-                                        <Button onClick={handleClose}>Close Child Modal</Button>
+                                        <h2 id="child-modal-title">Update Member</h2>
+                                        <form id="child-modal-description">
+                                            <label for="fname">First name:</label>
+                                            <input type="text" id="fname"  ></input>
+                                            <label for="fname">Last name:</label>
+                                            <input type="text" id="fname"  ></input>
+                                            <label for="email">Email:</label>
+                                            <input type="text" id="email"  ></input>
+                                            <label for="phone">Phone:</label>
+                                            <input type="text"   ></input>
+                                            <label for="prefferredName">Prefferred Name:</label>
+                                            <input type="text"   ></input>
+
+
+                                        </form>
+                                        <Button onClick={handleClose}>Submit Changes</Button>
                                     </Box>
                                 </Modal>
                             </TableCell>

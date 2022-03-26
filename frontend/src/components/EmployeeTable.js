@@ -15,7 +15,7 @@ import {
     Grid,
     Typography,
     TablePagination,
-    TableFooter, IconButton
+    TableFooter, IconButton, Modal, Box, Button
 } from '@material-ui/core';
 import Auth from '../utils/auth';
 import { useQuery } from '@apollo/client';
@@ -57,6 +57,20 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+};
+
 
 
 function EmployeeTable() {
@@ -66,6 +80,7 @@ function EmployeeTable() {
     const [formState, setFormState] = useState(null);
 
     const { loading, data } = useQuery(QUERY_EMPLOYEES);
+    const [openModal, setOpenModal] = useState(false)
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -76,8 +91,13 @@ function EmployeeTable() {
         setPage(0);
     };
 
+    const handleOpen = () => {
+        setOpenModal(true)
+    }
 
-
+    const handleClose = () => {
+        setOpenModal(false)
+    }
 
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
@@ -116,9 +136,28 @@ function EmployeeTable() {
                                 ><IconButton aria-label="delete">
                                         <DeleteIcon />
                                     </IconButton>
-                                    <IconButton aria-label="edit">
+                                    <IconButton aria-label="edit" onClick={handleOpen}>
                                         <EditIcon />
                                     </IconButton>
+                                    <Modal
+                                        open={openModal}
+                                        onClose={handleClose}>
+                                        <Box sx={{ ...style, width: 200 }}>
+                                            <h2 id="child-modal-title">Update Employee Info</h2>
+                                            <form id="child-modal-description">
+                                                <label for="fname">First name:</label>
+                                                <input type="text" id="fname"  ></input>
+                                                <label for="fname">Last name:</label>
+                                                <input type="text" id="fname"  ></input>
+                                                <label for="email">Email:</label>
+                                                <input type="text" id="email"  ></input>
+                                                <label for="phone">Phone:</label>
+                                                <input type="text"   ></input>
+
+                                            </form>
+                                            <Button onClick={handleClose}>Submit Changes</Button>
+                                        </Box>
+                                    </Modal>
                                 </Typography>
                             </TableCell>
                         </TableRow>
