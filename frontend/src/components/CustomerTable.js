@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -84,7 +84,7 @@ function CustomerTable() {
 
     const [openModal, setOpenModal] = useState(false)
 
-
+    const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", phoneNumber: "", preferredName: "" })
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -94,19 +94,21 @@ function CustomerTable() {
         setPage(0);
     };
     const [deleteMember, { error }] = useMutation(MUTATION_DELETEMEMBER)
-
+    const firstName = useRef("")
     const handleDelete = async (id) => {
-        if (id) {
-            await deleteMember({ variable: { _id: id } })
-        }
-        console.log(error)
+        console.log(id)
+        await deleteMember({ variables: { id: id } })
+        window.location.reload()
     }
 
     const handleClose = () => {
         setOpenModal(false)
     }
-    const handleOpen = () => {
-        setOpenModal(true)
+    const handleOpen = async (row) => {
+        console.log(row)
+        await setOpenModal(true)
+        window.document.querySelector("#fname").value = await row.firstName
+
     }
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
@@ -117,8 +119,8 @@ function CustomerTable() {
                         <TableCell className={classes.tableHeaderCell}>Contact Info</TableCell>
                         <TableCell className={classes.tableHeaderCell}>Joining Date</TableCell>
                         <TableCell className={classes.tableHeaderCell}>Edit/Delete</TableCell>
-                        <TableCell className={classes.tableHeaderCell}>Member Check In</TableCell>                    
-                        </TableRow>
+                        <TableCell className={classes.tableHeaderCell}>Member Check In</TableCell>
+                    </TableRow>
                 </TableHead>
                 <TableBody>
                     {loading ? <div>Loading Data</div> : data.gymMembers.members.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
@@ -146,7 +148,7 @@ function CustomerTable() {
                                 ><IconButton onClick={() => handleDelete(row._id)} aria-label="delete">
                                         <DeleteIcon />
                                     </IconButton>
-                                    <IconButton aria-label="edit" onClick={handleOpen}>
+                                    <IconButton aria-label="edit" onClick={() => handleOpen(row)}>
                                         <EditIcon />
                                     </IconButton>
                                 </Typography>
@@ -157,7 +159,7 @@ function CustomerTable() {
                                         <h2 id="child-modal-title">Update Member</h2>
                                         <form id="child-modal-description">
                                             <label for="fname">First name:</label>
-                                            <input type="text" id="fname"  ></input>
+                                            <input type="text" id="fname"    ></input>
                                             <label for="fname">Last name:</label>
                                             <input type="text" id="fname"  ></input>
                                             <label for="email">Email:</label>
@@ -175,8 +177,7 @@ function CustomerTable() {
                             </TableCell>
                             <TableCell>
                                 <Typography
-                                ><Switch {...label} defaultChecked />
-                                    
+                                ><Switch {...label} />
                                 </Typography>
                             </TableCell>
                         </TableRow>

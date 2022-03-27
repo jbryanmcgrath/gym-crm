@@ -19,6 +19,7 @@ export const QUERY_MEMBERS = gql`
 query Query {
     gymMembers {
         members {
+            _id
             firstName
             lastName
             phoneNumber
@@ -40,6 +41,18 @@ export const QUERY_EMPLOYEES = gql`
        phoneNumber
        admin
     }
+  }
+}
+`
+export const QUERY_MEMBER = gql`
+   query member($id: ID!) {
+  member(_id: $id) {
+    firstName
+    lastName
+    email
+    phoneNumber
+    preferredName
+    _id
   }
 }
 `

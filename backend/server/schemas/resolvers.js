@@ -44,8 +44,8 @@ const resolvers = {
         employees: async () => {
             return Employee.find()
         },
-        member: async (_, { email }) => {
-            return Member.findOne({ email })
+        member: async (_, { _id }) => {
+            return Member.findOne({ _id })
         },
         members: async () => {
             return Member.find()
@@ -141,12 +141,9 @@ const resolvers = {
         updateMember: async (_, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee) {
-                const updates = args.updatedEmail ? {
-                    ...args,
-                    email: args.updatedEmail
-                } : { ...args }
-                return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
+                return Member.findOneAndUpdate({ _id: args._id }, args, { new: true })
             }
+            throw new AuthenticationError('You need to be logged in!');
         },
         deleteMember: async (_, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });

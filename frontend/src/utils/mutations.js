@@ -58,9 +58,21 @@ export const MUTATION_MEMBERCOUNT = gql`mutation memberCount($memberCount: Numbe
 }`;
 
 export const MUTATION_DELETEMEMBER = gql`
- mutation DeleteMember($id: ID) {
+mutation deleteMember($id: ID) {
   deleteMember(_id: $id) {
     _id
+    firstName
+    lastName
+    email
+    phoneNumber
+    preferredName
+  }
+}
+`
+
+export const MUTATION_UPDATEMEMBER = gql`
+  mutation updateMember($id: ID!, $firstName: String, $lastName: String, $email: String, $phoneNumber: String, $preferredName: String) {
+  updateMember(_id: $id, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, preferredName: $preferredName) {
     firstName
     lastName
     email

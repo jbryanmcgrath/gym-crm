@@ -58,7 +58,7 @@ scalar Date
         gymEmployees: Gym
         employee(email: String!): Employee
         employees: [Employee]
-        member(phoneNumber:String!): Member
+        member(_id:ID!): Member
         members: [Member]
         memberActive: Gym
         owner(phoneNumber: String!): Gym
@@ -88,7 +88,7 @@ scalar Date
         phoneNumber:String!, 
         preferredName: String!): Member
 
-        updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, phoneNumber: String, preferredName: String, memberActive: Boolean): Member!
+        updateMember(_id:ID!, firstName: String, lastName: String, email: String, phoneNumber: String, preferredName: String): Member!
 
         deleteMember(_id: ID): Member
 
