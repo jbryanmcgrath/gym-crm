@@ -167,7 +167,7 @@ const resolvers = {
         deleteEmployee: async (_, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee && currentEmployee.admin) {
-                const employee = await Employee.findOneAndDelete({ email: args.email });
+                const employee = await Employee.findOneAndDelete({ _id: args._id });
                 return employee;
             }
             throw new AuthenticationError('You need to be an admin to perform this task!');

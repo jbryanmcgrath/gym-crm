@@ -17,7 +17,6 @@ import {
     TablePagination,
     TableFooter, IconButton
 } from '@material-ui/core';
-import Auth from '../utils/auth';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_MEMBERS } from '../utils/queries';
 import { MUTATION_DELETEMEMBER } from '../utils/mutations';
@@ -89,10 +88,6 @@ function CustomerTable() {
         setPage(newPage);
     };
 
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
     const [deleteMember, { error }] = useMutation(MUTATION_DELETEMEMBER)
     const firstName = useRef("")
     const handleDelete = async (id) => {
@@ -108,8 +103,11 @@ function CustomerTable() {
         console.log(row)
         await setOpenModal(true)
         window.document.querySelector("#fname").value = await row.firstName
-
     }
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table">

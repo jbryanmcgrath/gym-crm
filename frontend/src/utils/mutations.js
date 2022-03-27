@@ -81,3 +81,16 @@ export const MUTATION_UPDATEMEMBER = gql`
   }
 }
 `
+
+export const MUTATION_DELETEEMPLOYEE = gql`
+mutation deleteEmployee($id: ID) {
+  deleteEmployee(_id: $id) {
+    _id
+    firstName
+    lastName
+    email
+    phoneNumber
+    admin
+  }
+}
+`

@@ -75,7 +75,7 @@ const NewMember = () => {
             await addMember({
                 variables: { ...formState }
             });
-            
+
         } catch (e) {
             console.error(e);
         }
@@ -86,7 +86,10 @@ const NewMember = () => {
             phoneNumber: '',
             preferredName: '',
         })
+
+
         navigate('/dashboard')
+        window.location.reload();
     };
     return (
         <TheList>

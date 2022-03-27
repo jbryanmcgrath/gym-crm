@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import UpdateEmployee from './UpdateEmployee'
 import {
     Table,
     TableBody,
@@ -17,10 +16,10 @@ import {
     TablePagination,
     TableFooter, IconButton, Modal, Box, Button
 } from '@material-ui/core';
-import Auth from '../utils/auth';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_EMPLOYEES } from '../utils/queries';
-import { Autorenew } from '@material-ui/icons';
+import { MUTATION_DELETEEMPLOYEE } from '../utils/mutations'
+
 
 const useStyles = makeStyles((theme) => ({
 
@@ -99,6 +98,14 @@ function EmployeeTable() {
         setOpenModal(false)
     }
 
+    const [deleteEmployee, { error }] = useMutation(MUTATION_DELETEEMPLOYEE)
+    const firstName = useRef("")
+    const handleDelete = async (id) => {
+        console.log(id)
+        await deleteEmployee({ variables: { id: id } })
+        window.location.reload()
+    }
+
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table">
@@ -133,7 +140,7 @@ function EmployeeTable() {
                             <TableCell >{row.admin ? "Yes" : "No"}</TableCell>
                             <TableCell>
                                 <Typography
-                                ><IconButton aria-label="delete">
+                                ><IconButton onClick={() => handleDelete(row._id)} aria-label="delete">
                                         <DeleteIcon />
                                     </IconButton>
                                     <IconButton aria-label="edit" onClick={handleOpen}>

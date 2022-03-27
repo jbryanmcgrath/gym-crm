@@ -102,6 +102,7 @@ const NewEmployee = () => {
             null
         );
         navigate('/dashboard')
+        window.location.reload();
     };
     return (
         <TheList>
