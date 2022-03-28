@@ -2,16 +2,18 @@ import React from 'react'
 import { PermIdentity, Storefront, Assessment, Work } from "@material-ui/icons";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
+import UserAnalysis from '../components/UserAnalysis'
+import { Grid } from '@material-ui/core';
 
 const SidebarContainer = styled.div`
     flex: 1;
     height: calc(100vh - 50px);
     background-color: rgb(251, 251, 255);
-    position: sticky;
+    width:calc(15vw);
     top: 50px;
 `
 const SidebarWrapper = styled.div`
-    padding: 20px;
+    padding: 5px;
     color: #555;
 `
 const SidebarMenu = styled.div`
@@ -40,6 +42,10 @@ const sharedStyle = css`
     font-size: 20px !important;
 `
 
+const graphSpacing = styled.div`
+    padding: 25px 25px 25px 25px
+    `
+
 const MyPermIdentity = styled(PermIdentity)`
     ${sharedStyle}
 `
@@ -57,44 +63,66 @@ const MyWork = styled(Work)`
 
 const Sidebar = () => {
     return (
-        <SidebarContainer>
-            <SidebarWrapper>
-                <SidebarMenu>
-                    <SidebarTitle>Dashboard</SidebarTitle>
-                    <SidebarList>
-                        <Link to="/members" className="link">
-                            <SidebarListItem>
-                                <MyPermIdentity />
-                                Members
-                            </SidebarListItem>
-                        </Link>
-                        <Link to="/scheduler" className="link">
-                            <SidebarListItem>
-                                <MyStorefront />
-                                Calender
-                            </SidebarListItem>
-                        </Link>
-                        <SidebarListItem>
-                            <MyAssessment />
-                            Reports
-                        </SidebarListItem>
-                    </SidebarList>
-                </SidebarMenu>
-                <SidebarMenu>
-                    <SidebarTitle>Employees</SidebarTitle>
-                    <SidebarList>
-                        <SidebarListItem>
-                            <MyWork />
-                            Manage
-                        </SidebarListItem>
-                        <SidebarListItem>
-                            < MyWork />
-                            Add
-                        </SidebarListItem>
-                    </SidebarList>
-                </SidebarMenu>
-            </SidebarWrapper>
-        </SidebarContainer>
+        <Grid container>
+            <Grid item md={1}>
+                <SidebarContainer>
+                    <SidebarWrapper>
+                        <SidebarMenu>
+                            <SidebarTitle>Dashboard</SidebarTitle>
+                            <SidebarList>
+                                <Link to="/members" className="link">
+                                    <SidebarListItem>
+                                        <MyPermIdentity />
+                                        Members
+                                    </SidebarListItem>
+                                </Link>
+                                <Link to="/add-members" className="link">
+                                    <SidebarListItem>
+                                        <MyPermIdentity />
+                                        Add Members
+                                    </SidebarListItem>
+                                </Link>
+                                <Link to="/scheduler" className="link">
+                                    <SidebarListItem>
+                                        <MyStorefront />
+                                        Calender
+                                    </SidebarListItem>
+                                </Link>
+                                <Link to="/user-analysis" className='link'>
+                                    <SidebarListItem>
+                                        <MyAssessment />
+                                        Reports
+                                    </SidebarListItem>
+                                </Link>
+                            </SidebarList>
+                        </SidebarMenu>
+                        <SidebarMenu>
+                            <SidebarTitle>Employees</SidebarTitle>
+                            <SidebarList>
+                                <Link to='/employees' className='link'>
+                                    <SidebarListItem>
+                                        <MyWork />
+                                        Manage
+                                    </SidebarListItem>
+                                </Link>
+                                <Link to='/add-employee' className='link'>
+                                    <SidebarListItem>
+                                        < MyPermIdentity />
+                                        Add
+                                    </SidebarListItem>
+                                </Link>
+                            </SidebarList>
+                        </SidebarMenu>
+                    </SidebarWrapper>
+                </SidebarContainer>
+            </Grid>
+            <Grid item md={11} classname="graph-spacing">
+                <analysisContainer>
+                    <UserAnalysis />
+                </analysisContainer>
+            </Grid>
+        </Grid>
+
     )
 }
 

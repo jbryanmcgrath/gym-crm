@@ -4,20 +4,28 @@ const { gql } = require('apollo-server-express');
 //create our typeDefs
 const typeDefs = gql`
 scalar Date
-
+    type Owner {
+        _id:ID
+        firstName:String!
+        lastName:String!
+        email:String!
+        phoneNumber:String!
+        password:String!
+        gym:Gym
+        admin:Boolean!
+    }
+    
     type Gym {
         _id:ID
         gymName: String!
-        onwerFirstName: String
-        ownerLastName: String
-        phoneNumber: String!
-        gymEmail: String!
         address:String!
         city:String!
         zip:String!
         state:String!
+        owner:Owner
         members:[Member]
         employees: [Employee]
+        memberCount: Int
     }
 
     type Employee {
@@ -36,40 +44,69 @@ scalar Date
         firstName: String!
         lastName: String!
         email: String!
-        age: Int 
-        zip: Int
         phoneNumber: String!
+        preferredName: String!
         createdBy:String!
         createdAt:Date!
-        preferredName: String!
+        memberActive: Boolean
     }
 
     type Query {
-        gym(phoneNumber: String!): Gym
+        gym: Gym
         gyms: [Gym]
         gymMembers: Gym
+        gymEmployees: Gym
         employee(email: String!): Employee
         employees: [Employee]
-        member(email:String!): Member
+        member(_id:ID!): Member
         members: [Member]
+        memberActive: Gym
+        owner(phoneNumber: String!): Gym
     }
 
     type Auth {
         token: ID!
         employee: Employee
     }
-    
+
     type Mutation {
-        initialEmployee(firstName: String!, lastName: String!, email: String!, phoneNumber: String!,password: String!): Auth
-        addEmployee(firstName: String!, lastName: String!, email: String!, password: String!): Employee
+        owner(firstName: String!, lastName: String!, email: String!, phoneNumber: String!,password: String!): Auth
+
+        newEmployee(firstName: String!, 
+        lastName: String!, 
+        email: String!,
+        phoneNumber:String! 
+        password: String!,
+        admin: Boolean): Employee
+
+        ownerLogin(email:String!, password:String!):Auth
         login(email: String!, password: String!): Auth
-        addMember(firstName: String!, lastName: String!, email: String!, phoneNumber:String!, preferredName: String!): Member
-        updateMember(firstName: String, lastName: String, email: String, updatedEmail: String, age: Int, zip: Int, phoneNumber: String): Member!
-        deleteMember(email: String!): Member
-        addGym( gymName: String!, gymEmail: String! phoneNumber: String!, address:String!, city:String!, zip:String!, state:String!, ownerFirstName: String, ownerLastName: String): Gym
-    }
-    
+
+        addMember(firstName: String!, 
+        lastName: String!, 
+        email: String!, 
+        phoneNumber:String!, 
+        preferredName: String!): Member
+
+        updateMember(_id:ID!, firstName: String, lastName: String, email: String, phoneNumber: String, preferredName: String): Member!
+
+        deleteMember(_id: ID): Member
+
+        updateEmployee(firstName: String, lastName: String, email: String, phoneNumber: String, updatedEmail: String password: String, admin: Boolean): Employee!
+
+        deleteEmployee(_id: ID): Employee
+
+        memberIsActive(memberActive: Boolean): Member
+
+        updateGym(memberCount: Int): Gym
+
+        addGym( gymName: String!, 
+            address:String!, 
+            city:String!, 
+            zip:String!, 
+            state:String! ): Gym
+    } 
 `
 
-//export the typeDefs
+// export the typeDefs
 module.exports = typeDefs;
