@@ -7,6 +7,14 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import styled from "styled-components";
+
+const SchedulerContainer = styled.div`
+  background-color: #fff;
+`;
+const DatePickerStyle = styled.div`
+  padding-left: 50px;
+`;
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -23,18 +31,18 @@ const events = [
   {
     title: "Big Meeting",
     allDay: true,
-    start: new Date(2021, 6, 0),
-    end: new Date(2021, 6, 0),
+    start: new Date(2022, 6, 0),
+    end: new Date(2022, 6, 0),
   },
   {
     title: "Vacation",
-    start: new Date(2021, 6, 7),
-    end: new Date(2021, 6, 10),
+    start: new Date(2022, 6, 7),
+    end: new Date(2022, 6, 10),
   },
   {
     title: "Conference",
-    start: new Date(2021, 6, 20),
-    end: new Date(2021, 6, 23),
+    start: new Date(2022, 6, 20),
+    end: new Date(2022, 6, 23),
   },
 ];
 
@@ -47,40 +55,51 @@ function Scheduler() {
   }
 
   return (
-    <div className="App">
-      <h1>Calendar</h1>
-      <h2>Add New Event</h2>
-      <div>
-        <input
-          type="text"
-          placeholder="Add Title"
-          style={{ width: "20%", marginRight: "10px" }}
-          value={newEvent.title}
-          onChange={(e) => setNewEvent({ ...newEvent, title: e.target.value })}
+    <SchedulerContainer>
+      <div className="App">
+        <div className="heading">
+          <h1>Calendar</h1>
+        </div>
+        <DatePickerStyle>
+          <h2>Add New Event</h2>
+          <div>
+            <input
+              type="text"
+              placeholder="Add Title"
+              style={{ width: "20%", marginRight: "10px" }}
+              value={newEvent.title}
+              onChange={(e) =>
+                setNewEvent({ ...newEvent, title: e.target.value })
+              }
+            />
+
+            <DatePicker
+              placeholderText="Start Date"
+              style={{ marginRight: "10px" }}
+              selected={newEvent.start}
+              onChange={(start) => setNewEvent({ ...newEvent, start })}
+            />
+            <DatePicker
+              placeholderText="End Date"
+              selected={newEvent.end}
+              onChange={(end) => setNewEvent({ ...newEvent, end })}
+            />
+            <button stlye={{ marginTop: "10px" }} onClick={handleAddEvent}>
+              Add Event
+            </button>
+          </div>
+        </DatePickerStyle>
+
+        <Calendar
+          localizer={localizer}
+          events={allEvents}
+          views={["month"]}
+          startAccessor="start"
+          endAccessor={({ end }) => new Date(end.getTime() + 1)}
+          style={{ height: "60rem", margin: "50px" }}
         />
-        <DatePicker
-          placeholderText="Start Date"
-          style={{ marginRight: "10px" }}
-          selected={newEvent.start}
-          onChange={(start) => setNewEvent({ ...newEvent, start })}
-        />
-        <DatePicker
-          placeholderText="End Date"
-          selected={newEvent.end}
-          onChange={(end) => setNewEvent({ ...newEvent, end })}
-        />
-        <button stlye={{ marginTop: "10px" }} onClick={handleAddEvent}>
-          Add Event
-        </button>
       </div>
-      <Calendar
-        localizer={localizer}
-        events={allEvents}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500, margin: "50px" }}
-      />
-    </div>
+    </SchedulerContainer>
   );
 }
 
