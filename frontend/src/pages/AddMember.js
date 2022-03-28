@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundPosition: "center center",
         backgroundAttachment: " fixed ",
     },
+
 }));
 
 export default function AddMember() {
