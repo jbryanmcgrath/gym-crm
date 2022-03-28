@@ -100,9 +100,9 @@ function CustomerTable() {
         setOpenModal(false)
     }
     const handleOpen = async (row) => {
-        console.log(row)
-        await setOpenModal(true)
-        window.document.querySelector("#fname").value = await row.firstName
+        console.log(row);
+        await setOpenModal(true);
+        window.document.querySelector("#fname").value = await row.firstName;
     }
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
@@ -158,7 +158,7 @@ function CustomerTable() {
                                         <form id="child-modal-description">
                                             <label for="fname">First name:</label>
                                             <input type="text" id="fname"    ></input>
-                                            <label for="fname">Last name:</label>
+                                            <label for="lname">Last name:</label>
                                             <input type="text" id="fname"  ></input>
                                             <label for="email">Email:</label>
                                             <input type="text" id="email"  ></input>
