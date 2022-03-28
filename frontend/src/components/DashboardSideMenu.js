@@ -42,8 +42,8 @@ const sharedStyle = css`
     font-size: 20px !important;
 `
 
-const analysisContainer= styled.div`
-    padding: 25px 25px 25px 25pxm
+const graphSpacing = styled.div`
+    padding: 25px 25px 25px 25px
     `
 
 const MyPermIdentity = styled(PermIdentity)`
@@ -65,58 +65,58 @@ const Sidebar = () => {
     return (
         <Grid container>
             <Grid item md={1}>
-            <SidebarContainer>
-                <SidebarWrapper>
-                    <SidebarMenu>
-                        <SidebarTitle>Dashboard</SidebarTitle>
-                        <SidebarList>
-                            <Link to="/members" className="link">
-                                <SidebarListItem>
-                                    <MyPermIdentity />
-                                    Members
-                                </SidebarListItem>
-                            </Link>
-                            <Link to="/add-members" className="link">
-                                <SidebarListItem>
-                                    <MyPermIdentity />
-                                    Add Members
-                                </SidebarListItem>
-                            </Link>
-                            <Link to="/scheduler" className="link">
-                                <SidebarListItem>
-                                    <MyStorefront />
-                                    Calender
-                                </SidebarListItem>
-                            </Link>
-                            <Link to="/user-analysis" className='link'>
-                                <SidebarListItem>
-                                    <MyAssessment />
-                                    Reports
-                                </SidebarListItem>
-                            </Link>
-                        </SidebarList>
-                    </SidebarMenu>
-                    <SidebarMenu>
-                        <SidebarTitle>Employees</SidebarTitle>
-                        <SidebarList>
-                            <Link to='/employees' className='link'>
-                                <SidebarListItem>
-                                    <MyWork />
-                                    Manage
-                                </SidebarListItem>
-                            </Link>
-                            <Link to='/add-employee' className='link'>
-                                <SidebarListItem>
-                                    < MyPermIdentity />
-                                    Add
-                                </SidebarListItem>
-                            </Link>
-                        </SidebarList>
-                    </SidebarMenu>
-                </SidebarWrapper>
-            </SidebarContainer>
+                <SidebarContainer>
+                    <SidebarWrapper>
+                        <SidebarMenu>
+                            <SidebarTitle>Dashboard</SidebarTitle>
+                            <SidebarList>
+                                <Link to="/members" className="link">
+                                    <SidebarListItem>
+                                        <MyPermIdentity />
+                                        Members
+                                    </SidebarListItem>
+                                </Link>
+                                <Link to="/add-members" className="link">
+                                    <SidebarListItem>
+                                        <MyPermIdentity />
+                                        Add Members
+                                    </SidebarListItem>
+                                </Link>
+                                <Link to="/scheduler" className="link">
+                                    <SidebarListItem>
+                                        <MyStorefront />
+                                        Calender
+                                    </SidebarListItem>
+                                </Link>
+                                <Link to="/user-analysis" className='link'>
+                                    <SidebarListItem>
+                                        <MyAssessment />
+                                        Reports
+                                    </SidebarListItem>
+                                </Link>
+                            </SidebarList>
+                        </SidebarMenu>
+                        <SidebarMenu>
+                            <SidebarTitle>Employees</SidebarTitle>
+                            <SidebarList>
+                                <Link to='/employees' className='link'>
+                                    <SidebarListItem>
+                                        <MyWork />
+                                        Manage
+                                    </SidebarListItem>
+                                </Link>
+                                <Link to='/add-employee' className='link'>
+                                    <SidebarListItem>
+                                        < MyPermIdentity />
+                                        Add
+                                    </SidebarListItem>
+                                </Link>
+                            </SidebarList>
+                        </SidebarMenu>
+                    </SidebarWrapper>
+                </SidebarContainer>
             </Grid>
-            <Grid item md={11}>
+            <Grid item md={11} classname="graph-spacing">
                 <analysisContainer>
                     <UserAnalysis />
                 </analysisContainer>
