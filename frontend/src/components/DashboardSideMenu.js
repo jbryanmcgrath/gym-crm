@@ -3,12 +3,13 @@ import { PermIdentity, Storefront, Assessment, Work } from "@material-ui/icons";
 import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import UserAnalysis from '../components/UserAnalysis'
+import { AppBar, IconButton, Toolbar, Collapse, Grid } from '@material-ui/core';
 
 const SidebarContainer = styled.div`
     flex: 1;
     height: calc(100vh - 50px);
     background-color: rgb(251, 251, 255);
-    
+    width: calc(15vw)
     top: 50px;
 `
 const SidebarWrapper = styled.div`
@@ -41,6 +42,10 @@ const sharedStyle = css`
     font-size: 20px !important;
 `
 
+const analysisContainer = styled.div`
+    padding: 25px 25px 25px 25px
+    `
+
 const MyPermIdentity = styled(PermIdentity)`
     ${sharedStyle}
 `
@@ -58,7 +63,8 @@ const MyWork = styled(Work)`
 
 const Sidebar = () => {
     return (
-        <div>
+        <Grid container>
+            <Grid item xs={1}>
             <SidebarContainer>
                 <SidebarWrapper>
                     <SidebarMenu>
@@ -109,8 +115,13 @@ const Sidebar = () => {
                     </SidebarMenu>
                 </SidebarWrapper>
             </SidebarContainer>
-            <UserAnalysis />
-        </div>
+            </Grid>
+            <Grid item xs={11}>
+            <analysisContainer>
+                <UserAnalysis />
+            </analysisContainer>
+            </Grid>
+        </Grid>
 
     )
 }

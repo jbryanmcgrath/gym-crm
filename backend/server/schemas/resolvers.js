@@ -9,21 +9,12 @@ const resolvers = {
     Query: {
         gym: async (parent, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
-<<<<<<< HEAD
-            if(currentEmployee.gym) {
-            return Gym.findOne({ _id: currentEmployee.gym })
-                .select('-__v')
-                .populate('employees')
-                .populate('members')
-                .populate('owner')
-=======
             if (currentEmployee.gym) {
                 return Gym.findOne({ _id: currentEmployee.gym })
                     .select('-__v')
                     .populate('employees')
                     .populate('members')
                     .populate('owner')
->>>>>>> ae7dfb1ab0dda47b0354dd88e9fc34e02fd2ff4b
             }
         },
         employee: async (parent, { email }) => {
