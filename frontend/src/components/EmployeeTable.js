@@ -25,10 +25,9 @@ const useStyles = makeStyles((theme) => ({
 
     tableContainer: {
         borderRadius: 15,
-        margin: '10px 10px',
+        margin: '20px, 20px',
         maxWidth: "auto",
-        alignItems: "center"
-
+        alignItems: "center",
 
     },
     tableHeaderCellName: {

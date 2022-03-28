@@ -7,6 +7,20 @@ import { Calendar, dateFnsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        minHeight: "100vh",
+        background: "white",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundAttachment: " fixed ",
+        backgroundOpacity: 0.5,
+    },
+}));
+
 
 const locales = {
   "en-US": require("date-fns/locale/en-US"),
@@ -39,6 +53,7 @@ const events = [
 ];
 
 function Scheduler() {
+  const classes = useStyles();
   const [newEvent, setNewEvent] = useState({ title: "", start: "", end: "" });
   const [allEvents, setAllEvents] = useState(events);
 
@@ -47,7 +62,7 @@ function Scheduler() {
   }
 
   return (
-    <div className="App">
+    <div className={classes.root}>
       <h1>Calendar</h1>
       <h2>Add New Event</h2>
       <div>

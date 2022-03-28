@@ -14,9 +14,11 @@ import FormLabel from '@mui/material/FormLabel';
 const UserForm = styled.form`
     display: flex;
     flex-wrap: wrap;
+    background: white;
 `
 const UserItem = styled.div`
-    width: 400px;
+    height: 150px;
+    width: 200px;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
