@@ -7,14 +7,23 @@ const Owner = require("../models/Owner")
 
 const resolvers = {
     Query: {
-        gym: async (parent, context ) => {
+        gym: async (parent, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
+<<<<<<< HEAD
             if(currentEmployee.gym) {
             return Gym.findOne({ _id: currentEmployee.gym })
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
                 .populate('owner')
+=======
+            if (currentEmployee.gym) {
+                return Gym.findOne({ _id: currentEmployee.gym })
+                    .select('-__v')
+                    .populate('employees')
+                    .populate('members')
+                    .populate('owner')
+>>>>>>> ae7dfb1ab0dda47b0354dd88e9fc34e02fd2ff4b
             }
         },
         employee: async (parent, { email }) => {
@@ -44,8 +53,8 @@ const resolvers = {
         employees: async () => {
             return Employee.find()
         },
-        member: async (_, { email }) => {
-            return Member.findOne({ email })
+        member: async (_, { _id }) => {
+            return Member.findOne({ _id })
         },
         members: async () => {
             return Member.find()
@@ -54,7 +63,7 @@ const resolvers = {
 
     Mutation: {
         owner: async (parent, args) => {
-            const owner = await Employee.create({...args, owner: true });
+            const owner = await Employee.create({ ...args, owner: true });
             const token = signToken(owner);
 
             return { token, owner };
@@ -141,17 +150,14 @@ const resolvers = {
         updateMember: async (_, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee) {
-                const updates = args.updatedEmail ? {
-                    ...args,
-                    email: args.updatedEmail
-                } : { ...args }
-                return Member.findOneAndUpdate({ email: args.email }, updates, { new: true })
+                return Member.findOneAndUpdate({ _id: args._id }, args, { new: true })
             }
+            throw new AuthenticationError('You need to be logged in!');
         },
         deleteMember: async (_, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee) {
-                const member = await Member.findOneAndDelete({ email: args.email });
+                const member = await Member.findOneAndDelete({ _id: args._id });
                 return member;
             }
             throw new AuthenticationError('You need to be logged in!');
@@ -170,7 +176,7 @@ const resolvers = {
         deleteEmployee: async (_, args, context) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if (currentEmployee && currentEmployee.admin) {
-                const employee = await Employee.findOneAndDelete({ email: args.email });
+                const employee = await Employee.findOneAndDelete({ _id: args._id });
                 return employee;
             }
             throw new AuthenticationError('You need to be an admin to perform this task!');
@@ -181,9 +187,9 @@ const resolvers = {
             if (currentEmployee && currentEmployee.gym) {
                 const gym = currentEmployee.gym
                 const updates = { ...args, _id: gym }
-                
-                return Gym.findByIdAndUpdate ({ _id: gym }, updates, {new: true})
-            } 
+
+                return Gym.findOneAndUpdate({ _id: gym }, updates, { new: true })
+            }
         }
     }
 };

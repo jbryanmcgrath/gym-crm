@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -14,12 +14,12 @@ import {
     Grid,
     Typography,
     TablePagination,
-    TableFooter, IconButton
+    TableFooter, IconButton, Modal, Box, Button
 } from '@material-ui/core';
-import Auth from '../utils/auth';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_EMPLOYEES } from '../utils/queries';
-import { Autorenew } from '@material-ui/icons';
+import { MUTATION_DELETEEMPLOYEE } from '../utils/mutations'
+
 
 const useStyles = makeStyles((theme) => ({
 
@@ -56,14 +56,30 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+};
+
 
 
 function EmployeeTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
+    const [formState, setFormState] = useState(null);
 
     const { loading, data } = useQuery(QUERY_EMPLOYEES);
+    const [openModal, setOpenModal] = useState(false)
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -74,11 +90,21 @@ function EmployeeTable() {
         setPage(0);
     };
 
-    const adminBoolean = (bol) => {
-        let bool = true
-
+    const handleOpen = () => {
+        setOpenModal(true)
     }
 
+    const handleClose = () => {
+        setOpenModal(false)
+    }
+
+    const [deleteEmployee, { error }] = useMutation(MUTATION_DELETEEMPLOYEE)
+    const firstName = useRef("")
+    const handleDelete = async (id) => {
+        console.log(id)
+        await deleteEmployee({ variables: { id: id } })
+        window.location.reload()
+    }
 
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
@@ -111,15 +137,34 @@ function EmployeeTable() {
                                 <Typography color="primary" variant="subtitle2">{row.email}</Typography>
                                 <Typography color="textSecondary" variant="body2">{row.phoneNumber}</Typography>
                             </TableCell>
-                            <TableCell>{row.admin}</TableCell>
+                            <TableCell >{row.admin ? "Yes" : "No"}</TableCell>
                             <TableCell>
                                 <Typography
-                                ><IconButton aria-label="delete">
+                                ><IconButton onClick={() => handleDelete(row._id)} aria-label="delete">
                                         <DeleteIcon />
                                     </IconButton>
-                                    <IconButton aria-label="edit">
+                                    <IconButton aria-label="edit" onClick={handleOpen}>
                                         <EditIcon />
                                     </IconButton>
+                                    <Modal
+                                        open={openModal}
+                                        onClose={handleClose}>
+                                        <Box sx={{ ...style, width: 200 }}>
+                                            <h2 id="child-modal-title">Update Employee Info</h2>
+                                            <form id="child-modal-description">
+                                                <label for="fname">First name:</label>
+                                                <input type="text" id="fname"  ></input>
+                                                <label for="fname">Last name:</label>
+                                                <input type="text" id="fname"  ></input>
+                                                <label for="email">Email:</label>
+                                                <input type="text" id="email"  ></input>
+                                                <label for="phone">Phone:</label>
+                                                <input type="text"   ></input>
+
+                                            </form>
+                                            <Button onClick={handleClose}>Submit Changes</Button>
+                                        </Box>
+                                    </Modal>
                                 </Typography>
                             </TableCell>
                         </TableRow>

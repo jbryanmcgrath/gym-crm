@@ -50,8 +50,51 @@ export const MUTATION_ADDMEMBER = gql`mutation addMember($firstName: String!, $l
   }
 }`;
 
+<<<<<<< HEAD
 export const MUTATION_MEMBERCOUNT = gql`mutation memberCount($memberCount: Int) {
+=======
+
+export const MUTATION_MEMBERCOUNT = gql`mutation memberCount($memberCount: Number) {
+>>>>>>> ae7dfb1ab0dda47b0354dd88e9fc34e02fd2ff4b
   updateGym(memberCount: $memberCount) {
     memberCount
   }
 }`;
+
+export const MUTATION_DELETEMEMBER = gql`
+mutation deleteMember($id: ID) {
+  deleteMember(_id: $id) {
+    _id
+    firstName
+    lastName
+    email
+    phoneNumber
+    preferredName
+  }
+}
+`
+
+export const MUTATION_UPDATEMEMBER = gql`
+  mutation updateMember($id: ID!, $firstName: String, $lastName: String, $email: String, $phoneNumber: String, $preferredName: String) {
+  updateMember(_id: $id, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, preferredName: $preferredName) {
+    firstName
+    lastName
+    email
+    phoneNumber
+    preferredName
+  }
+}
+`
+
+export const MUTATION_DELETEEMPLOYEE = gql`
+mutation deleteEmployee($id: ID) {
+  deleteEmployee(_id: $id) {
+    _id
+    firstName
+    lastName
+    email
+    phoneNumber
+    admin
+  }
+}
+`

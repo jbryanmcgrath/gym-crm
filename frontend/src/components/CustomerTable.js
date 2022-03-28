@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import Switch from '@mui/material/Switch';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import {
@@ -16,11 +17,14 @@ import {
     TablePagination,
     TableFooter, IconButton
 } from '@material-ui/core';
-import Auth from '../utils/auth';
-import { useQuery } from '@apollo/client';
+import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_MEMBERS } from '../utils/queries';
-import { Autorenew } from '@material-ui/icons';
+import { MUTATION_DELETEMEMBER } from '../utils/mutations';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
 
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 const useStyles = makeStyles((theme) => ({
 
     tableContainer: {
@@ -56,24 +60,54 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    pt: 2,
+    px: 4,
+    pb: 3,
+};
 
 
 function CustomerTable() {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
-
     const { loading, data } = useQuery(QUERY_MEMBERS);
 
+    const [openModal, setOpenModal] = useState(false)
+
+    const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", phoneNumber: "", preferredName: "" })
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
 
+    const [deleteMember, { error }] = useMutation(MUTATION_DELETEMEMBER)
+    const firstName = useRef("")
+    const handleDelete = async (id) => {
+        console.log(id)
+        await deleteMember({ variables: { id: id } })
+        window.location.reload()
+    }
+
+    const handleClose = () => {
+        setOpenModal(false)
+    }
+    const handleOpen = async (row) => {
+        console.log(row)
+        await setOpenModal(true)
+        window.document.querySelector("#fname").value = await row.firstName
+    }
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
-
     return (
         <TableContainer component={Paper} className={classes.tableContainer}>
             <Table className={classes.table} aria-label="simple table">
@@ -83,6 +117,7 @@ function CustomerTable() {
                         <TableCell className={classes.tableHeaderCell}>Contact Info</TableCell>
                         <TableCell className={classes.tableHeaderCell}>Joining Date</TableCell>
                         <TableCell className={classes.tableHeaderCell}>Edit/Delete</TableCell>
+                        <TableCell className={classes.tableHeaderCell}>Member Check In</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -108,12 +143,39 @@ function CustomerTable() {
                             <TableCell>{row.createdAt}</TableCell>
                             <TableCell>
                                 <Typography
-                                ><IconButton aria-label="delete">
+                                ><IconButton onClick={() => handleDelete(row._id)} aria-label="delete">
                                         <DeleteIcon />
                                     </IconButton>
-                                    <IconButton aria-label="edit">
+                                    <IconButton aria-label="edit" onClick={() => handleOpen(row)}>
                                         <EditIcon />
                                     </IconButton>
+                                </Typography>
+                                <Modal
+                                    open={openModal}
+                                    onClose={handleClose}>
+                                    <Box sx={{ ...style, width: 200 }}>
+                                        <h2 id="child-modal-title">Update Member</h2>
+                                        <form id="child-modal-description">
+                                            <label for="fname">First name:</label>
+                                            <input type="text" id="fname"    ></input>
+                                            <label for="fname">Last name:</label>
+                                            <input type="text" id="fname"  ></input>
+                                            <label for="email">Email:</label>
+                                            <input type="text" id="email"  ></input>
+                                            <label for="phone">Phone:</label>
+                                            <input type="text"   ></input>
+                                            <label for="prefferredName">Prefferred Name:</label>
+                                            <input type="text"   ></input>
+
+
+                                        </form>
+                                        <Button onClick={handleClose}>Submit Changes</Button>
+                                    </Box>
+                                </Modal>
+                            </TableCell>
+                            <TableCell>
+                                <Typography
+                                ><Switch {...label} />
                                 </Typography>
                             </TableCell>
                         </TableRow>

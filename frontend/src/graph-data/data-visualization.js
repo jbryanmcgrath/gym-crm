@@ -2,7 +2,7 @@ const MemberCount = require('../components/MemberCheckin.js')
 export const memberActivity = 
 
 [
-    { month: 'Jan', membersActiveAtGym: {MemberCount}, gymMemberships: 5},
+    { month: 'Jan', membersActiveAtGym: 1, gymMemberships: 5},
     { month: 'Feb', membersActiveAtGym: 2, gymMemberships: 5 },
     { month: 'Mar', membersActiveAtGym: 3, gymMemberships: 10 },
     { month: 'Apr', membersActiveAtGym: 4, gymMemberships: 5 },

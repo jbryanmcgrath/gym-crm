@@ -13,6 +13,7 @@ const Signup = () => {
     const paperStyle = { padding: 20, width: 300, margin: "0 auto" }
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
+    const buttonStyle = { marginTop: '25px' }
 
 
     const [formState, setFormState] = useState({
@@ -68,28 +69,18 @@ const Signup = () => {
                     <Typography variant='caption' gutterBottom>Please fill this form to start an account!</Typography>
                 </Grid>
                 <form onSubmit={handleFormSubmit}>
-                    {/* <TextField fullWidth name='gymName' label='Name of Gym' placeholder='Enter your Gym name' onChange={handleChange} /> */}
 
-                    <TextField fullWidth name='firstName' label='First Name' placeholder="Enter your first name" onChange={handleChange} />
+                    <TextField fullWidth name='firstName' label='First Name' placeholder="Enter your first name" required onChange={handleChange} />
 
-                    <TextField fullWidth name='lastName' label='Last Name' placeholder="Enter your last name" onChange={handleChange} />
+                    <TextField fullWidth name='lastName' label='Last Name' placeholder="Enter your last name" required onChange={handleChange} />
 
-                    <TextField fullWidth name='email' label='Email' placeholder="Enter your gym email" onChange={handleChange} />
+                    <TextField fullWidth name='email' label='Email' placeholder="Enter your gym email" required onChange={handleChange} />
 
-                    <TextField fullWidth name='phoneNumber' label='Phone Number' placeholder="Enter gym phone number" onChange={handleChange} />
-
-
-                    {/* <TextField fullWidth name='address' label='Address' placeholder="Enter your gym address" onChange={handleChange} /> */}
-
-                    {/* <TextField fullWidth name='city' label='City' placeholder="Enter the city" onChange={handleChange} />
-
-                    <TextField fullWidth name='zip' label='Zip' placeholder="Enter the zip" onChange={handleChange} />
-
-                    <TextField fullWidth name='state' label='State' placeholder="Enter the State" onChange={handleChange} /> */}
+                    <TextField fullWidth name='phoneNumber' required label='Phone Number' placeholder="Enter gym phone number" onChange={handleChange} />
 
                     <TextField fullWidth name='password' label='Password' placeholder="Enter your password" onChange={handleChange} />
 
-                    <Button type='submit' variant='contained' color='primary' >Sign up</Button>
+                    <Button style={buttonStyle} type='submit' variant='contained' color='primary'  >Sign up</Button>
                 </form>
 
                 {error && <div>Signup Failed</div>}
