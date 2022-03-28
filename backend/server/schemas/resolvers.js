@@ -10,7 +10,7 @@ const resolvers = {
         gym: async (parent, context ) => {
             const currentEmployee = await Employee.findOne({ _id: context.employee._id });
             if(currentEmployee.gym) {
-            return Gym.findOne({_id: currentEmployee.gym})
+            return Gym.findOne({ _id: currentEmployee.gym })
                 .select('-__v')
                 .populate('employees')
                 .populate('members')
@@ -180,9 +180,9 @@ const resolvers = {
 
             if (currentEmployee && currentEmployee.gym) {
                 const gym = currentEmployee.gym
-                const updates = { ...args, _id: gym}
-
-                return Gym.findOneAndUpdate ({ _id: gym }, updates, {new: true})
+                const updates = { ...args, _id: gym }
+                
+                return Gym.findByIdAndUpdate ({ _id: gym }, updates, {new: true})
             } 
         }
     }
