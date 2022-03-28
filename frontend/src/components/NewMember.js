@@ -54,9 +54,9 @@ const NewMember = () => {
         email: '',
         phoneNumber: '',
         preferredName: ''
-    })
+    });
 
-    const [addMember, { error }] = useMutation(MUTATION_ADDMEMBER)
+    const [addMember, { error }] = useMutation(MUTATION_ADDMEMBER);
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -71,13 +71,11 @@ const NewMember = () => {
     const handleFormSubmit = async (event) => {
         event.preventDefault()
 
-
         try {
-            const { data } = await addMember({
+            await addMember({
                 variables: { ...formState }
+            });
 
-            })
-            Auth.login(data.initialEmployee.token);
         } catch (e) {
             console.error(e);
         }
@@ -86,9 +84,12 @@ const NewMember = () => {
             lastName: '',
             email: '',
             phoneNumber: '',
-            preferredName: ''
+            preferredName: '',
         })
+
+
         navigate('/dashboard')
+        window.location.reload();
     };
     return (
         <TheList>
