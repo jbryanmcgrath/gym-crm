@@ -1,17 +1,17 @@
-const MemberCount = require('../components/MemberCheckin.js')
+// const MemberCount = require('../components/MemberCheckin.js')
 export const memberActivity = 
 
 [
-    { month: 'Jan', membersActiveAtGym: 1, gymMemberships: 5},
-    { month: 'Feb', membersActiveAtGym: 2, gymMemberships: 5 },
-    { month: 'Mar', membersActiveAtGym: 3, gymMemberships: 10 },
-    { month: 'Apr', membersActiveAtGym: 4, gymMemberships: 5 },
-    { month: 'May', membersActiveAtGym: 5, gymMemberships: 5 },
-    { month: 'June', membersActiveAtGym: 6, gymMemberships: 4 },
-    { month: 'July', membersActiveAtGym: 7, gymMemberships: 4 },
-    { month: 'Aug', membersActiveAtGym: 8, gymMemberships: 4 },
-    { month: 'Sept', membersActiveAtGym: 8, gymMemberships: 4 },
-    { month: 'Oct', membersActiveAtGym: 8, gymMemberships: 4 },
-    { month: 'Nov', membersActiveAtGym: 10, gymMemberships: 4 },
-    { month: 'Dec', membersActiveAtGym:  10, gymMemberships: 5 },
+    { month: 'Jan', gymMemberships: 120},
+    { month: 'Feb', gymMemberships: 125},
+    { month: 'Mar', gymMemberships: 130},
+    { month: 'Apr', gymMemberships: 110},
+    { month: 'May', gymMemberships: 100},
+    { month: 'June', gymMemberships: 90},
+    { month: 'July', gymMemberships: 95},
+    { month: 'Aug', gymMemberships: 85},
+    { month: 'Sept', gymMemberships: 90},
+    { month: 'Oct', gymMemberships: 70},
+    { month: 'Nov', gymMemberships: 80},
+    { month: 'Dec', gymMemberships: 130},
 ];

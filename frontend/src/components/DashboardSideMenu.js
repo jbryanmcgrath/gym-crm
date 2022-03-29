@@ -63,8 +63,8 @@ const MyWork = styled(Work)`
 
 const Sidebar = () => {
     return (
-        <Grid container>
-            <Grid item md={1}>
+        <Grid container spacing={2} columns={12}>
+            <Grid item md>
                 <SidebarContainer>
                     <SidebarWrapper>
                         <SidebarMenu>
@@ -116,7 +116,7 @@ const Sidebar = () => {
                     </SidebarWrapper>
                 </SidebarContainer>
             </Grid>
-            <Grid item md={11} classname="graph-spacing">
+            <Grid item md={9}>
                 <analysisContainer>
                     <UserAnalysis />
                 </analysisContainer>
