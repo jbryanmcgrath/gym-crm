@@ -120,7 +120,8 @@ function CustomerTable() {
             [name]: value,
         })
     };
-
+    
+    // Need to be able to pass id through update
     const handleFormSubmit = async (event) => {
         event.preventDefault()
 
