@@ -35,6 +35,7 @@ export const QUERY_EMPLOYEES = gql`
     query Query {
         gymEmployees {
             employees {
+                _id
                 firstName
                 lastName
                 email

@@ -102,7 +102,7 @@ function EmployeeTable() {
     const handleDelete = async (id) => {
         console.log(id)
         await deleteEmployee({ variables: { id: id } })
-        window.location.reload()
+        // window.location.reload()
     }
 
     return (

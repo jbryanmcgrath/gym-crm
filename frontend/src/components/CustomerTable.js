@@ -19,10 +19,11 @@ import {
 } from '@material-ui/core';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_MEMBERS } from '../utils/queries';
-import { MUTATION_DELETEMEMBER } from '../utils/mutations';
+import { MUTATION_DELETEMEMBER, MUTATION_UPDATEMEMBER } from '../utils/mutations';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 const useStyles = makeStyles((theme) => ({
@@ -76,6 +77,7 @@ const style = {
 
 
 function CustomerTable() {
+    const navigate = useNavigate();
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
@@ -83,7 +85,7 @@ function CustomerTable() {
 
     const [openModal, setOpenModal] = useState(false)
 
-    const [formData, setFormData] = useState({ firstName: "", lastName: "", email: "", phoneNumber: "", preferredName: "" })
+    const [formData, setFormData] = useState(null)
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
@@ -96,14 +98,45 @@ function CustomerTable() {
         window.location.reload()
     }
 
+    const [updateMember] = useMutation(MUTATION_UPDATEMEMBER)
+
+
+
+
+    const handleOpen = (row) => {
+        console.log(row);
+        setOpenModal(true);
+        setFormData(row)
+    }
     const handleClose = () => {
         setOpenModal(false)
     }
-    const handleOpen = async (row) => {
-        console.log(row);
-        await setOpenModal(true);
-        window.document.querySelector("#fname").textContent = row.firstName;
-    }
+
+    const handleModalChange = (event) => {
+        const { name, value } = event.target;
+
+        setFormData({
+            ...formData,
+            [name]: value,
+        })
+    };
+
+    const handleFormSubmit = async (event) => {
+        event.preventDefault()
+
+        try {
+            await updateMember({
+                variables: { ...formData }
+            });
+
+        } catch (e) {
+            console.error(e);
+        }
+        setFormData(null)
+        navigate('/members')
+        window.location.reload();
+    };
+
     const handleChangeRowsPerPage = (event) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
@@ -130,7 +163,6 @@ function CustomerTable() {
                                     </Grid>
                                     <Grid item lg={4}>
                                         <Typography className={classes.name}>{row.firstName}   {row.lastName}</Typography>
-                                        {/* <Typography className={classes.name}>{row.lastName}</Typography> */}
                                         <Typography color="textSecondary" variant="body2">Preferred Name :  {row.preferredName}</Typography>
 
                                     </Grid>
@@ -155,21 +187,20 @@ function CustomerTable() {
                                     onClose={handleClose}>
                                     <Box sx={{ ...style, width: 200 }}>
                                         <h2 id="child-modal-title">Update Member</h2>
-                                        <form id="child-modal-description">
+                                        <form id="child-modal-description" onSubmit={handleFormSubmit}>
                                             <label for="fname">First name:</label>
-                                            <input type="text" id="fname"></input>
+                                            <input value={formData?.firstName} type="text" id="fname" name="firstName" onChange={handleModalChange}></input>
                                             <label for="lname">Last name:</label>
-                                            <input type="text" id="lname"  ></input>
+                                            <input value={formData?.lastName} type="text" id="lname" name="lastName" onChange={handleModalChange}></input>
                                             <label for="email">Email:</label>
-                                            <input type="text" id="email"  ></input>
+                                            <input value={formData?.email} type="text" id="email" name="email" onChange={handleModalChange}></input>
                                             <label for="phone">Phone:</label>
-                                            <input type="text"   ></input>
-                                            <label for="prefferredName">Prefferred Name:</label>
-                                            <input type="text"   ></input>
+                                            <input value={formData?.phoneNumber} type="text" name="phoneNumber" onChange={handleModalChange} ></input>
+                                            <label for="preferredName">Prefferred Name:</label>
+                                            <input value={formData?.preferredName} type="text" name="preferredName" onChange={handleModalChange}></input>
 
-
+                                            <Button>Submit Changes</Button>
                                         </form>
-                                        <Button onClick={handleClose}>Submit Changes</Button>
                                     </Box>
                                 </Modal>
                             </TableCell>
