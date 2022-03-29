@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useMutation } from '@apollo/client';
 import { MUTATION_ADDMEMBER } from '../utils/mutations';
 import { useNavigate } from 'react-router-dom';
-import Auth from '../utils/auth';
 
 const UserForm = styled.form`
     display: flex;

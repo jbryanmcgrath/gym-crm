@@ -7,9 +7,25 @@ import Box from '@material-ui/core/Box';
 import Login from './Login'
 import Signup from './Sign-Up'
 import { GlobalContext } from '../store/GlobalProvider';
+import { makeStyles } from "@material-ui/core/styles";
+
+
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        minHeight: "100vh",
+        backgroundImage: `url(${process.env.PUBLIC_URL + "/images/gym-crm.jpg"})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundAttachment: " fixed ",
+    },
+}));
 
 
 const SignInAndCreateUserContainer = () => {
+    const classes = useStyles();
     const { userTab } = useContext(GlobalContext);
     const [value, setValue] = useState(0);
     const handleChange = (event, newValue) => {
