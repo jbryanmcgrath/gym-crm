@@ -126,7 +126,7 @@ function CustomerTable() {
 
         try {
             await updateMember({
-                variables: { ...formData }
+                variables: { ...formData, }
             });
 
         } catch (e) {
@@ -199,7 +199,7 @@ function CustomerTable() {
                                             <label for="preferredName">Prefferred Name:</label>
                                             <input value={formData?.preferredName} type="text" name="preferredName" onChange={handleModalChange}></input>
 
-                                            <Button>Submit Changes</Button>
+                                            <Button onClick={handleClose}>Submit Changes</Button>
                                         </form>
                                     </Box>
                                 </Modal>

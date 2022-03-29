@@ -85,13 +85,12 @@ export const MUTATION_UPDATEMEMBER = gql`
 
 export const MUTATION_UPDATEEMPLOYEE = gql`
   mutation updateEmployee($id: ID!, $firstName: String, $lastName: String, $email: String, $phoneNumber: String, $admin: Boolean) {
-  updateEmployee(_id: $id, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, admin: $admin) {
+  updateEmployee(_id: $id, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber) {
     _id
     firstName
     lastName
     email
     phoneNumber
-    admin
   }
 }
 `

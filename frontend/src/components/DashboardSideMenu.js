@@ -116,9 +116,9 @@ const Sidebar = () => {
         </SidebarContainer>
       </Grid>
       <Grid item md={11} classname="graph-spacing">
-        <AnalysisContainer>
+        <analysisContainer>
           <UserAnalysis />
-        </AnalysisContainer>
+        </analysisContainer>
       </Grid>
     </Grid>
   );
