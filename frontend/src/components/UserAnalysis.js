@@ -29,8 +29,8 @@ const Line = props => (
 const StyledDiv = styled('div')(() => ({
     [`&.${classes.title}`]: {
         textAlign: 'center',
-        width: '100%',
-        marginBottom: '10px',
+        width: 'auto',
+        marginBottom: '100px',
     },
 }));
 
@@ -83,13 +83,6 @@ export default class MemberGraph extends React.PureComponent {
                     <ArgumentScale factory={scalePoint} />
                     <ArgumentAxis />
                     <ValueAxis />
-
-                    <LineSeries
-                        name="Members Actively Going to Gym"
-                        valueField="membersActiveAtGym"
-                        argumentField="month"
-                        seriesComponent={Line}
-                    />
                     <LineSeries
                         name="Memberships to Gym"
                         valueField="gymMemberships"

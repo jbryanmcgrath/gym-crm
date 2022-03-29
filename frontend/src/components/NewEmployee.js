@@ -10,15 +10,27 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import { makeStyles } from "@material-ui/core/styles";
+
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        minHeight: "100vh",
+
+        background: "white",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+        backgroundAttachment: " fixed ",
+    },
+}));
 
 const UserForm = styled.form`
     display: flex;
     flex-wrap: wrap;
-    background: white;
 `
 const UserItem = styled.div`
-    height: 150px;
-    width: 200px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
@@ -54,6 +66,7 @@ const UserButton = styled.button`
 `
 
 const NewEmployee = () => {
+    const classes = useStyles();
     const navigate = useNavigate();
     const [formState, setFormState] = useState(null);
 
@@ -107,6 +120,7 @@ const NewEmployee = () => {
         window.location.reload();
     };
     return (
+        <div className={classes.root}>
         <TheList>
             <h1>New Employee</h1>
             <UserForm onSubmit={handleFormSubmit}>
@@ -146,6 +160,7 @@ const NewEmployee = () => {
                 <UserButton>Create</UserButton>
             </UserForm>
         </TheList>
+        </div>
     )
 };
 
