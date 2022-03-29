@@ -16,7 +16,7 @@ const sellingPoints = [
   {
     title: 'Affordable',
     description:
-      `We know the market, and we know it's overpriced for most local businesses. We've simplified this. You get everything for 10$ a month. Period. `,
+      `We know the market, and we know it's overpriced for most local businesses. You get everything for 10$ a month.  `,
     imageUrl: process.env.PUBLIC_URL + '/images/affordable.jpg',
     time: 1500,
   },
