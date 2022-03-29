@@ -89,6 +89,8 @@ function CustomerTable() {
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
     };
+    const [toggleState, setToggleState] = useState(false)
+
 
     const [deleteMember, { error }] = useMutation(MUTATION_DELETEMEMBER)
     const firstName = useRef("")
@@ -120,19 +122,20 @@ function CustomerTable() {
             [name]: value,
         })
     };
-    
+
     // Need to be able to pass id through update
     const handleFormSubmit = async (event) => {
         event.preventDefault()
+        console.log(formData)
+        // try {
+        await updateMember({
+            variables: { ...formData, id: formData._id }
+        });
+        setOpenModal(false)
 
-        try {
-            await updateMember({
-                variables: { ...formData, }
-            });
-
-        } catch (e) {
-            console.error(e);
-        }
+        // } catch (e) {
+        //     console.error(e);
+        // }
         setFormData(null)
         navigate('/members')
         window.location.reload();
@@ -200,7 +203,7 @@ function CustomerTable() {
                                             <label for="preferredName">Prefferred Name:</label>
                                             <input value={formData?.preferredName} type="text" name="preferredName" onChange={handleModalChange}></input>
 
-                                            <Button onClick={handleClose}>Submit Changes</Button>
+                                            <input type="submit" value="Update Member" />
                                         </form>
                                     </Box>
                                 </Modal>
